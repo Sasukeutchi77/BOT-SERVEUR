@@ -1,0 +1,864 @@
+{
+  "version": 1,
+  "users": [
+    {
+      "id": "usr_admin_mv9h2gsg",
+      "email": "admin@jarviscloud.local",
+      "passwordHash": "$2b$10$RBqClOIqDUM04Nr3xH1dHOqVhPwmUtgo5sBlyBjnJHpJlNhSGzGnK",
+      "role": "admin",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:45:26.656Z",
+      "updatedAt": "2026-10-15T11:45:26.656Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$F4df/Dtzm3dWUx7LjSylgOdJwaT7YyczdXIJLaQF3nJp4FieSpJsy",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:45:26.754Z",
+      "updatedAt": "2026-10-15T11:45:26.754Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$F4df/Dtzm3dWUx7LjSylgOdJwaT7YyczdXIJLaQF3nJp4FieSpJsy",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:45:26.754Z",
+      "updatedAt": "2026-10-15T11:45:26.754Z"
+    },
+    {
+      "id": "usr_guest_mv9hhfefeld2",
+      "email": "utilisateur_feld2@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:57:04.695Z",
+      "updatedAt": "2026-10-15T11:57:04.695Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$IGLFUOSHPEDkwQQ4kGHbluRnuZFEwJkpusgf3SYzYQOd03T.n6YCO",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:57:13.612Z",
+      "updatedAt": "2026-10-15T11:57:13.612Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$IGLFUOSHPEDkwQQ4kGHbluRnuZFEwJkpusgf3SYzYQOd03T.n6YCO",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:57:13.612Z",
+      "updatedAt": "2026-10-15T11:57:13.612Z"
+    },
+    {
+      "id": "usr_guest_mv9hi6b416dr",
+      "email": "utilisateur_416dr@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:57:39.568Z",
+      "updatedAt": "2026-10-15T11:57:39.568Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$uqEDas3FMzGkTE1hXhK.j.n5oakAzTJsgnGTH4AClQI9Kv7Fbz17i",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:03:33.731Z",
+      "updatedAt": "2026-10-15T12:03:33.731Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$uqEDas3FMzGkTE1hXhK.j.n5oakAzTJsgnGTH4AClQI9Kv7Fbz17i",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:03:33.732Z",
+      "updatedAt": "2026-10-15T12:03:33.732Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$w1tcD/L6A/Jje685NFslteXeynHnue2M9aei4gMEAHwvrL8rcYn6.",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:08:19.078Z",
+      "updatedAt": "2026-10-15T12:08:19.078Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$w1tcD/L6A/Jje685NFslteXeynHnue2M9aei4gMEAHwvrL8rcYn6.",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:08:19.079Z",
+      "updatedAt": "2026-10-15T12:08:19.079Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$9TsWK7Vows6RQbf/qx.NaOT.jqxdNAvlSLR0QsI8qeO9z1B0cwSAm",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:11:37.223Z",
+      "updatedAt": "2026-10-15T12:11:37.223Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$9TsWK7Vows6RQbf/qx.NaOT.jqxdNAvlSLR0QsI8qeO9z1B0cwSAm",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:11:37.224Z",
+      "updatedAt": "2026-10-15T12:11:37.224Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$e35G2krcDB15IkP/5Nd4.OpeDFg2VGYTidryKD5igL2CQi6.oPYpa",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:16:22.511Z",
+      "updatedAt": "2026-10-15T12:16:22.511Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$e35G2krcDB15IkP/5Nd4.OpeDFg2VGYTidryKD5igL2CQi6.oPYpa",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:16:22.511Z",
+      "updatedAt": "2026-10-15T12:16:22.511Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$heVxm8sdNv.Nj69stoUvBubV6P9BclLSJhksqBErybkShr//02dwi",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:28:21.367Z",
+      "updatedAt": "2026-10-15T12:28:21.367Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$heVxm8sdNv.Nj69stoUvBubV6P9BclLSJhksqBErybkShr//02dwi",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:28:21.368Z",
+      "updatedAt": "2026-10-15T12:28:21.368Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$/Xyoxz6OKy8740CI5Y/88OPmAKdg3bb6J9QitkTd9GwKI42Ir2B7u",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:55:20.547Z",
+      "updatedAt": "2026-10-15T12:55:20.547Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$/Xyoxz6OKy8740CI5Y/88OPmAKdg3bb6J9QitkTd9GwKI42Ir2B7u",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T12:55:20.548Z",
+      "updatedAt": "2026-10-15T12:55:20.548Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$x1gz/4TjhdzP7jjecKvpOO7LhLuL.CAK6MtJROAq5ic2hsg1K4yqq",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T13:13:08.421Z",
+      "updatedAt": "2026-10-15T13:13:08.421Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$x1gz/4TjhdzP7jjecKvpOO7LhLuL.CAK6MtJROAq5ic2hsg1K4yqq",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T13:13:08.421Z",
+      "updatedAt": "2026-10-15T13:13:08.421Z"
+    },
+    {
+      "id": "usr_guest_mv9kay6v8bbd",
+      "email": "utilisateur_v8bbd@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T13:16:01.303Z",
+      "updatedAt": "2026-10-15T13:16:01.303Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$QoOv.EDDlVuBMDXqDJJ3X.UtdBrHxt/uXoTmD.Tz2Up6lNiPZ0L3K",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T13:16:36.177Z",
+      "updatedAt": "2026-10-15T13:16:36.177Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$QoOv.EDDlVuBMDXqDJJ3X.UtdBrHxt/uXoTmD.Tz2Up6lNiPZ0L3K",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T13:16:36.178Z",
+      "updatedAt": "2026-10-15T13:16:36.178Z"
+    }
+  ],
+  "bots": [
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "$",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 10,
+        "commandsExecuted": 10,
+        "reconnectAttempts": 0,
+        "lastActivityAt": "2026-10-15T13:16:36.180Z"
+      },
+      "createdAt": "2026-10-15T11:45:26.754Z",
+      "updatedAt": "2026-10-15T13:16:36.180Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T11:45:26.754Z",
+      "updatedAt": "2026-10-15T11:45:26.754Z"
+    },
+    {
+      "id": "bot_mv9hhfeg0rx9",
+      "userId": "usr_guest_mv9hhfefeld2",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T11:57:04.696Z",
+      "updatedAt": "2026-10-15T11:57:04.696Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T11:57:13.612Z",
+      "updatedAt": "2026-10-15T11:57:13.612Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T11:57:13.612Z",
+      "updatedAt": "2026-10-15T11:57:13.612Z"
+    },
+    {
+      "id": "bot_mv9hi6b4kr9g",
+      "userId": "usr_guest_mv9hi6b416dr",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T11:57:39.568Z",
+      "updatedAt": "2026-10-15T11:57:39.568Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:03:33.732Z",
+      "updatedAt": "2026-10-15T12:03:33.732Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:03:33.732Z",
+      "updatedAt": "2026-10-15T12:03:33.732Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:08:19.079Z",
+      "updatedAt": "2026-10-15T12:08:19.079Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:08:19.079Z",
+      "updatedAt": "2026-10-15T12:08:19.079Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:11:37.224Z",
+      "updatedAt": "2026-10-15T12:11:37.224Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:11:37.224Z",
+      "updatedAt": "2026-10-15T12:11:37.224Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:16:22.511Z",
+      "updatedAt": "2026-10-15T12:16:22.511Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:16:22.512Z",
+      "updatedAt": "2026-10-15T12:16:22.512Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:28:21.368Z",
+      "updatedAt": "2026-10-15T12:28:21.368Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:28:21.368Z",
+      "updatedAt": "2026-10-15T12:28:21.368Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:55:20.548Z",
+      "updatedAt": "2026-10-15T12:55:20.548Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T12:55:20.549Z",
+      "updatedAt": "2026-10-15T12:55:20.549Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T13:13:08.422Z",
+      "updatedAt": "2026-10-15T13:13:08.422Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T13:13:08.422Z",
+      "updatedAt": "2026-10-15T13:13:08.422Z"
+    },
+    {
+      "id": "bot_mv9kay6wm7jv",
+      "userId": "usr_guest_mv9kay6v8bbd",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T13:16:01.304Z",
+      "updatedAt": "2026-10-15T13:16:01.304Z"
+    },
+    {
+      "id": "bot_test_1",
+      "userId": "usr_test_1",
+      "name": "Bot Utilisateur 1",
+      "phoneNumber": "+33612345678",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 1",
+        "prefix": "!",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bot 1 welcome",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "calc"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T13:16:36.178Z",
+      "updatedAt": "2026-10-15T13:16:36.178Z"
+    },
+    {
+      "id": "bot_test_2",
+      "userId": "usr_test_2",
+      "name": "Bot Utilisateur 2",
+      "phoneNumber": "+221778901234",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS 2",
+        "prefix": "#",
+        "autoRead": true,
+        "reactToStatus": true,
+        "antiDelete": true,
+        "antiSpam": false,
+        "welcomeMessage": "Bot 2 welcome",
+        "enabledCommands": [
+          "ping"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T13:16:36.178Z",
+      "updatedAt": "2026-10-15T13:16:36.178Z"
+    }
+  ],
+  "logs": []
+}

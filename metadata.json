@@ -1,0 +1,6 @@
+{
+  "name": "JARVIS CLOUD - Hébergement Bots WhatsApp",
+  "description": "Plateforme web SaaS multi-utilisateurs pour connecter, héberger et gérer des instances de bots WhatsApp JARVIS en toute isolation et sécurité.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
