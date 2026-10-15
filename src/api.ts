@@ -106,10 +106,17 @@ export const api = {
     return this.request<{ success: boolean; bot: BotInstance }>(`/api/bots/${id}`);
   },
 
-  async requestPairingCode(id: string, phoneNumber: string) {
+  async requestPairingCode(id: string, phoneNumber: string, prefix?: string) {
     return this.request<{ success: boolean; pairingCode: string; instructions: string[] }>(`/api/bots/${id}/pairing`, {
       method: 'POST',
-      body: JSON.stringify({ phoneNumber }),
+      body: JSON.stringify({ phoneNumber, prefix }),
+    });
+  },
+
+  async setBotPrefix(id: string, prefix: string) {
+    return this.request<{ success: boolean; message: string; prefix: string; config: BotInstance['config'] }>(`/api/bots/${id}/prefix`, {
+      method: 'POST',
+      body: JSON.stringify({ prefix }),
     });
   },
 

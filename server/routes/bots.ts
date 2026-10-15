@@ -33,19 +33,20 @@ router.post('/', (req: AuthenticatedRequest, res: Response) => {
   const user = req.user!;
   const { name } = req.body;
 
-  // Limite : max 3 bots par utilisateur standard
+  // Limite stricte : max 3 numéros par utilisateur
   const userBots = db.getBotsByUserId(user.id);
   if (user.role !== 'admin' && userBots.length >= 3) {
     return res.status(400).json({
       success: false,
-      error: 'Limite atteinte : vous pouvez créer jusqu\'à 3 instances de bot.',
+      error: 'Limite atteinte : vous pouvez connecter jusqu\'à 3 numéros WhatsApp au bot JARVIS.',
     });
   }
 
+  const slotNumber = userBots.length + 1;
   const newBot = db.createBot({
     id: 'bot_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6),
     userId: user.id,
-    name: name?.trim() || `Assistant JARVIS #${userBots.length + 1}`,
+    name: name?.trim() || `Numéro WhatsApp #${slotNumber}`,
     status: 'OFFLINE',
     config: {
       botName: 'JARVIS',
@@ -66,7 +67,7 @@ router.post('/', (req: AuthenticatedRequest, res: Response) => {
 
   return res.status(201).json({
     success: true,
-    message: 'Nouvelle instance JARVIS créée.',
+    message: `Emplacement pour le numéro #${slotNumber} prêt pour liaison au bot JARVIS.`,
     bot: {
       ...newBot,
       phoneNumberMasked: maskPhoneNumber(newBot.phoneNumber),
@@ -95,12 +96,22 @@ router.get('/:id', requireBotOwner, (req: AuthenticatedRequest, res: Response) =
 // Demander un code de jumelage (Pairing Code)
 router.post('/:id/pairing', requireBotOwner, pairingRateLimiter, async (req: AuthenticatedRequest, res: Response) => {
   const bot = req.bot!;
-  const { phoneNumber } = req.body;
+  const { phoneNumber, prefix } = req.body;
 
   if (!phoneNumber || typeof phoneNumber !== 'string') {
     return res.status(400).json({
       success: false,
       error: 'Le numéro de téléphone avec indicatif pays est obligatoire (ex: +33612345678).',
+    });
+  }
+
+  // Mettre à jour le préfixe si spécifié par l'utilisateur
+  if (prefix && typeof prefix === 'string' && prefix.trim().length <= 5) {
+    db.updateBot(bot.id, {
+      config: {
+        ...bot.config,
+        prefix: prefix.trim(),
+      },
     });
   }
 
@@ -123,6 +134,41 @@ router.post('/:id/pairing', requireBotOwner, pairingRateLimiter, async (req: Aut
       error: err.message || 'Échec de la génération du code de jumelage.',
     });
   }
+});
+
+// Définir ou modifier le préfixe du bot
+router.post('/:id/prefix', requireBotOwner, (req: AuthenticatedRequest, res: Response) => {
+  const bot = req.bot!;
+  const { prefix } = req.body;
+
+  if (!prefix || typeof prefix !== 'string' || prefix.trim().length === 0 || prefix.trim().length > 5) {
+    return res.status(400).json({
+      success: false,
+      error: 'Le préfixe doit comporter entre 1 et 5 caractères (ex: ., !, #, /, $).',
+    });
+  }
+
+  const cleanPrefix = prefix.trim();
+  const updated = db.updateBot(bot.id, {
+    config: {
+      ...bot.config,
+      prefix: cleanPrefix,
+    },
+  });
+
+  const liveSession = jarvisEngine.getActiveSession(bot.id);
+  if (liveSession?.sock) {
+    (liveSession.sock as any)._jarvisPrefix = cleanPrefix;
+  }
+
+  jarvisEngine.log(bot.id, 'info', `Préfixe de commande mis à jour : [ ${cleanPrefix} ]`);
+
+  return res.json({
+    success: true,
+    message: `Préfixe configuré avec succès : "${cleanPrefix}"`,
+    prefix: cleanPrefix,
+    config: updated?.config,
+  });
 });
 
 // Demander un QR Code

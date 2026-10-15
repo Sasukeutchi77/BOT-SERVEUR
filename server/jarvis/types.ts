@@ -37,4 +37,5 @@ export interface ActiveBotSession {
   lastConnectedAt?: string;
   reconnectAttempts: number;
   reconnectTimeout?: NodeJS.Timeout;
+  keepAliveTimer?: NodeJS.Timeout;
 }

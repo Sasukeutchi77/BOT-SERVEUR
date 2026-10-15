@@ -14,7 +14,8 @@ import {
   HelpCircle,
   ChevronDown,
   ChevronUp,
-  Zap
+  Zap,
+  Terminal,
 } from 'lucide-react';
 
 interface PairingSectionProps {
@@ -64,6 +65,34 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const [copied, setCopied] = useState(false);
   const [countdown, setCountdown] = useState<number>(120);
   const [showFaq, setShowFaq] = useState(false);
+  const [selectedPrefix, setSelectedPrefix] = useState(bot.config?.prefix || '.');
+  const [customPrefixInput, setCustomPrefixInput] = useState('');
+  const [isSavingPrefix, setIsSavingPrefix] = useState(false);
+  const [prefixSavedMessage, setPrefixSavedMessage] = useState(false);
+
+  // Synchronisation du préfixe avec l'instance active
+  useEffect(() => {
+    if (bot.config?.prefix) {
+      setSelectedPrefix(bot.config.prefix);
+    }
+  }, [bot.config?.prefix]);
+
+  const handleSelectPrefix = async (newPrefix: string) => {
+    const trimmed = newPrefix.trim();
+    if (!trimmed || trimmed.length > 5) return;
+    setSelectedPrefix(trimmed);
+    setIsSavingPrefix(true);
+    try {
+      await api.setBotPrefix(bot.id, trimmed);
+      setPrefixSavedMessage(true);
+      setTimeout(() => setPrefixSavedMessage(false), 2500);
+      onStatusUpdate();
+    } catch (e) {
+      console.error('Erreur mise à jour préfixe:', e);
+    } finally {
+      setIsSavingPrefix(false);
+    }
+  };
 
   const detected = detectCountry(phoneNumber);
   const cleanDigits = phoneNumber.replace(/\D/g, '');
@@ -81,6 +110,9 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
           onStatusUpdate();
         } else if (res.status === 'ERROR') {
           setError(res.lastError || 'Erreur lors de la tentative de connexion.');
+          onStatusUpdate();
+        } else if (res.status === 'OFFLINE' && bot.status === 'PAIRING') {
+          setPairingCode(null);
           onStatusUpdate();
         } else if (res.pairingCode && !pairingCode) {
           setPairingCode(res.pairingCode);
@@ -125,7 +157,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
     setLoading(true);
 
     try {
-      const res = await api.requestPairingCode(bot.id, raw);
+      const res = await api.requestPairingCode(bot.id, raw, selectedPrefix);
       setPairingCode(res.pairingCode);
       onStatusUpdate();
     } catch (err: any) {
@@ -248,6 +280,74 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                 </button>
               </div>
 
+              {/* Sélecteur de préfixe en direct même connecté */}
+              <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Terminal className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs font-bold text-slate-200">
+                      Préfixe de commande actif : <strong className="text-emerald-400 font-mono text-sm px-2 py-0.5 bg-emerald-950/80 rounded border border-emerald-500/40">{selectedPrefix}</strong>
+                    </span>
+                  </div>
+                  {prefixSavedMessage && (
+                    <span className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 animate-in fade-in">
+                      <Check className="w-3.5 h-3.5" /> Préfixe mis à jour !
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] text-slate-400 mr-1">Changer le préfixe :</span>
+                  {['.', '!', '#', '/', '$', '?'].map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => handleSelectPrefix(p)}
+                      disabled={isSavingPrefix}
+                      className={`w-8 h-8 rounded-lg font-mono text-xs font-bold transition-all ${
+                        selectedPrefix === p
+                          ? 'bg-emerald-500 text-slate-950 font-black scale-105'
+                          : 'bg-slate-950 text-slate-300 border border-slate-800 hover:border-slate-700'
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                  <div className="flex items-center gap-1 ml-auto sm:ml-2">
+                    <input
+                      type="text"
+                      maxLength={3}
+                      value={customPrefixInput}
+                      onChange={(e) => setCustomPrefixInput(e.target.value)}
+                      placeholder="Autre..."
+                      className="w-16 px-2 py-1 bg-slate-950 border border-slate-800 rounded-lg text-center text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (customPrefixInput.trim()) {
+                          handleSelectPrefix(customPrefixInput.trim());
+                          setCustomPrefixInput('');
+                        }
+                      }}
+                      disabled={!customPrefixInput.trim() || isSavingPrefix}
+                      className="px-2.5 py-1 text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-slate-300 rounded-lg border border-slate-700"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+
+                <div className="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                  <span>Exemples :</span>
+                  <span className="text-emerald-400 font-semibold">{selectedPrefix}menu</span>
+                  <span>·</span>
+                  <span className="text-emerald-400 font-semibold">{selectedPrefix}ping</span>
+                  <span>·</span>
+                  <span className="text-emerald-400 font-semibold">{selectedPrefix}help</span>
+                </div>
+              </div>
+
               {/* Rassurance de sécurité */}
               <div className="pt-4 border-t border-emerald-900/30 flex items-center gap-2 text-[11px] text-slate-400">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -255,12 +355,94 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
               </div>
             </div>
           ) : !pairingCode ? (
-            /* FORMULAIRE DE SAISIE DU NUMÉRO */
+            /* FORMULAIRE DE SAISIE DU NUMÉRO & CHOIX DU PRÉFIXE */
             <form onSubmit={handleRequestPairingCode} className="space-y-6 max-w-xl">
+              {/* SECTION CHOIX DU PRÉFIXE PERSONNALISÉ */}
+              <div className="p-5 bg-slate-900/70 border border-slate-800/90 rounded-2xl space-y-3.5 shadow-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Terminal className="w-4 h-4 text-emerald-400" />
+                    <label className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+                      1. Choisissez votre préfixe de commande
+                    </label>
+                  </div>
+                  {prefixSavedMessage && (
+                    <span className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 animate-in fade-in">
+                      <Check className="w-3.5 h-3.5" /> Préfixe enregistré !
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Sélectionnez le symbole qui déclenchera les commandes du bot WhatsApp JARVIS :
+                </p>
+
+                {/* Boutons de préfixes populaires */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {['.', '!', '#', '/', '$', '?'].map((p) => {
+                    const isSelected = selectedPrefix === p;
+                    return (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => handleSelectPrefix(p)}
+                        disabled={isSavingPrefix}
+                        className={`w-11 h-11 rounded-xl font-mono text-base font-bold flex items-center justify-center transition-all ${
+                          isSelected
+                            ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30 scale-105 border border-emerald-400 ring-2 ring-emerald-500/30'
+                            : 'bg-slate-950/90 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700'
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    );
+                  })}
+
+                  {/* Saisie d'un préfixe personnalisé libre */}
+                  <div className="flex items-center gap-1.5 ml-auto sm:ml-2">
+                    <input
+                      type="text"
+                      maxLength={3}
+                      value={customPrefixInput}
+                      onChange={(e) => setCustomPrefixInput(e.target.value)}
+                      placeholder="Autre..."
+                      className="w-20 px-2.5 py-2.5 bg-slate-950/90 border border-slate-800 rounded-xl text-center text-sm font-mono text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (customPrefixInput.trim()) {
+                          handleSelectPrefix(customPrefixInput.trim());
+                          setCustomPrefixInput('');
+                        }
+                      }}
+                      disabled={!customPrefixInput.trim() || isSavingPrefix}
+                      className="px-3 py-2.5 text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-slate-300 disabled:opacity-30 rounded-xl transition-all border border-slate-700"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+
+                {/* Aperçu interactif dynamique */}
+                <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-400 bg-black/40 px-3.5 py-2 rounded-xl border border-slate-800/60 font-mono gap-1">
+                  <span>Aperçu des commandes :</span>
+                  <div className="flex items-center gap-2 text-emerald-400 font-semibold">
+                    <span>{selectedPrefix}menu</span>
+                    <span>·</span>
+                    <span>{selectedPrefix}ping</span>
+                    <span>·</span>
+                    <span>{selectedPrefix}ai</span>
+                    <span>·</span>
+                    <span>{selectedPrefix}help</span>
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-slate-200">
-                    Numéro de téléphone WhatsApp avec indicatif pays
+                    2. Numéro de téléphone WhatsApp avec indicatif pays
                   </label>
                   {detected && (
                     <span className="text-xs text-emerald-400 font-medium flex items-center gap-1.5 animate-in fade-in">
@@ -285,8 +467,13 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                 </div>
 
                 <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Tapez votre numéro complet avec le signe <strong>+</strong> et votre indicatif international (ex : <strong>+33</strong> France, <strong>+221</strong> Sénégal, <strong>+225</strong> Côte d'Ivoire, <strong>+212</strong> Maroc, <strong>+237</strong> Cameroun, <strong>+243</strong> RDC, <strong>+1</strong> USA, etc.).
+                  Tapez votre numéro complet avec le signe <strong>+</strong> et votre indicatif international (ex : <strong>+226</strong> Burkina Faso, <strong>+225</strong> Côte d'Ivoire, <strong>+221</strong> Sénégal, <strong>+33</strong> France).
                 </p>
+
+                <div className="p-3 bg-slate-950/80 border border-emerald-500/20 rounded-xl text-[11px] text-slate-300 flex items-start gap-2">
+                  <span className="text-emerald-400 font-bold shrink-0">💡 Vérification :</span>
+                  <span>Pour éviter toute erreur de saisie, ouvrez <strong>WhatsApp</strong> sur votre téléphone &gt; <strong>Paramètres</strong> &gt; touchez votre <strong>profil</strong> pour voir l'écriture exacte de votre numéro.</span>
+                </div>
               </div>
 
               {error && (

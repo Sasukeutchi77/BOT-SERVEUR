@@ -6,9 +6,10 @@ interface NavbarProps {
   phoneNumber?: string;
   connectedCount?: number;
   onlineBots?: number;
+  prefix?: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, onlineBots = 0 }) => {
+export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, prefix = '.' }) => {
   const isOnline = status === 'ONLINE';
 
   return (
@@ -34,11 +35,11 @@ export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, onli
           </div>
         </div>
 
-        {/* Live Counters */}
-        <div className="flex items-center gap-2.5">
+        {/* Live Counters & Status */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
           {/* Nombre d'utilisateurs connectés en temps réel */}
           <div
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs"
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs"
             title={`${connectedCount} utilisateur(s) en ligne sur la plateforme`}
           >
             <div className="relative flex items-center justify-center">
@@ -46,17 +47,28 @@ export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, onli
               <span className="w-2 h-2 rounded-full bg-emerald-400 relative" />
             </div>
             <Users className="w-3.5 h-3.5 text-slate-400" />
-            <span className="font-mono font-bold text-emerald-400 text-xs">
+            <span className="font-mono font-bold text-xs text-emerald-400">
               {connectedCount}
             </span>
-            <span className="text-slate-400 text-[11px] hidden sm:inline">
+            <span className="text-slate-400 text-[11px] hidden md:inline">
               connecté{connectedCount > 1 ? 's' : ''}
+            </span>
+          </div>
+
+          {/* Préfixe actif sélectionné */}
+          <div
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs font-mono"
+            title={`Préfixe de commande actif : ${prefix}`}
+          >
+            <span className="text-slate-400 text-[10px] hidden sm:inline">Préfixe :</span>
+            <span className="font-bold text-xs px-1.5 py-0.5 rounded bg-black/50 text-emerald-400 border border-emerald-500/40">
+              {prefix}
             </span>
           </div>
 
           {/* Statut de l'instance courante */}
           <div
-            className={`hidden xs:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium ${
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium ${
               isOnline
                 ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800/60'
                 : 'bg-slate-900 text-slate-400 border-slate-800'

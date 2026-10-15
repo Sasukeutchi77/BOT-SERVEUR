@@ -115,6 +115,13 @@ async function runTests() {
     const simCalcBot2 = await jarvisEngine.simulateCommand(bot2.id, '#calc 5 + 5');
     assert(!simCalcBot2.success && simCalcBot2.reply.includes('désactivée'), 'Test 8: Blocage d\'une commande désactivée par un utilisateur spécifique');
 
+    // Test 9: Prise en compte du préfixe personnalisé dynamique de l'utilisateur
+    db.updateBot(bot1.id, {
+      config: { ...bot1.config, prefix: '!' },
+    });
+    const simPingExclamation = await jarvisEngine.simulateCommand(bot1.id, '!ping');
+    assert(simPingExclamation.success && simPingExclamation.reply.includes('PONG'), 'Test 9: Prise en compte du préfixe personnalisé sélectionné (!)');
+
     console.log(`\n===========================================`);
     console.log(`RÉSULTAT : ${passed} passés, ${failed} échoués`);
     console.log(`===========================================`);

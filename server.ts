@@ -98,6 +98,11 @@ async function startServer() {
     console.log(`   Mode: ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'}`);
     console.log(`   Architecture: Multi-Tenant WhatsApp Baileys Engine`);
     console.log(`=======================================================`);
+
+    // Restauration automatique persistante des sessions WhatsApp actives
+    jarvisEngine.restoreAllSessions().catch(err => {
+      console.error('[JARVIS CLOUD] Erreur restauration sessions:', err);
+    });
   });
 
   // Arrêt propre en cas de signal système
