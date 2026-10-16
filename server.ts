@@ -11,6 +11,22 @@ import { db } from './server/db/database';
 
 dotenv.config();
 
+// Filtrage des avertissements internes transitoires de libsignal (gérés par le mécanisme de resynchronisation)
+const originalConsoleError = console.error;
+console.error = (...args: any[]) => {
+  const msg = typeof args[0] === 'string' ? args[0] : '';
+  if (
+    msg.includes('Failed to decrypt message with any known session') ||
+    msg.includes('Session error:Error: Bad MAC') ||
+    msg.includes('Session error: Error: Bad MAC') ||
+    msg.includes('No matching sessions found for message') ||
+    msg.includes('Bad MAC')
+  ) {
+    return;
+  }
+  originalConsoleError.apply(console, args);
+};
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -45,18 +61,16 @@ app.get('/api/stats/connected', (req, res) => {
   const visitorId = req.headers['x-visitor-id'] || req.ip || req.socket.remoteAddress || 'guest';
   activeVisitors.set(String(visitorId), Date.now());
 
-  // Nombre de bots et sessions réelles
-  const stats = db.getStats();
-  const onlineBots = stats.activeBots;
-  const totalBots = stats.totalBots;
+  // Comptage 100% réel des sessions WhatsApp connectées
+  const realOnlineBots = jarvisEngine.getRealOnlineCount();
   
-  // Total utilisateurs connectés
-  const currentConnected = Math.max(activeVisitors.size + onlineBots, 1);
+  // Nombre d'utilisateurs actuellement sur le site
+  const currentConnected = Math.max(activeVisitors.size, 1);
 
   res.json({
     success: true,
-    totalSessions: totalBots,
-    activeSessions: onlineBots,
+    totalSessions: realOnlineBots,
+    activeSessions: realOnlineBots,
     connectedCount: currentConnected,
     timestamp: new Date().toISOString(),
   });

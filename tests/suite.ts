@@ -128,6 +128,12 @@ async function runTests() {
   } catch (err: any) {
     console.error('Erreur critique pendant les tests:', err);
     failed++;
+  } finally {
+    // Nettoyage impératif pour ne laisser aucune donnée test dans database.json
+    db.deleteBot('bot_test_1');
+    db.deleteBot('bot_test_2');
+    db.deleteUser('usr_test_1');
+    db.deleteUser('usr_test_2');
   }
 }
 

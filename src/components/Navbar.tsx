@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bot, Users } from 'lucide-react';
+import { Bot } from 'lucide-react';
 
 interface NavbarProps {
   status?: string;
@@ -13,68 +13,50 @@ export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, pref
   const isOnline = status === 'ONLINE';
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#090A0F]/90 backdrop-blur-md">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-black font-black shadow-lg shadow-emerald-500/20">
-            <Bot className="w-6 h-6 text-black stroke-[2.5]" />
+    <header className="sticky top-0 z-40 w-full border-b border-blue-900/30 bg-[#080B12]/90 backdrop-blur-md">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        {/* Brand avec touche bleu saphir moderne */}
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 shadow-sm shadow-blue-500/10">
+            <Bot className="w-4 h-4 stroke-[2.2]" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-tight text-white text-lg font-sans">
-                JARVIS <span className="text-emerald-400">CLOUD</span>
-              </span>
-              <span className="text-[10px] tracking-wider uppercase font-semibold text-emerald-400/90 bg-emerald-950/60 border border-emerald-800/50 px-1.5 py-0.5 rounded">
-                v1.0 MD
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400">
-              Connexion WhatsApp Sans Serveur
-            </p>
+          <div className="flex items-baseline gap-1.5">
+            <span className="font-bold tracking-tight text-white text-base font-sans">
+              JARVIS
+            </span>
+            <span className="text-xs text-blue-400/90 font-medium font-sans">
+              Connect
+            </span>
           </div>
         </div>
 
-        {/* Live Counters & Status */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Nombre d'utilisateurs connectés en temps réel */}
-          <div
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs"
-            title={`${connectedCount} utilisateur(s) en ligne sur la plateforme`}
-          >
-            <div className="relative flex items-center justify-center">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping absolute" />
-              <span className="w-2 h-2 rounded-full bg-emerald-400 relative" />
-            </div>
-            <Users className="w-3.5 h-3.5 text-slate-400" />
-            <span className="font-mono font-bold text-xs text-emerald-400">
-              {connectedCount}
-            </span>
-            <span className="text-slate-400 text-[11px] hidden md:inline">
-              connecté{connectedCount > 1 ? 's' : ''}
-            </span>
+        {/* Indicateurs sobres avec nuances bleues */}
+        <div className="flex items-center gap-3 text-xs">
+          {/* Nombre de connectés */}
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span className="font-mono text-blue-200 font-medium">{connectedCount}</span>
+            <span className="text-slate-500 hidden sm:inline">en ligne</span>
           </div>
 
-          {/* Préfixe actif sélectionné */}
-          <div
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs font-mono"
-            title={`Préfixe de commande actif : ${prefix}`}
-          >
-            <span className="text-slate-400 text-[10px] hidden sm:inline">Préfixe :</span>
-            <span className="font-bold text-xs px-1.5 py-0.5 rounded bg-black/50 text-emerald-400 border border-emerald-500/40">
+          <span className="text-slate-700 hidden sm:inline">·</span>
+
+          {/* Préfixe actif */}
+          <div className="hidden xs:flex items-center gap-1 text-slate-400 font-mono text-xs">
+            <span className="text-slate-500">Préfixe</span>
+            <span className="text-blue-300 font-bold bg-[#0D1527] px-1.5 py-0.5 rounded border border-blue-800/40">
               {prefix}
             </span>
           </div>
 
-          {/* Statut de l'instance courante */}
-          <div
-            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium ${
-              isOnline
-                ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800/60'
-                : 'bg-slate-900 text-slate-400 border-slate-800'
-            }`}
-          >
-            <span>{isOnline ? 'EN LIGNE' : 'PRÊT'}</span>
+          <span className="text-slate-700 hidden sm:inline">·</span>
+
+          {/* Statut du bot */}
+          <div className="flex items-center gap-1.5">
+            <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`} />
+            <span className="text-slate-400 font-sans text-xs">
+              {isOnline ? 'Connecté' : 'Prêt'}
+            </span>
           </div>
         </div>
       </div>

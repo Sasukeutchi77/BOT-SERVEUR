@@ -4,13 +4,11 @@ import { BotInstance } from './types';
 import { Navbar } from './components/Navbar';
 import { PairingSection } from './components/PairingSection';
 import { CommunitySection } from './components/CommunitySection';
-import { JarvisLoader } from './components/JarvisLoader';
 import { MultiBotManager } from './components/MultiBotManager';
 
 export default function App() {
   const [userBots, setUserBots] = useState<BotInstance[]>([]);
   const [activeBot, setActiveBot] = useState<BotInstance | null>(null);
-  const [jarvisLoading, setJarvisLoading] = useState(true);
   const [totalSessions, setTotalSessions] = useState<number>(0);
   const [activeSessions, setActiveSessions] = useState<number>(0);
   const [connectedCount, setConnectedCount] = useState<number>(1);
@@ -109,78 +107,59 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      {/* Écran de Chargement Futuriste Holographique JARVIS HUD */}
-      {jarvisLoading && (
-        <JarvisLoader
-          duration={3200}
-          onComplete={() => setJarvisLoading(false)}
-        />
-      )}
+    <div className="min-h-screen bg-[#080B12] text-slate-100 flex flex-col font-sans selection:bg-blue-600/30 selection:text-blue-200 relative overflow-hidden">
+      {/* Nuance d'ambiance bleue subtile en haut de page */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 bg-gradient-to-b from-blue-600/[0.08] via-indigo-600/[0.03] to-transparent pointer-events-none blur-3xl -z-10" />
 
-      <div className="min-h-screen bg-[#090A0F] text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-black">
-        {/* Navigation épurée */}
-        <Navbar
-          status={activeBot?.status}
-          phoneNumber={activeBot?.phoneNumberMasked || activeBot?.phoneNumber}
-          connectedCount={connectedCount}
-          onlineBots={activeSessions}
-          prefix={activeBot?.config?.prefix || '.'}
-        />
+      {/* Navigation épurée avec nuances bleues saphir */}
+      <Navbar
+        status={activeBot?.status}
+        phoneNumber={activeBot?.phoneNumberMasked || activeBot?.phoneNumber}
+        connectedCount={connectedCount}
+        onlineBots={activeSessions}
+        prefix={activeBot?.config?.prefix || '.'}
+      />
 
-        {/* Contenu Principal */}
-        <main className="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col justify-center space-y-6">
-          {/* Métriques Exactes : Total sessions & Active sessions */}
-          <div className="bg-[#0F131C] border border-slate-800/80 rounded-2xl p-4 sm:p-5 shadow-xl">
-            <div className="grid grid-cols-2 divide-x divide-slate-800/80">
-              {/* Total sessions (all servers) */}
-              <div className="px-3 sm:px-6 py-1">
-                <span className="block text-xs sm:text-sm text-slate-400 font-sans tracking-tight">
-                  Total sessions (all servers)
-                </span>
-                <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-white font-mono">
-                  {totalSessions}
-                </div>
-              </div>
-
-              {/* Active sessions */}
-              <div className="px-3 sm:px-6 py-1">
-                <span className="block text-xs sm:text-sm text-slate-400 font-sans tracking-tight">
-                  Active sessions
-                </span>
-                <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">
-                  {activeSessions}
-                </div>
-              </div>
-            </div>
+      {/* Contenu Principal */}
+      <main className="flex-1 max-w-2xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-center space-y-4">
+        {/* Bandeau de synthèse du statut des serveurs actifs */}
+        <div className="flex items-center justify-between px-3 py-2 bg-[#0D1424]/60 border border-blue-900/30 rounded-xl text-xs text-slate-400 backdrop-blur-sm shadow-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-slate-400">Serveurs actifs :</span>
+            <span className="text-blue-300 font-mono font-semibold">{activeSessions} en ligne</span>
           </div>
 
-          {/* Gestionnaire Multi-Bots (Onglets, Ajout d'instance, Renommage, Isolation) */}
-          <MultiBotManager
-            bots={userBots}
-            activeBot={activeBot}
-            onSelectBot={(bot) => setActiveBot(bot)}
-            onBotsUpdated={() => loadUserBots(activeBot?.id)}
+          <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
+            <span className={`w-1.5 h-1.5 rounded-full ${activeSessions > 0 ? 'bg-emerald-400' : 'bg-blue-400'} animate-pulse`} />
+            <span className="text-blue-200/90 font-medium">Serveur opérationnel</span>
+          </div>
+        </div>
+
+        {/* Gestionnaire Multi-Comptes WhatsApp en onglets saphir sobres */}
+        <MultiBotManager
+          bots={userBots}
+          activeBot={activeBot}
+          onSelectBot={(bot) => setActiveBot(bot)}
+          onBotsUpdated={() => loadUserBots(activeBot?.id)}
+        />
+
+        {/* Module de jumelage et préfixe pour le bot sélectionné */}
+        {activeBot && (
+          <PairingSection
+            key={activeBot.id}
+            bot={activeBot}
+            onStatusUpdate={refreshBotStatus}
           />
+        )}
 
-          {/* Module de jumelage et préfixe pour le bot sélectionné */}
-          {activeBot && (
-            <PairingSection
-              key={activeBot.id}
-              bot={activeBot}
-              onStatusUpdate={refreshBotStatus}
-            />
-          )}
+        {/* Liens communautaires avec touches bleues coordonnées */}
+        <CommunitySection />
+      </main>
 
-          {/* Section Communauté : WhatsApp & Télégram */}
-          <CommunitySection />
-        </main>
-
-        {/* Footer minimaliste */}
-        <footer className="border-t border-slate-900 bg-[#07080D]/80 py-6 text-xs text-slate-500 text-center">
-          <p>JARVIS CLOUD — Connexion WhatsApp Instantanée & Sécurisée · Multi-Instance</p>
-        </footer>
-      </div>
-    </>
+      {/* Footer minimaliste avec subtile bordure bleu nuit */}
+      <footer className="border-t border-blue-950/40 bg-[#06080F] py-5 text-xs text-slate-500 text-center">
+        <p>JARVIS Connect — Connexion WhatsApp Instantanée & Sécurisée</p>
+      </footer>
+    </div>
   );
 }

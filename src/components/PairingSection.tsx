@@ -2,20 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { BotInstance } from '../types';
 import {
-  Smartphone,
-  Key,
   Copy,
   Check,
   AlertCircle,
   RefreshCw,
-  XCircle,
   CheckCircle2,
-  ShieldCheck,
-  HelpCircle,
   ChevronDown,
   ChevronUp,
-  Zap,
-  Terminal,
 } from 'lucide-react';
 
 interface PairingSectionProps {
@@ -29,26 +22,36 @@ function detectCountry(phone: string): { name: string; flag: string } | null {
   if (!cleaned.startsWith('+')) return null;
 
   const prefixes: [string, string, string][] = [
-    ['+33', 'France', '🇫🇷'],
-    ['+221', 'Sénégal', '🇸🇳'],
+    ['+226', 'Burkina Faso', '🇧🇫'],
     ['+225', 'Côte d\'Ivoire', '🇨🇮'],
+    ['+221', 'Sénégal', '🇸🇳'],
+    ['+223', 'Mali', '🇲🇱'],
+    ['+227', 'Niger', '🇳🇪'],
+    ['+228', 'Togo', '🇹🇬'],
+    ['+229', 'Bénin', '🇧🇯'],
+    ['+224', 'Guinée', '🇬🇳'],
+    ['+237', 'Cameroun', '🇨🇲'],
+    ['+241', 'Gabon', '🇬🇦'],
+    ['+242', 'Congo', '🇨🇬'],
+    ['+243', 'RDC', '🇨🇩'],
+    ['+235', 'Tchad', '🇹🇩'],
     ['+212', 'Maroc', '🇲🇦'],
     ['+213', 'Algérie', '🇩🇿'],
     ['+216', 'Tunisie', '🇹🇳'],
-    ['+237', 'Cameroun', '🇨🇲'],
-    ['+243', 'RD Congo', '🇨🇩'],
-    ['+242', 'Congo Brazzaville', '🇨🇬'],
-    ['+229', 'Bénin', '🇧🇯'],
-    ['+228', 'Togo', '🇹🇬'],
-    ['+226', 'Burkina Faso', '🇧🇫'],
-    ['+223', 'Mali', '🇲🇱'],
-    ['+224', 'Guinée', '🇬🇳'],
-    ['+241', 'Gabon', '🇬🇦'],
-    ['+261', 'Madagascar', '🇲🇬'],
+    ['+33', 'France', '🇫🇷'],
     ['+32', 'Belgique', '🇧🇪'],
     ['+41', 'Suisse', '🇨🇭'],
-    ['+44', 'Royaume-Uni', '🇬🇧'],
     ['+1', 'USA / Canada', '🇺🇸'],
+    ['+44', 'Royaume-Uni', '🇬🇧'],
+    ['+49', 'Allemagne', '🇩🇪'],
+    ['+34', 'Espagne', '🇪🇸'],
+    ['+39', 'Italie', '🇮🇹'],
+    ['+234', 'Nigeria', '🇳🇬'],
+    ['+233', 'Ghana', '🇬🇭'],
+    ['+254', 'Kenya', '🇰🇪'],
+    ['+27', 'Afrique du Sud', '🇿🇦'],
+    ['+55', 'Brésil', '🇧🇷'],
+    ['+91', 'Inde', '🇮🇳'],
   ];
 
   for (const [p, name, flag] of prefixes) {
@@ -69,8 +72,8 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const [customPrefixInput, setCustomPrefixInput] = useState('');
   const [isSavingPrefix, setIsSavingPrefix] = useState(false);
   const [prefixSavedMessage, setPrefixSavedMessage] = useState(false);
+  const [confirmDisconnect, setConfirmDisconnect] = useState(false);
 
-  // Synchronisation du préfixe avec l'instance active
   useEffect(() => {
     if (bot.config?.prefix) {
       setSelectedPrefix(bot.config.prefix);
@@ -98,7 +101,6 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const cleanDigits = phoneNumber.replace(/\D/g, '');
   const isValidLength = cleanDigits.length >= 8;
 
-  // Polling du statut de connexion lorsque le jumelage est en cours
   useEffect(() => {
     if (bot.status !== 'PAIRING' && bot.status !== 'CONNECTING') return;
 
@@ -108,60 +110,64 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
         if (res.status === 'ONLINE') {
           setPairingCode(null);
           onStatusUpdate();
-        } else if (res.status === 'ERROR') {
-          setError(res.lastError || 'Erreur lors de la tentative de connexion.');
-          onStatusUpdate();
-        } else if (res.status === 'OFFLINE' && bot.status === 'PAIRING') {
-          setPairingCode(null);
-          onStatusUpdate();
-        } else if (res.pairingCode && !pairingCode) {
-          setPairingCode(res.pairingCode);
         }
-      } catch (err) {}
+      } catch (e) {}
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [bot.id, bot.status, onStatusUpdate, pairingCode]);
+  }, [bot.status, bot.id, onStatusUpdate]);
 
-  // Décompte de validité du code de jumelage
   useEffect(() => {
     if (!pairingCode) return;
     setCountdown(120);
+
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
+          setPairingCode(null);
+          setError('Le code a expiré. Veuillez relancer la demande.');
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
+
     return () => clearInterval(timer);
   }, [pairingCode]);
 
   const handleRequestPairingCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setPairingCode(null);
 
-    let raw = phoneNumber.trim();
-    if (!raw.startsWith('+')) {
-      raw = `+${raw}`;
+    const trimmed = phoneNumber.trim();
+    if (!trimmed) {
+      setError('Veuillez saisir votre numéro de téléphone.');
+      return;
     }
 
-    const digitsOnly = raw.replace(/\D/g, '');
-    if (digitsOnly.length < 8) {
-      setError('Veuillez entrer un numéro de téléphone valide avec son indicatif international.');
+    if (!trimmed.startsWith('+')) {
+      setError('N\'oubliez pas le préfixe pays avec le signe "+" (ex: +226...).');
+      return;
+    }
+
+    if (!isValidLength) {
+      setError('Le numéro semble trop court. Vérifiez l\'indicatif et les chiffres.');
       return;
     }
 
     setLoading(true);
-
     try {
-      const res = await api.requestPairingCode(bot.id, raw, selectedPrefix);
-      setPairingCode(res.pairingCode);
-      onStatusUpdate();
+      const res = await api.requestPairingCode(bot.id, trimmed, selectedPrefix);
+      if (res.success && res.pairingCode) {
+        setPairingCode(res.pairingCode);
+        onStatusUpdate();
+      } else {
+        setError('Impossible de générer le code. Réessayez.');
+      }
     } catch (err: any) {
-      setError(err.message || 'Impossible de générer le code de jumelage.');
+      setError(err.message || 'Erreur lors de la demande de code.');
     } finally {
       setLoading(false);
     }
@@ -185,9 +191,18 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
     setLoading(false);
   };
 
+  const handleDisconnect = async () => {
+    setLoading(true);
+    try {
+      await api.disconnectBot(bot.id);
+      setConfirmDisconnect(false);
+      onStatusUpdate();
+    } catch (err) {}
+    setLoading(false);
+  };
+
   const isOnline = bot.status === 'ONLINE';
 
-  // Formatage aéré du code à 8 caractères (ex: ABCD - 1234)
   const formattedCode = pairingCode
     ? pairingCode.length === 8
       ? `${pairingCode.slice(0, 4)} - ${pairingCode.slice(4)}`
@@ -195,51 +210,25 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
     : '';
 
   return (
-    <div className="relative">
-      {/* Halo de lueur ambiant subtil */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-emerald-500/5 rounded-3xl blur-xl opacity-60 pointer-events-none" />
-
-      <div className="relative bg-[#0D111A] border border-slate-800/80 rounded-3xl shadow-2xl overflow-hidden p-6 sm:p-10 space-y-8">
-        {/* En-tête de la carte */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
+    <div className="w-full">
+      <div className="bg-[#0D1220] border border-blue-900/35 rounded-2xl p-6 sm:p-8 space-y-6 text-slate-100 shadow-xl shadow-blue-950/20">
+        {/* En-tête sobre avec nuance bleue */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-blue-950/60">
           <div>
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                <Smartphone className="w-4 h-4" />
-              </div>
-              <h2 className="text-xl font-extrabold text-white tracking-tight">
-                Liaison WhatsApp Multi-Device
-              </h2>
-            </div>
-            <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-              Associez votre compte WhatsApp en toute autonomie grâce au code officiel à 8 caractères.
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              Liaison WhatsApp
+            </h2>
+            <p className="text-xs text-slate-400 mt-1">
+              Associez votre compte WhatsApp en toute autonomie via code officiel.
             </p>
           </div>
 
-          <div
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold self-start sm:self-auto ${
-              isOnline
-                ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800/60 shadow-sm shadow-emerald-500/20'
-                : bot.status === 'PAIRING'
-                ? 'bg-amber-950/60 text-amber-400 border-amber-800/60 animate-pulse'
-                : 'bg-slate-900 text-slate-400 border-slate-800'
-            }`}
-          >
-            <span
-              className={`w-2 h-2 rounded-full ${
-                isOnline
-                  ? 'bg-emerald-400 animate-pulse'
-                  : bot.status === 'PAIRING'
-                  ? 'bg-amber-400'
-                  : 'bg-slate-500'
-              }`}
-            />
-            <span>
-              {isOnline
-                ? 'BOT CONNECTÉ'
-                : bot.status === 'PAIRING'
-                ? 'EN ATTENTE DE SAISIE'
-                : 'NON ASSOCIÉ'}
+          <div className="flex items-center gap-2 text-xs">
+            <span className={`w-2 h-2 rounded-full ${
+              isOnline ? 'bg-emerald-400' : bot.status === 'PAIRING' ? 'bg-blue-400 animate-pulse' : 'bg-slate-600'
+            }`} />
+            <span className="font-mono text-xs text-slate-300">
+              {isOnline ? 'Connecté' : bot.status === 'PAIRING' ? 'En attente' : 'Non associé'}
             </span>
           </div>
         </div>
@@ -247,80 +236,85 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
         {/* Corps principal */}
         <div>
           {isOnline ? (
-            /* ÉTAT EN LIGNE CONNECTÉ */
-            <div className="p-6 sm:p-8 bg-emerald-950/20 border border-emerald-800/40 rounded-2xl space-y-6">
+            /* ÉTAT CONNECTÉ */
+            <div className="p-5 bg-[#0E1629] border border-blue-900/40 rounded-xl space-y-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner">
-                    <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-950/50 border border-blue-800/40 flex items-center justify-center text-emerald-400">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white">
-                      Votre bot JARVIS est actif et prêt
+                    <h3 className="text-sm font-semibold text-white">
+                      Bot actif sur WhatsApp
                     </h3>
-                    <p className="text-xs text-emerald-400/90 font-mono mt-0.5">
-                      Numéro WhatsApp : <strong>{bot.phoneNumberMasked || bot.phoneNumber}</strong>
+                    <p className="text-xs text-blue-300 font-mono mt-0.5">
+                      {bot.phoneNumberMasked || bot.phoneNumber}
                     </p>
-                    <span className="text-[11px] text-slate-400 block mt-1">
-                      Instance isolée · Réponses aux messages et commandes actives
-                    </span>
                   </div>
                 </div>
 
-                <button
-                  onClick={async () => {
-                    if (confirm('Voulez-vous déconnecter ce compte WhatsApp ?')) {
-                      await api.disconnectBot(bot.id);
-                      onStatusUpdate();
-                    }
-                  }}
-                  className="px-4 py-2.5 text-xs font-semibold text-red-400 hover:text-red-300 bg-red-950/40 hover:bg-red-950/70 border border-red-900/50 rounded-xl transition-all self-start sm:self-auto"
-                >
-                  Déconnecter ce compte
-                </button>
+                {/* Bouton de déconnexion avec confirmation in-app */}
+                {confirmDisconnect ? (
+                  <div className="flex items-center gap-1.5 self-start sm:self-auto">
+                    <span className="text-xs text-slate-400 mr-1">Déconnecter ?</span>
+                    <button
+                      onClick={handleDisconnect}
+                      disabled={loading}
+                      className="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white text-xs font-medium rounded-lg transition-all"
+                    >
+                      Oui
+                    </button>
+                    <button
+                      onClick={() => setConfirmDisconnect(false)}
+                      className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg"
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmDisconnect(true)}
+                    className="px-3 py-1.5 text-xs text-slate-400 hover:text-red-400 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors self-start sm:self-auto"
+                  >
+                    Déconnecter ce compte
+                  </button>
+                )}
               </div>
 
-              {/* Sélecteur de préfixe en direct même connecté */}
-              <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Terminal className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs font-bold text-slate-200">
-                      Préfixe de commande actif : <strong className="text-emerald-400 font-mono text-sm px-2 py-0.5 bg-emerald-950/80 rounded border border-emerald-500/40">{selectedPrefix}</strong>
-                    </span>
-                  </div>
+              {/* Sélecteur de préfixe sobre */}
+              <div className="pt-4 border-t border-blue-950/60 space-y-2.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Préfixe de commande :</span>
                   {prefixSavedMessage && (
-                    <span className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 animate-in fade-in">
-                      <Check className="w-3.5 h-3.5" /> Préfixe mis à jour !
-                    </span>
+                    <span className="text-blue-400 text-[11px] font-medium">Mis à jour</span>
                   )}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[11px] text-slate-400 mr-1">Changer le préfixe :</span>
+                <div className="flex flex-wrap items-center gap-1.5">
                   {['.', '!', '#', '/', '$', '?'].map((p) => (
                     <button
                       key={p}
                       type="button"
                       onClick={() => handleSelectPrefix(p)}
                       disabled={isSavingPrefix}
-                      className={`w-8 h-8 rounded-lg font-mono text-xs font-bold transition-all ${
+                      className={`w-8 h-8 rounded-lg font-mono text-xs font-semibold transition-all ${
                         selectedPrefix === p
-                          ? 'bg-emerald-500 text-slate-950 font-black scale-105'
-                          : 'bg-slate-950 text-slate-300 border border-slate-800 hover:border-slate-700'
+                          ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/30 border border-blue-400/50'
+                          : 'bg-[#090E1A] text-slate-300 border border-blue-950/60 hover:border-blue-800/60 hover:text-white'
                       }`}
                     >
                       {p}
                     </button>
                   ))}
-                  <div className="flex items-center gap-1 ml-auto sm:ml-2">
+
+                  <div className="flex items-center gap-1 ml-2">
                     <input
                       type="text"
                       maxLength={3}
                       value={customPrefixInput}
                       onChange={(e) => setCustomPrefixInput(e.target.value)}
                       placeholder="Autre..."
-                      className="w-16 px-2 py-1 bg-slate-950 border border-slate-800 rounded-lg text-center text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                      className="w-16 px-2 py-1 bg-[#080D18] border border-blue-950/80 rounded-lg text-center text-xs font-mono text-white focus:outline-none focus:border-blue-500"
                     />
                     <button
                       type="button"
@@ -331,54 +325,36 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                         }
                       }}
                       disabled={!customPrefixInput.trim() || isSavingPrefix}
-                      className="px-2.5 py-1 text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-slate-300 rounded-lg border border-slate-700"
+                      className="px-2 py-1 text-xs bg-blue-950/80 hover:bg-blue-900 border border-blue-800/40 text-blue-300 rounded-lg"
                     >
                       OK
                     </button>
                   </div>
                 </div>
 
-                <div className="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2">
                   <span>Exemples :</span>
-                  <span className="text-emerald-400 font-semibold">{selectedPrefix}menu</span>
+                  <span className="text-blue-300">{selectedPrefix}menu</span>
                   <span>·</span>
-                  <span className="text-emerald-400 font-semibold">{selectedPrefix}ping</span>
-                  <span>·</span>
-                  <span className="text-emerald-400 font-semibold">{selectedPrefix}help</span>
+                  <span className="text-blue-300">{selectedPrefix}ping</span>
                 </div>
-              </div>
-
-              {/* Rassurance de sécurité */}
-              <div className="pt-4 border-t border-emerald-900/30 flex items-center gap-2 text-[11px] text-slate-400">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Connexion persistante sécurisée chiffrée de bout en bout par WhatsApp.</span>
               </div>
             </div>
           ) : !pairingCode ? (
-            /* FORMULAIRE DE SAISIE DU NUMÉRO & CHOIX DU PRÉFIXE */
-            <form onSubmit={handleRequestPairingCode} className="space-y-6 max-w-xl">
-              {/* SECTION CHOIX DU PRÉFIXE PERSONNALISÉ */}
-              <div className="p-5 bg-slate-900/70 border border-slate-800/90 rounded-2xl space-y-3.5 shadow-lg">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <Terminal className="w-4 h-4 text-emerald-400" />
-                    <label className="text-xs font-bold text-slate-200 uppercase tracking-wider">
-                      1. Choisissez votre préfixe de commande
-                    </label>
-                  </div>
+            /* FORMULAIRE DE LIAISON */
+            <form onSubmit={handleRequestPairingCode} className="space-y-5">
+              {/* Choix du préfixe sobre */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <label className="text-slate-300 font-medium">
+                    1. Préfixe de commande
+                  </label>
                   {prefixSavedMessage && (
-                    <span className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 animate-in fade-in">
-                      <Check className="w-3.5 h-3.5" /> Préfixe enregistré !
-                    </span>
+                    <span className="text-blue-400 text-[11px] font-medium">Enregistré</span>
                   )}
                 </div>
 
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Sélectionnez le symbole qui déclenchera les commandes du bot WhatsApp JARVIS :
-                </p>
-
-                {/* Boutons de préfixes populaires */}
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-1.5">
                   {['.', '!', '#', '/', '$', '?'].map((p) => {
                     const isSelected = selectedPrefix === p;
                     return (
@@ -387,10 +363,10 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                         type="button"
                         onClick={() => handleSelectPrefix(p)}
                         disabled={isSavingPrefix}
-                        className={`w-11 h-11 rounded-xl font-mono text-base font-bold flex items-center justify-center transition-all ${
+                        className={`w-9 h-9 rounded-lg font-mono text-xs font-semibold transition-all ${
                           isSelected
-                            ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30 scale-105 border border-emerald-400 ring-2 ring-emerald-500/30'
-                            : 'bg-slate-950/90 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700'
+                            ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/30 border border-blue-400/50'
+                            : 'bg-[#090E1A] text-slate-300 border border-blue-950/60 hover:border-blue-800/60 hover:text-white'
                         }`}
                       >
                         {p}
@@ -398,15 +374,14 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                     );
                   })}
 
-                  {/* Saisie d'un préfixe personnalisé libre */}
-                  <div className="flex items-center gap-1.5 ml-auto sm:ml-2">
+                  <div className="flex items-center gap-1 ml-2">
                     <input
                       type="text"
                       maxLength={3}
                       value={customPrefixInput}
                       onChange={(e) => setCustomPrefixInput(e.target.value)}
                       placeholder="Autre..."
-                      className="w-20 px-2.5 py-2.5 bg-slate-950/90 border border-slate-800 rounded-xl text-center text-sm font-mono text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                      className="w-16 px-2 py-1.5 bg-[#080D18] border border-blue-950/80 rounded-lg text-center text-xs font-mono text-white focus:outline-none focus:border-blue-500"
                     />
                     <button
                       type="button"
@@ -417,228 +392,161 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                         }
                       }}
                       disabled={!customPrefixInput.trim() || isSavingPrefix}
-                      className="px-3 py-2.5 text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-slate-300 disabled:opacity-30 rounded-xl transition-all border border-slate-700"
+                      className="px-2.5 py-1.5 text-xs bg-blue-950/80 hover:bg-blue-900 border border-blue-800/40 text-blue-200 rounded-lg"
                     >
                       OK
                     </button>
                   </div>
                 </div>
 
-                {/* Aperçu interactif dynamique */}
-                <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-400 bg-black/40 px-3.5 py-2 rounded-xl border border-slate-800/60 font-mono gap-1">
-                  <span>Aperçu des commandes :</span>
-                  <div className="flex items-center gap-2 text-emerald-400 font-semibold">
-                    <span>{selectedPrefix}menu</span>
-                    <span>·</span>
-                    <span>{selectedPrefix}ping</span>
-                    <span>·</span>
-                    <span>{selectedPrefix}ai</span>
-                    <span>·</span>
-                    <span>{selectedPrefix}help</span>
-                  </div>
+                <div className="text-[11px] font-mono text-slate-400">
+                  Commandes : <span className="text-blue-300">{selectedPrefix}menu</span>, <span className="text-blue-300">{selectedPrefix}ping</span>, <span className="text-blue-300">{selectedPrefix}ai</span>
                 </div>
               </div>
 
+              {/* Saisie du numéro */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    2. Numéro de téléphone WhatsApp avec indicatif pays
+                <div className="flex items-center justify-between text-xs">
+                  <label className="text-slate-300 font-medium">
+                    2. Numéro de téléphone WhatsApp
                   </label>
                   {detected && (
-                    <span className="text-xs text-emerald-400 font-medium flex items-center gap-1.5 animate-in fade-in">
+                    <span className="text-blue-300 text-xs flex items-center gap-1">
                       <span>{detected.flag}</span>
                       <span>{detected.name}</span>
                     </span>
                   )}
                 </div>
 
-                <div className="relative group">
-                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-400 transition-colors">
-                    <Smartphone className="w-5 h-5" />
-                  </div>
+                <div className="relative">
                   <input
                     type="tel"
                     required
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="Ex: +33612345678 ou +221778901234"
-                    className="w-full pl-11 pr-4 py-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl text-base text-white placeholder-slate-500 font-mono tracking-wide focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/40 transition-all shadow-inner"
+                    placeholder="Ex: +226 70 00 00 00 ou +33 6 12 34 56 78"
+                    className="w-full px-3.5 py-3 bg-[#080D18] border border-blue-950/80 rounded-xl text-base text-white placeholder-slate-500 font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors"
                   />
                 </div>
 
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Tapez votre numéro complet avec le signe <strong>+</strong> et votre indicatif international (ex : <strong>+226</strong> Burkina Faso, <strong>+225</strong> Côte d'Ivoire, <strong>+221</strong> Sénégal, <strong>+33</strong> France).
+                <p className="text-[11px] text-slate-400">
+                  Avec le signe <strong>+</strong> et l'indicatif pays (ex: <strong>+226</strong>, <strong>+225</strong>, <strong>+221</strong>, <strong>+33</strong>).
                 </p>
-
-                <div className="p-3 bg-slate-950/80 border border-emerald-500/20 rounded-xl text-[11px] text-slate-300 flex items-start gap-2">
-                  <span className="text-emerald-400 font-bold shrink-0">💡 Vérification :</span>
-                  <span>Pour éviter toute erreur de saisie, ouvrez <strong>WhatsApp</strong> sur votre téléphone &gt; <strong>Paramètres</strong> &gt; touchez votre <strong>profil</strong> pour voir l'écriture exacte de votre numéro.</span>
-                </div>
               </div>
 
               {error && (
-                <div className="p-4 bg-red-950/40 border border-red-800/50 rounded-2xl text-xs text-red-300 flex items-start gap-3 animate-in fade-in">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />
+                <div className="p-3 bg-red-950/40 border border-red-900/50 rounded-xl text-xs text-red-300 flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                   <span>{error}</span>
                 </div>
               )}
 
+              {/* Bouton d'action principal en bleu moderne */}
               <button
                 type="submit"
                 disabled={loading || !phoneNumber.trim()}
-                className="w-full sm:w-auto px-8 py-3.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 text-slate-950 font-extrabold text-sm rounded-2xl transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2.5"
+                className="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-semibold text-xs rounded-xl transition-all shadow-md shadow-blue-600/25 flex items-center justify-center gap-2 active:scale-98"
               >
                 {loading ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Génération du code officiel Baileys...</span>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Génération du code...</span>
                   </>
                 ) : (
-                  <>
-                    <Key className="w-4 h-4" />
-                    <span>Obtenir mon Code de Jumelage (8 chiffres)</span>
-                  </>
+                  <span>Obtenir le code de jumelage</span>
                 )}
               </button>
             </form>
           ) : (
-            /* AFFICHAGE DU CODE DE JUMELAGE OBTENU */
-            <div className="space-y-6 max-w-2xl animate-in fade-in duration-300">
-              <div className="bg-[#121622] border border-emerald-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-xl">
-                <span className="text-[11px] uppercase tracking-wider font-mono text-emerald-400 font-bold">
-                  Code de Jumelage WhatsApp Actif
+            /* AFFICHAGE DU CODE */
+            <div className="space-y-5 animate-in fade-in">
+              <div className="bg-[#0A0F1E] border border-blue-900/40 rounded-xl p-6 text-center space-y-3">
+                <span className="text-[11px] uppercase tracking-wider font-mono text-blue-400">
+                  Code de Jumelage
                 </span>
 
                 <div className="py-2">
-                  <div className="inline-flex items-center gap-4 bg-black/70 px-6 sm:px-10 py-4 rounded-2xl border border-emerald-500/40 shadow-inner">
-                    <span className="text-3xl sm:text-5xl font-mono font-black tracking-widest text-emerald-400 selection:bg-emerald-400 selection:text-black">
+                  <div className="inline-flex items-center gap-3 bg-[#070A14] px-6 py-3 rounded-xl border border-blue-800/40 shadow-inner">
+                    <span className="text-2xl sm:text-4xl font-mono font-bold tracking-widest text-blue-400">
                       {formattedCode}
                     </span>
                     <button
                       onClick={handleCopy}
-                      className="p-2.5 bg-emerald-500/15 hover:bg-emerald-500/30 text-emerald-400 rounded-xl transition-all border border-emerald-500/30 active:scale-95"
+                      className="p-2 text-blue-300 hover:text-white bg-blue-950/50 hover:bg-blue-900/60 border border-blue-800/40 rounded-lg transition-colors"
                       title="Copier le code"
                     >
                       {copied ? (
-                        <Check className="w-6 h-6 text-emerald-300" />
+                        <Check className="w-5 h-5 text-blue-300" />
                       ) : (
-                        <Copy className="w-6 h-6" />
+                        <Copy className="w-5 h-5" />
                       )}
                     </button>
                   </div>
                 </div>
 
-                {/* Toast de confirmation de copie */}
                 {copied && (
-                  <p className="text-xs text-emerald-400 font-semibold animate-in fade-in">
-                    ✓ Code copié dans votre presse-papiers !
+                  <p className="text-xs text-blue-400 font-medium">
+                    Code copié dans le presse-papiers
                   </p>
                 )}
 
-                {/* Barre de décompte visuelle */}
-                <div className="space-y-1.5 max-w-xs mx-auto">
-                  <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                    <div
-                      className="bg-emerald-400 h-full rounded-full transition-all duration-1000 ease-linear"
-                      style={{ width: `${Math.max(0, (countdown / 120) * 100)}%` }}
-                    />
-                  </div>
-                  <p className="text-[11px] text-slate-400">
-                    Expire dans <strong className="text-emerald-400 font-mono">{countdown} secondes</strong>
-                  </p>
-                </div>
+                <p className="text-[11px] text-slate-400 font-mono">
+                  Expire dans <strong className="text-blue-300">{countdown}s</strong>
+                </p>
               </div>
 
-              {/* Instructions étape par étape avec repères visuels */}
-              <div className="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 space-y-4">
-                <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-emerald-400" />
-                  À faire sur votre smartphone WhatsApp :
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
-                  <div className="p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 font-bold font-mono flex items-center justify-center shrink-0 border border-emerald-500/20">
-                      1
-                    </span>
-                    <p className="leading-relaxed">
-                      Ouvrez <strong>WhatsApp</strong> &gt; <strong>Menu ⋮</strong> (ou Paramètres) &gt; <strong>Appareils connectés</strong>.
-                    </p>
-                  </div>
-
-                  <div className="p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 font-bold font-mono flex items-center justify-center shrink-0 border border-emerald-500/20">
-                      2
-                    </span>
-                    <p className="leading-relaxed">
-                      Touchez <strong>Connecter un appareil</strong>.
-                    </p>
-                  </div>
-
-                  <div className="p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 font-bold font-mono flex items-center justify-center shrink-0 border border-emerald-500/20">
-                      3
-                    </span>
-                    <p className="leading-relaxed">
-                      En bas, choisissez <strong>"Associer avec le numéro de téléphone"</strong>.
-                    </p>
-                  </div>
-
-                  <div className="p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 font-bold font-mono flex items-center justify-center shrink-0 border border-emerald-500/20">
-                      4
-                    </span>
-                    <p className="leading-relaxed">
-                      Saisissez le code : <strong className="text-emerald-400 font-mono">{pairingCode}</strong>.
-                    </p>
-                  </div>
-                </div>
+              {/* Instructions sobres */}
+              <div className="bg-[#0A0F1E]/60 p-4 rounded-xl border border-blue-950/60 space-y-2.5 text-xs text-slate-300">
+                <span className="font-semibold text-slate-200 block text-xs">
+                  Étapes à suivre sur WhatsApp :
+                </span>
+                <ol className="space-y-1.5 text-slate-400 list-decimal list-inside text-xs leading-relaxed">
+                  <li>Ouvrez WhatsApp &gt; <strong>Menu ⋮</strong> &gt; <strong>Appareils connectés</strong></li>
+                  <li>Touchez <strong>Connecter un appareil</strong></li>
+                  <li>Sélectionnez <strong>"Associer avec le numéro de téléphone"</strong></li>
+                  <li>Saisissez le code : <strong className="text-blue-300 font-mono">{pairingCode}</strong></li>
+                </ol>
               </div>
 
-              {/* Barre d'état en temps réel et bouton d'annulation */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-                <div className="flex items-center gap-2.5 text-xs text-emerald-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
-                  <span>En attente de votre confirmation sur WhatsApp...</span>
+              <div className="flex items-center justify-between text-xs pt-1">
+                <div className="flex items-center gap-2 text-slate-400">
+                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                  <span>En attente de liaison...</span>
                 </div>
 
                 <button
                   onClick={handleCancel}
                   disabled={loading}
-                  className="text-xs text-slate-400 hover:text-red-400 flex items-center gap-1.5 transition-colors py-1"
+                  className="text-slate-400 hover:text-red-400 transition-colors"
                 >
-                  <XCircle className="w-4 h-4" />
-                  <span>Annuler et changer de numéro</span>
+                  Annuler
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        {/* FAQ Accordéon dépliable pour rassurer */}
-        <div className="pt-4 border-t border-slate-800/80">
+        {/* FAQ discrète */}
+        <div className="pt-4 border-t border-blue-950/60">
           <button
             type="button"
             onClick={() => setShowFaq(!showFaq)}
             className="flex items-center justify-between w-full text-xs text-slate-400 hover:text-slate-200 transition-colors py-1"
           >
-            <span className="flex items-center gap-1.5">
-              <HelpCircle className="w-4 h-4 text-emerald-400" />
-              <span>Questions fréquentes sur la connexion WhatsApp</span>
-            </span>
-            {showFaq ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            <span>Questions fréquentes</span>
+            {showFaq ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
 
           {showFaq && (
-            <div className="mt-4 space-y-3 text-xs text-slate-400 leading-relaxed bg-slate-900/40 p-4 rounded-xl border border-slate-800/60 animate-in fade-in">
+            <div className="mt-3 space-y-2 text-xs text-slate-400 leading-relaxed bg-[#0A0F1E]/50 p-3.5 rounded-lg border border-blue-950/60 animate-in fade-in">
               <p>
-                <strong>• Mes conversations privées sont-elles conservées ?</strong> Non, aucune conversation ni mot de passe n'est stocké. La connexion s'effectue via le protocole officiel WhatsApp Multi-Device.
+                <strong>• Mes messages sont-ils stockés ?</strong> Non. La connexion est chiffrée de bout en bout par WhatsApp via Baileys.
               </p>
               <p>
-                <strong>• Mon téléphone doit-il rester allumé ?</strong> Une fois associé, WhatsApp Multi-Device continue de fonctionner de manière autonome sur le serveur même si votre téléphone est temporairement déconnecté.
+                <strong>• Mon téléphone doit-il rester connecté ?</strong> Non. Grâce au mode multi-appareils, le bot continue de tourner de manière autonome.
               </p>
               <p>
-                <strong>• Comment déconnecter le bot ?</strong> Vous pouvez déconnecter le bot à tout moment depuis ce site ou directement dans WhatsApp &gt; Appareils connectés &gt; Déconnecter.
+                <strong>• Comment révoquer l'accès ?</strong> Depuis ce site via "Déconnecter", ou directement dans WhatsApp &gt; Appareils connectés.
               </p>
             </div>
           )}

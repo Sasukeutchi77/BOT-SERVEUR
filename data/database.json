@@ -11,330 +11,6 @@
       "updatedAt": "2026-10-15T11:45:26.656Z"
     },
     {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$F4df/Dtzm3dWUx7LjSylgOdJwaT7YyczdXIJLaQF3nJp4FieSpJsy",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T11:45:26.754Z",
-      "updatedAt": "2026-10-15T11:45:26.754Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$F4df/Dtzm3dWUx7LjSylgOdJwaT7YyczdXIJLaQF3nJp4FieSpJsy",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T11:45:26.754Z",
-      "updatedAt": "2026-10-15T11:45:26.754Z"
-    },
-    {
-      "id": "usr_guest_mv9hhfefeld2",
-      "email": "utilisateur_feld2@jarvis.local",
-      "passwordHash": "guest_auto_session",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T11:57:04.695Z",
-      "updatedAt": "2026-10-15T11:57:04.695Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$IGLFUOSHPEDkwQQ4kGHbluRnuZFEwJkpusgf3SYzYQOd03T.n6YCO",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T11:57:13.612Z",
-      "updatedAt": "2026-10-15T11:57:13.612Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$IGLFUOSHPEDkwQQ4kGHbluRnuZFEwJkpusgf3SYzYQOd03T.n6YCO",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T11:57:13.612Z",
-      "updatedAt": "2026-10-15T11:57:13.612Z"
-    },
-    {
-      "id": "usr_guest_mv9hi6b416dr",
-      "email": "utilisateur_416dr@jarvis.local",
-      "passwordHash": "guest_auto_session",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T11:57:39.568Z",
-      "updatedAt": "2026-10-15T11:57:39.568Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$uqEDas3FMzGkTE1hXhK.j.n5oakAzTJsgnGTH4AClQI9Kv7Fbz17i",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:03:33.731Z",
-      "updatedAt": "2026-10-15T12:03:33.731Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$uqEDas3FMzGkTE1hXhK.j.n5oakAzTJsgnGTH4AClQI9Kv7Fbz17i",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:03:33.732Z",
-      "updatedAt": "2026-10-15T12:03:33.732Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$w1tcD/L6A/Jje685NFslteXeynHnue2M9aei4gMEAHwvrL8rcYn6.",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:08:19.078Z",
-      "updatedAt": "2026-10-15T12:08:19.078Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$w1tcD/L6A/Jje685NFslteXeynHnue2M9aei4gMEAHwvrL8rcYn6.",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:08:19.079Z",
-      "updatedAt": "2026-10-15T12:08:19.079Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$9TsWK7Vows6RQbf/qx.NaOT.jqxdNAvlSLR0QsI8qeO9z1B0cwSAm",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:11:37.223Z",
-      "updatedAt": "2026-10-15T12:11:37.223Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$9TsWK7Vows6RQbf/qx.NaOT.jqxdNAvlSLR0QsI8qeO9z1B0cwSAm",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:11:37.224Z",
-      "updatedAt": "2026-10-15T12:11:37.224Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$e35G2krcDB15IkP/5Nd4.OpeDFg2VGYTidryKD5igL2CQi6.oPYpa",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:16:22.511Z",
-      "updatedAt": "2026-10-15T12:16:22.511Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$e35G2krcDB15IkP/5Nd4.OpeDFg2VGYTidryKD5igL2CQi6.oPYpa",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:16:22.511Z",
-      "updatedAt": "2026-10-15T12:16:22.511Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$heVxm8sdNv.Nj69stoUvBubV6P9BclLSJhksqBErybkShr//02dwi",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:28:21.367Z",
-      "updatedAt": "2026-10-15T12:28:21.367Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$heVxm8sdNv.Nj69stoUvBubV6P9BclLSJhksqBErybkShr//02dwi",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:28:21.368Z",
-      "updatedAt": "2026-10-15T12:28:21.368Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$/Xyoxz6OKy8740CI5Y/88OPmAKdg3bb6J9QitkTd9GwKI42Ir2B7u",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:55:20.547Z",
-      "updatedAt": "2026-10-15T12:55:20.547Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$/Xyoxz6OKy8740CI5Y/88OPmAKdg3bb6J9QitkTd9GwKI42Ir2B7u",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T12:55:20.548Z",
-      "updatedAt": "2026-10-15T12:55:20.548Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$x1gz/4TjhdzP7jjecKvpOO7LhLuL.CAK6MtJROAq5ic2hsg1K4yqq",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T13:13:08.421Z",
-      "updatedAt": "2026-10-15T13:13:08.421Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$x1gz/4TjhdzP7jjecKvpOO7LhLuL.CAK6MtJROAq5ic2hsg1K4yqq",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T13:13:08.421Z",
-      "updatedAt": "2026-10-15T13:13:08.421Z"
-    },
-    {
-      "id": "usr_guest_mv9kay6v8bbd",
-      "email": "utilisateur_v8bbd@jarvis.local",
-      "passwordHash": "guest_auto_session",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T13:16:01.303Z",
-      "updatedAt": "2026-10-15T13:16:01.303Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$QoOv.EDDlVuBMDXqDJJ3X.UtdBrHxt/uXoTmD.Tz2Up6lNiPZ0L3K",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T13:16:36.177Z",
-      "updatedAt": "2026-10-15T13:16:36.177Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$QoOv.EDDlVuBMDXqDJJ3X.UtdBrHxt/uXoTmD.Tz2Up6lNiPZ0L3K",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T13:16:36.178Z",
-      "updatedAt": "2026-10-15T13:16:36.178Z"
-    },
-    {
-      "id": "usr_guest_mv9rq815j59w",
-      "email": "utilisateur_5j59w@jarvis.local",
-      "passwordHash": "guest_auto_session",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T16:43:51.209Z",
-      "updatedAt": "2026-10-15T16:43:51.209Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$yeXe4rcgnK1Th.QO2Fw02OcCvBRpsTOIUWFhLmOvRvKV5m0jXERyu",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T16:45:44.958Z",
-      "updatedAt": "2026-10-15T16:45:44.958Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$yeXe4rcgnK1Th.QO2Fw02OcCvBRpsTOIUWFhLmOvRvKV5m0jXERyu",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T16:45:44.959Z",
-      "updatedAt": "2026-10-15T16:45:44.959Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$UTumW3tpRjqH4F7o9/BIpuiM4cXkLVYX/P6nhP2yuOZBqS.b4DqNu",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:42:07.184Z",
-      "updatedAt": "2026-10-15T17:42:07.184Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$UTumW3tpRjqH4F7o9/BIpuiM4cXkLVYX/P6nhP2yuOZBqS.b4DqNu",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:42:07.184Z",
-      "updatedAt": "2026-10-15T17:42:07.184Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$d63mBxRaAU5oIoV8zvGSc.s1LJmbHG/ZaNGXCqnJUS92eOmYkBFi6",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:42:23.986Z",
-      "updatedAt": "2026-10-15T17:42:23.986Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$d63mBxRaAU5oIoV8zvGSc.s1LJmbHG/ZaNGXCqnJUS92eOmYkBFi6",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:42:23.987Z",
-      "updatedAt": "2026-10-15T17:42:23.987Z"
-    },
-    {
-      "id": "usr_guest_mv9ttwsz4rf3",
-      "email": "utilisateur_z4rf3@jarvis.local",
-      "passwordHash": "guest_auto_session",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:42:42.515Z",
-      "updatedAt": "2026-10-15T17:42:42.515Z"
-    },
-    {
-      "id": "usr_guest_mv9tvqx5u1e0",
-      "email": "utilisateur_5u1e0@jarvis.local",
-      "passwordHash": "guest_auto_session",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:44:08.201Z",
-      "updatedAt": "2026-10-15T17:44:08.201Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$luBkluhhXzQbEroZPXODDOcItkp6b08.S6zZquxf5pkGH/jhI8Ku2",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:48:01.086Z",
-      "updatedAt": "2026-10-15T17:48:01.086Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$luBkluhhXzQbEroZPXODDOcItkp6b08.S6zZquxf5pkGH/jhI8Ku2",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T17:48:01.087Z",
-      "updatedAt": "2026-10-15T17:48:01.087Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$EMuU9fC83Dzw1RPzsk7/qe6p864tWroYL2nL4GUVxZtfFie6Qxewy",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T18:01:36.800Z",
-      "updatedAt": "2026-10-15T18:01:36.800Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$EMuU9fC83Dzw1RPzsk7/qe6p864tWroYL2nL4GUVxZtfFie6Qxewy",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T18:01:36.800Z",
-      "updatedAt": "2026-10-15T18:01:36.800Z"
-    },
-    {
       "id": "usr_guest_mv9yrppfdd2a",
       "email": "utilisateur_fdd2a@jarvis.local",
       "passwordHash": "guest_auto_session",
@@ -346,1077 +22,31 @@
     {
       "id": "usr_test_1",
       "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$fTD9YW6enNLSYisEIlg5.ubVIwFVmt4hFNgq03PrxHuGuIzyj39xO",
+      "passwordHash": "$2b$10$7aVeAGepRqk2VO.hNq8oaeMW3RiAw9AZvhJaqEo0MgkoVUma0grV2",
       "role": "user",
       "isSuspended": false,
-      "createdAt": "2026-10-15T20:05:38.893Z",
-      "updatedAt": "2026-10-15T20:05:38.893Z"
+      "createdAt": "2026-10-16T12:25:57.189Z",
+      "updatedAt": "2026-10-16T12:25:57.189Z"
     },
     {
       "id": "usr_test_2",
       "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$fTD9YW6enNLSYisEIlg5.ubVIwFVmt4hFNgq03PrxHuGuIzyj39xO",
+      "passwordHash": "$2b$10$7aVeAGepRqk2VO.hNq8oaeMW3RiAw9AZvhJaqEo0MgkoVUma0grV2",
       "role": "user",
       "isSuspended": false,
-      "createdAt": "2026-10-15T20:05:38.894Z",
-      "updatedAt": "2026-10-15T20:05:38.894Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$hAcCyALh4esSlal5JS4eYO21WXsvaZ5TEtRkkbUKknxl9fEAUAx.G",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T20:45:44.372Z",
-      "updatedAt": "2026-10-15T20:45:44.372Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$hAcCyALh4esSlal5JS4eYO21WXsvaZ5TEtRkkbUKknxl9fEAUAx.G",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T20:45:44.374Z",
-      "updatedAt": "2026-10-15T20:45:44.374Z"
-    },
-    {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$306zlTFDvthIEFgeNmbeT.wLw2jVmWdgL9BE5hs8hqoaN9RSOUpYG",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T20:58:38.555Z",
-      "updatedAt": "2026-10-15T20:58:38.555Z"
-    },
-    {
-      "id": "usr_test_2",
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$306zlTFDvthIEFgeNmbeT.wLw2jVmWdgL9BE5hs8hqoaN9RSOUpYG",
-      "role": "user",
-      "isSuspended": false,
-      "createdAt": "2026-10-15T20:58:38.556Z",
-      "updatedAt": "2026-10-15T20:58:38.556Z"
+      "createdAt": "2026-10-16T12:25:57.189Z",
+      "updatedAt": "2026-10-16T12:25:57.189Z"
     }
   ],
   "bots": [
     {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 24,
-        "commandsExecuted": 24,
-        "reconnectAttempts": 0,
-        "lastActivityAt": "2026-10-15T20:58:38.565Z"
-      },
-      "createdAt": "2026-10-15T11:45:26.754Z",
-      "updatedAt": "2026-10-15T20:58:38.565Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T11:45:26.754Z",
-      "updatedAt": "2026-10-15T11:45:26.754Z"
-    },
-    {
-      "id": "bot_mv9hhfeg0rx9",
-      "userId": "usr_guest_mv9hhfefeld2",
-      "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": ".",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T11:57:04.696Z",
-      "updatedAt": "2026-10-15T11:57:04.696Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T11:57:13.612Z",
-      "updatedAt": "2026-10-15T11:57:13.612Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T11:57:13.612Z",
-      "updatedAt": "2026-10-15T11:57:13.612Z"
-    },
-    {
-      "id": "bot_mv9hi6b4kr9g",
-      "userId": "usr_guest_mv9hi6b416dr",
-      "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": ".",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T11:57:39.568Z",
-      "updatedAt": "2026-10-15T11:57:39.568Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:03:33.732Z",
-      "updatedAt": "2026-10-15T12:03:33.732Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:03:33.732Z",
-      "updatedAt": "2026-10-15T12:03:33.732Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:08:19.079Z",
-      "updatedAt": "2026-10-15T12:08:19.079Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:08:19.079Z",
-      "updatedAt": "2026-10-15T12:08:19.079Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:11:37.224Z",
-      "updatedAt": "2026-10-15T12:11:37.224Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:11:37.224Z",
-      "updatedAt": "2026-10-15T12:11:37.224Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:16:22.511Z",
-      "updatedAt": "2026-10-15T12:16:22.511Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:16:22.512Z",
-      "updatedAt": "2026-10-15T12:16:22.512Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:28:21.368Z",
-      "updatedAt": "2026-10-15T12:28:21.368Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:28:21.368Z",
-      "updatedAt": "2026-10-15T12:28:21.368Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:55:20.548Z",
-      "updatedAt": "2026-10-15T12:55:20.548Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T12:55:20.549Z",
-      "updatedAt": "2026-10-15T12:55:20.549Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T13:13:08.422Z",
-      "updatedAt": "2026-10-15T13:13:08.422Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T13:13:08.422Z",
-      "updatedAt": "2026-10-15T13:13:08.422Z"
-    },
-    {
-      "id": "bot_mv9kay6wm7jv",
-      "userId": "usr_guest_mv9kay6v8bbd",
-      "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": ".",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T13:16:01.304Z",
-      "updatedAt": "2026-10-15T13:16:01.304Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T13:16:36.178Z",
-      "updatedAt": "2026-10-15T13:16:36.178Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T13:16:36.178Z",
-      "updatedAt": "2026-10-15T13:16:36.178Z"
-    },
-    {
-      "id": "bot_mv9rq816krsb",
-      "userId": "usr_guest_mv9rq815j59w",
-      "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": ".",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T16:43:51.210Z",
-      "updatedAt": "2026-10-15T16:43:51.210Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T16:45:44.959Z",
-      "updatedAt": "2026-10-15T16:45:44.959Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T16:45:44.960Z",
-      "updatedAt": "2026-10-15T16:45:44.960Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T17:42:07.185Z",
-      "updatedAt": "2026-10-15T17:42:07.185Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T17:42:07.185Z",
-      "updatedAt": "2026-10-15T17:42:07.185Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T17:42:23.987Z",
-      "updatedAt": "2026-10-15T17:42:23.987Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T17:42:23.988Z",
-      "updatedAt": "2026-10-15T17:42:23.988Z"
-    },
-    {
-      "id": "bot_mv9ttwsztyon",
-      "userId": "usr_guest_mv9ttwsz4rf3",
-      "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 1,
-        "commandsExecuted": 1,
-        "reconnectAttempts": 0,
-        "lastActivityAt": "2026-10-15T17:42:53.660Z"
-      },
-      "createdAt": "2026-10-15T17:42:42.515Z",
-      "updatedAt": "2026-10-15T17:42:53.660Z"
-    },
-    {
-      "id": "bot_mv9tvqx6usv5",
-      "userId": "usr_guest_mv9tvqx5u1e0",
-      "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": "/",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 1
-      },
-      "createdAt": "2026-10-15T17:44:08.202Z",
-      "updatedAt": "2026-10-15T17:57:38.103Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T17:48:01.087Z",
-      "updatedAt": "2026-10-15T17:48:01.087Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T17:48:01.088Z",
-      "updatedAt": "2026-10-15T17:48:01.088Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T18:01:36.801Z",
-      "updatedAt": "2026-10-15T18:01:36.801Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T18:01:36.802Z",
-      "updatedAt": "2026-10-15T18:01:36.802Z"
-    },
-    {
       "id": "bot_mv9yrppg4bop",
       "userId": "usr_guest_mv9yrppfdd2a",
       "name": "Numéro WhatsApp #1 (Principal)",
-      "status": "ONLINE",
+      "status": "OFFLINE",
       "config": {
         "botName": "JARVIS",
-        "prefix": "!",
+        "prefix": ".",
         "autoRead": false,
         "reactToStatus": false,
         "antiDelete": false,
@@ -1435,210 +65,14 @@
         ]
       },
       "stats": {
-        "messagesHandled": 422,
+        "messagesHandled": 1156,
         "commandsExecuted": 0,
-        "lastConnectedAt": "2026-10-15T20:58:47.909Z",
-        "lastActivityAt": "2026-10-15T20:58:47.909Z",
-        "reconnectAttempts": 0
+        "lastConnectedAt": "2026-10-16T11:47:01.862Z",
+        "lastActivityAt": "2026-10-16T11:47:01.862Z",
+        "reconnectAttempts": 1
       },
       "createdAt": "2026-10-15T20:00:58.084Z",
-      "updatedAt": "2026-10-15T20:58:47.909Z",
-      "phoneNumber": "+22607603281"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:05:38.895Z",
-      "updatedAt": "2026-10-15T20:05:38.895Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:05:38.896Z",
-      "updatedAt": "2026-10-15T20:05:38.896Z"
-    },
-    {
-      "id": "bot_mva08wi71cha",
-      "userId": "usr_guest_mv9yrppfdd2a",
-      "name": "Numéro WhatsApp #2",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS",
-        "prefix": ".",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "runtime",
-          "info",
-          "ai",
-          "calc",
-          "qr",
-          "quote",
-          "tagall"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:42:19.663Z",
-      "updatedAt": "2026-10-15T20:42:19.664Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:45:44.375Z",
-      "updatedAt": "2026-10-15T20:45:44.375Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:45:44.376Z",
-      "updatedAt": "2026-10-15T20:45:44.376Z"
-    },
-    {
-      "id": "bot_test_1",
-      "userId": "usr_test_1",
-      "name": "Bot Utilisateur 1",
-      "phoneNumber": "+33612345678",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 1",
-        "prefix": "!",
-        "autoRead": false,
-        "reactToStatus": false,
-        "antiDelete": false,
-        "antiSpam": true,
-        "welcomeMessage": "Bot 1 welcome",
-        "enabledCommands": [
-          "help",
-          "ping",
-          "calc"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:58:38.558Z",
-      "updatedAt": "2026-10-15T20:58:38.558Z"
-    },
-    {
-      "id": "bot_test_2",
-      "userId": "usr_test_2",
-      "name": "Bot Utilisateur 2",
-      "phoneNumber": "+221778901234",
-      "status": "OFFLINE",
-      "config": {
-        "botName": "JARVIS 2",
-        "prefix": "#",
-        "autoRead": true,
-        "reactToStatus": true,
-        "antiDelete": true,
-        "antiSpam": false,
-        "welcomeMessage": "Bot 2 welcome",
-        "enabledCommands": [
-          "ping"
-        ]
-      },
-      "stats": {
-        "messagesHandled": 0,
-        "commandsExecuted": 0,
-        "reconnectAttempts": 0
-      },
-      "createdAt": "2026-10-15T20:58:38.559Z",
-      "updatedAt": "2026-10-15T20:58:38.559Z"
+      "updatedAt": "2026-10-16T12:19:47.960Z"
     }
   ],
   "logs": [
@@ -1916,1397 +350,1404 @@
       "timestamp": "2026-10-15T17:57:38.101Z"
     },
     {
-      "id": "log_mv9z3ch6hgri",
+      "id": "log_mvawf098i07e",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Préfixe de commande mis à jour : [ ! ]",
-      "timestamp": "2026-10-15T20:10:00.810Z"
+      "message": "Message reçu: . whoami",
+      "timestamp": "2026-10-16T11:42:52.172Z"
     },
     {
-      "id": "log_mv9z3dylm58t",
+      "id": "log_mvawf0fs5fpb",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime chéri 🖤✨",
+      "timestamp": "2026-10-16T11:42:52.408Z"
+    },
+    {
+      "id": "log_mvawf0fvnngt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime chéri 🖤✨",
+      "timestamp": "2026-10-16T11:42:52.411Z"
+    },
+    {
+      "id": "log_mvawf0hdm4v8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’espère que ça t’a plu le texte 🌹",
+      "timestamp": "2026-10-16T11:42:52.465Z"
+    },
+    {
+      "id": "log_mvawf0hg65t1",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’espère que ça t’a plu le texte 🌹",
+      "timestamp": "2026-10-16T11:42:52.468Z"
+    },
+    {
+      "id": "log_mvawf0jr3l8m",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!",
+      "timestamp": "2026-10-16T11:42:52.551Z"
+    },
+    {
+      "id": "log_mvawf0jvm2px",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!",
+      "timestamp": "2026-10-16T11:42:52.555Z"
+    },
+    {
+      "id": "log_mvawf0lb82s8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui mon amour j'ai tout lu mots par mots",
+      "timestamp": "2026-10-16T11:42:52.607Z"
+    },
+    {
+      "id": "log_mvawf0leo6m0",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui mon amour j'ai tout lu mots par mots",
+      "timestamp": "2026-10-16T11:42:52.610Z"
+    },
+    {
+      "id": "log_mvawf0swxtk6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Va dormir",
+      "timestamp": "2026-10-16T11:42:52.880Z"
+    },
+    {
+      "id": "log_mvawf0sze8ym",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Va dormir",
+      "timestamp": "2026-10-16T11:42:52.883Z"
+    },
+    {
+      "id": "log_mvawf14252s6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T11:42:53.282Z"
+    },
+    {
+      "id": "log_mvawf145jjgi",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T11:42:53.285Z"
+    },
+    {
+      "id": "log_mvawf1c39v2n",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Moi je suis réveillée je part au stage je suis crevée j’ai m",
+      "timestamp": "2026-10-16T11:42:53.571Z"
+    },
+    {
+      "id": "log_mvawf1c78p98",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Moi je suis réveillée je part au stage je suis crevée j’ai m",
+      "timestamp": "2026-10-16T11:42:53.575Z"
+    },
+    {
+      "id": "log_mvawf1embdry",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’espère avoir été la première à te l’avoir souhaité 🥲🥲🥲\ud83e",
+      "timestamp": "2026-10-16T11:42:53.662Z"
+    },
+    {
+      "id": "log_mvawf1ep005v",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’espère avoir été la première à te l’avoir souhaité 🥲🥲🥲\ud83e",
+      "timestamp": "2026-10-16T11:42:53.665Z"
+    },
+    {
+      "id": "log_mvawf1juav3k",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .ping",
+      "timestamp": "2026-10-16T11:42:53.850Z"
+    },
+    {
+      "id": "log_mvawf1jxsx1m",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .ping",
+      "timestamp": "2026-10-16T11:42:53.853Z"
+    },
+    {
+      "id": "log_mvawf1qfuh2o",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui mon amour c'est toi la première",
+      "timestamp": "2026-10-16T11:42:54.087Z"
+    },
+    {
+      "id": "log_mvawf1qii5ft",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui mon amour c'est toi la première",
+      "timestamp": "2026-10-16T11:42:54.090Z"
+    },
+    {
+      "id": "log_mvawf1z9juop",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: D'accord mon amour il faut essayer de trouver quelque chose ",
+      "timestamp": "2026-10-16T11:42:54.405Z"
+    },
+    {
+      "id": "log_mvawf1zce1im",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: D'accord mon amour il faut essayer de trouver quelque chose ",
+      "timestamp": "2026-10-16T11:42:54.408Z"
+    },
+    {
+      "id": "log_mvawf29rgldw",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Maintenant va dodo aller !!!!",
+      "timestamp": "2026-10-16T11:42:54.783Z"
+    },
+    {
+      "id": "log_mvawf29upywv",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Maintenant va dodo aller !!!!",
+      "timestamp": "2026-10-16T11:42:54.786Z"
+    },
+    {
+      "id": "log_mvawf2e8vs2v",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui t’inquiète pas je prend déjà assez de médoc 🥲🥲 mais là",
+      "timestamp": "2026-10-16T11:42:54.944Z"
+    },
+    {
+      "id": "log_mvawf2ebw79s",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui t’inquiète pas je prend déjà assez de médoc 🥲🥲 mais là",
+      "timestamp": "2026-10-16T11:42:54.947Z"
+    },
+    {
+      "id": "log_mvawf2guox1g",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Et oki fait attention à toi bonne nuit repose toi bien bisou",
+      "timestamp": "2026-10-16T11:42:55.038Z"
+    },
+    {
+      "id": "log_mvawf2gy5diy",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Et oki fait attention à toi bonne nuit repose toi bien bisou",
+      "timestamp": "2026-10-16T11:42:55.042Z"
+    },
+    {
+      "id": "log_mvawf2i61x5h",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire",
+      "timestamp": "2026-10-16T11:42:55.086Z"
+    },
+    {
+      "id": "log_mvawf2i9n3qo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire",
+      "timestamp": "2026-10-16T11:42:55.089Z"
+    },
+    {
+      "id": "log_mvawf30fueg7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire mon chéri d’amour !!!!!🌹✨🎉",
+      "timestamp": "2026-10-16T11:42:55.743Z"
+    },
+    {
+      "id": "log_mvawf30igfrx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire mon chéri d’amour !!!!!🌹✨🎉",
+      "timestamp": "2026-10-16T11:42:55.746Z"
+    },
+    {
+      "id": "log_mvawf30sa7no",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime arrerh",
+      "timestamp": "2026-10-16T11:42:55.756Z"
+    },
+    {
+      "id": "log_mvawf30vnson",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime arrerh",
+      "timestamp": "2026-10-16T11:42:55.759Z"
+    },
+    {
+      "id": "log_mvawf31i1q3l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!! 🎉🥳🥳",
+      "timestamp": "2026-10-16T11:42:55.782Z"
+    },
+    {
+      "id": "log_mvawf31kld8k",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!! 🎉🥳🥳",
+      "timestamp": "2026-10-16T11:42:55.784Z"
+    },
+    {
+      "id": "log_mvawf31sixgr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Franchement j’espère que tu vas passer une bonne journée auj",
+      "timestamp": "2026-10-16T11:42:55.792Z"
+    },
+    {
+      "id": "log_mvawf31v1w0o",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Franchement j’espère que tu vas passer une bonne journée auj",
+      "timestamp": "2026-10-16T11:42:55.795Z"
+    },
+    {
+      "id": "log_mvawf34pescx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Sasuke lui fait les fesses",
+      "timestamp": "2026-10-16T11:42:55.897Z"
+    },
+    {
+      "id": "log_mvawf34tv4lm",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Sasuke lui fait les fesses",
+      "timestamp": "2026-10-16T11:42:55.901Z"
+    },
+    {
+      "id": "log_mvawf352efso",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Shanks peut faire quoi a un susanoo",
+      "timestamp": "2026-10-16T11:42:55.910Z"
+    },
+    {
+      "id": "log_mvawf356gy6q",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Shanks peut faire quoi a un susanoo",
+      "timestamp": "2026-10-16T11:42:55.914Z"
+    },
+    {
+      "id": "log_mvawf362e6om",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Moi aussi je l'espère",
+      "timestamp": "2026-10-16T11:42:55.946Z"
+    },
+    {
+      "id": "log_mvawf366d1hj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Moi aussi je l'espère",
+      "timestamp": "2026-10-16T11:42:55.950Z"
+    },
+    {
+      "id": "log_mvawf37anhi5",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .repo",
+      "timestamp": "2026-10-16T11:42:55.990Z"
+    },
+    {
+      "id": "log_mvawf37c0cfx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .repo",
+      "timestamp": "2026-10-16T11:42:55.992Z"
+    },
+    {
+      "id": "log_mvawf37qfu0u",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: *arrive avec sa bécane \nBah là personne ?",
+      "timestamp": "2026-10-16T11:42:56.006Z"
+    },
+    {
+      "id": "log_mvawf37vthcq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: *arrive avec sa bécane \nBah là personne ?",
+      "timestamp": "2026-10-16T11:42:56.011Z"
+    },
+    {
+      "id": "log_mvawf38qo0ov",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Pas de problème juste que j'ai commandé un PC qui vient à la",
+      "timestamp": "2026-10-16T11:42:56.042Z"
+    },
+    {
+      "id": "log_mvawf38sf0i3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Pas de problème juste que j'ai commandé un PC qui vient à la",
+      "timestamp": "2026-10-16T11:42:56.044Z"
+    },
+    {
+      "id": "log_mvawf391yotp",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Boss  aidé à vendre cette tablette",
+      "timestamp": "2026-10-16T11:42:56.053Z"
+    },
+    {
+      "id": "log_mvawf393llas",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Boss  aidé à vendre cette tablette",
+      "timestamp": "2026-10-16T11:42:56.055Z"
+    },
+    {
+      "id": "log_mvawf3a53yrh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire",
+      "timestamp": "2026-10-16T11:42:56.093Z"
+    },
+    {
+      "id": "log_mvawf3a8wfis",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire",
+      "timestamp": "2026-10-16T11:42:56.096Z"
+    },
+    {
+      "id": "log_mvawf3arafjf",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: REGARDE CE QUE MA POTE A FAIT MDR 😒😒😭😭😭😭",
+      "timestamp": "2026-10-16T11:42:56.115Z"
+    },
+    {
+      "id": "log_mvawf3aus5ez",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: REGARDE CE QUE MA POTE A FAIT MDR 😒😒😭😭😭😭",
+      "timestamp": "2026-10-16T11:42:56.118Z"
+    },
+    {
+      "id": "log_mvawf3c9ebpa",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JE T’AIME MON AMOUR !!!!!",
+      "timestamp": "2026-10-16T11:42:56.169Z"
+    },
+    {
+      "id": "log_mvawf3cen55i",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JE T’AIME MON AMOUR !!!!!",
+      "timestamp": "2026-10-16T11:42:56.174Z"
+    },
+    {
+      "id": "log_mvawf3crlf03",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE CHÉRI 🎉🎉🎉🎉🥳🥳🥳🥳",
+      "timestamp": "2026-10-16T11:42:56.187Z"
+    },
+    {
+      "id": "log_mvawf3cvr8la",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE CHÉRI 🎉🎉🎉🎉🥳🥳🥳🥳",
+      "timestamp": "2026-10-16T11:42:56.191Z"
+    },
+    {
+      "id": "log_mvawf3d7g6j4",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tkt pas ce soir tu aura plein de cadeau mon chéri d’amour 👀",
+      "timestamp": "2026-10-16T11:42:56.203Z"
+    },
+    {
+      "id": "log_mvawf3ddbr98",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tkt pas ce soir tu aura plein de cadeau mon chéri d’amour 👀",
+      "timestamp": "2026-10-16T11:42:56.209Z"
+    },
+    {
+      "id": "log_mvawf3ex1rbi",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: ✨✨",
+      "timestamp": "2026-10-16T11:42:56.265Z"
+    },
+    {
+      "id": "log_mvawf3f08bzq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: ✨✨",
+      "timestamp": "2026-10-16T11:42:56.268Z"
+    },
+    {
+      "id": "log_mvawf3fvvug7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J'ai hâte alors 🫠",
+      "timestamp": "2026-10-16T11:42:56.299Z"
+    },
+    {
+      "id": "log_mvawf3fyfhry",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J'ai hâte alors 🫠",
+      "timestamp": "2026-10-16T11:42:56.302Z"
+    },
+    {
+      "id": "log_mvawf3hemmty",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T11:42:56.354Z"
+    },
+    {
+      "id": "log_mvawf3hi04kl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T11:42:56.358Z"
+    },
+    {
+      "id": "log_mvawf3i26gsl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . welcome on",
+      "timestamp": "2026-10-16T11:42:56.378Z"
+    },
+    {
+      "id": "log_mvawf3i4393e",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . welcome on",
+      "timestamp": "2026-10-16T11:42:56.380Z"
+    },
+    {
+      "id": "log_mvawf3ik6h7g",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .info",
+      "timestamp": "2026-10-16T11:42:56.396Z"
+    },
+    {
+      "id": "log_mvawf3in0hpa",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .info",
+      "timestamp": "2026-10-16T11:42:56.399Z"
+    },
+    {
+      "id": "log_mvawf3j0fxyd",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .repo",
+      "timestamp": "2026-10-16T11:42:56.412Z"
+    },
+    {
+      "id": "log_mvawf3j22o4f",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .repo",
+      "timestamp": "2026-10-16T11:42:56.414Z"
+    },
+    {
+      "id": "log_mvawf3kgfk8j",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bobo Dioulasso\nÀ belle ville après la clinique eurika\nCour c",
+      "timestamp": "2026-10-16T11:42:56.464Z"
+    },
+    {
+      "id": "log_mvawf3kjcxjc",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bobo Dioulasso\nÀ belle ville après la clinique eurika\nCour c",
+      "timestamp": "2026-10-16T11:42:56.467Z"
+    },
+    {
+      "id": "log_mvawf3lfayyn",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE",
+      "timestamp": "2026-10-16T11:42:56.499Z"
+    },
+    {
+      "id": "log_mvawf3lhtdmm",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE",
+      "timestamp": "2026-10-16T11:42:56.501Z"
+    },
+    {
+      "id": "log_mvawf3lq1w9v",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🥳🥳🥳",
+      "timestamp": "2026-10-16T11:42:56.510Z"
+    },
+    {
+      "id": "log_mvawf3ltpha3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🥳🥳🥳",
+      "timestamp": "2026-10-16T11:42:56.513Z"
+    },
+    {
+      "id": "log_mvawf3m8gbgo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 👀😏",
+      "timestamp": "2026-10-16T11:42:56.528Z"
+    },
+    {
+      "id": "log_mvawf3masam6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 👀😏",
+      "timestamp": "2026-10-16T11:42:56.530Z"
+    },
+    {
+      "id": "log_mvawf3mk34q8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: C’est une connasse même si c’est drôle 🤣",
+      "timestamp": "2026-10-16T11:42:56.540Z"
+    },
+    {
+      "id": "log_mvawf3mn3f2g",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: C’est une connasse même si c’est drôle 🤣",
+      "timestamp": "2026-10-16T11:42:56.543Z"
+    },
+    {
+      "id": "log_mvawf3nl3jin",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T11:42:56.577Z"
+    },
+    {
+      "id": "log_mvawf3noyut7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T11:42:56.580Z"
+    },
+    {
+      "id": "log_mvawf3oj8ls6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . statue",
+      "timestamp": "2026-10-16T11:42:56.611Z"
+    },
+    {
+      "id": "log_mvawf3oml867",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . statue",
+      "timestamp": "2026-10-16T11:42:56.614Z"
+    },
+    {
+      "id": "log_mvawf3p359dr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime mon amour vraiment vraiment beaucoup",
+      "timestamp": "2026-10-16T11:42:56.631Z"
+    },
+    {
+      "id": "log_mvawf3p5ycwn",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime mon amour vraiment vraiment beaucoup",
+      "timestamp": "2026-10-16T11:42:56.633Z"
+    },
+    {
+      "id": "log_mvawf3pg4bkq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Mon chéri I love you !!!!",
+      "timestamp": "2026-10-16T11:42:56.644Z"
+    },
+    {
+      "id": "log_mvawf3pioced",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Mon chéri I love you !!!!",
+      "timestamp": "2026-10-16T11:42:56.646Z"
+    },
+    {
+      "id": "log_mvawf3qd7qwv",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .info",
+      "timestamp": "2026-10-16T11:42:56.677Z"
+    },
+    {
+      "id": "log_mvawf3qglxt2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .info",
+      "timestamp": "2026-10-16T11:42:56.680Z"
+    },
+    {
+      "id": "log_mvawf3qzsodd",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . repo",
+      "timestamp": "2026-10-16T11:42:56.699Z"
+    },
+    {
+      "id": "log_mvawf3r214ig",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . repo",
+      "timestamp": "2026-10-16T11:42:56.702Z"
+    },
+    {
+      "id": "log_mvawf3rcncek",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Suivre la chaîne Free Sûrf sur WhatsApp  : https://whatsapp.",
+      "timestamp": "2026-10-16T11:42:56.712Z"
+    },
+    {
+      "id": "log_mvawf3rl4ea2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Suivre la chaîne Free Sûrf sur WhatsApp  : https://whatsapp.",
+      "timestamp": "2026-10-16T11:42:56.721Z"
+    },
+    {
+      "id": "log_mvawf3scagjp",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: https://chat.whatsapp.com/DDrdpX4q9XeCJRRTKY8iIC?s=cl&p=a&ml",
+      "timestamp": "2026-10-16T11:42:56.748Z"
+    },
+    {
+      "id": "log_mvawf3sfwibz",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: https://chat.whatsapp.com/DDrdpX4q9XeCJRRTKY8iIC?s=cl&p=a&ml",
+      "timestamp": "2026-10-16T11:42:56.751Z"
+    },
+    {
+      "id": "log_mvawf3ssi4zx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 2go mon frère",
+      "timestamp": "2026-10-16T11:42:56.764Z"
+    },
+    {
+      "id": "log_mvawf3sxgw0d",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 2go mon frère",
+      "timestamp": "2026-10-16T11:42:56.769Z"
+    },
+    {
+      "id": "log_mvawf3u2fzdj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: RÉSEAU :Orange illimité ⭐\nApp: NPV TUNNEL \nEXPIRE : 07H30\nCO",
+      "timestamp": "2026-10-16T11:42:56.810Z"
+    },
+    {
+      "id": "log_mvawf3u6st2r",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: RÉSEAU :Orange illimité ⭐\nApp: NPV TUNNEL \nEXPIRE : 07H30\nCO",
+      "timestamp": "2026-10-16T11:42:56.814Z"
+    },
+    {
+      "id": "log_mvawf3vd248w",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: C'est pour ceux qui ont déjà pris leur formation au orange n",
+      "timestamp": "2026-10-16T11:42:56.857Z"
+    },
+    {
+      "id": "log_mvawf3vgkeb6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: C'est pour ceux qui ont déjà pris leur formation au orange n",
+      "timestamp": "2026-10-16T11:42:56.860Z"
+    },
+    {
+      "id": "log_mvawf3vulvfm",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui aussi mi amor",
+      "timestamp": "2026-10-16T11:42:56.874Z"
+    },
+    {
+      "id": "log_mvawf3vw12bc",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui aussi mi amor",
+      "timestamp": "2026-10-16T11:42:56.876Z"
+    },
+    {
+      "id": "log_mvawf3xlrtpm",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🔥 MONÉTISATION DES COMPTES TIKTOK 🔥\n\n💰 Disponible aujourd",
+      "timestamp": "2026-10-16T11:42:56.937Z"
+    },
+    {
+      "id": "log_mvawf3xnx04v",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🔥 MONÉTISATION DES COMPTES TIKTOK 🔥\n\n💰 Disponible aujourd",
+      "timestamp": "2026-10-16T11:42:56.939Z"
+    },
+    {
+      "id": "log_mvawf3ydleoq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!!",
+      "timestamp": "2026-10-16T11:42:56.965Z"
+    },
+    {
+      "id": "log_mvawf3yfxgjt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!!",
+      "timestamp": "2026-10-16T11:42:56.967Z"
+    },
+    {
+      "id": "log_mvawf3z3fk10",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics leto",
+      "timestamp": "2026-10-16T11:42:56.991Z"
+    },
+    {
+      "id": "log_mvawf3z560p1",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics leto",
+      "timestamp": "2026-10-16T11:42:56.993Z"
+    },
+    {
+      "id": "log_mvawf3zg38ff",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics menace santana",
+      "timestamp": "2026-10-16T11:42:57.004Z"
+    },
+    {
+      "id": "log_mvawf3zjh39e",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics menace santana",
+      "timestamp": "2026-10-16T11:42:57.007Z"
+    },
+    {
+      "id": "log_mvawf3zyu3e4",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .song lybro",
+      "timestamp": "2026-10-16T11:42:57.022Z"
+    },
+    {
+      "id": "log_mvawf401lzki",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .song lybro",
+      "timestamp": "2026-10-16T11:42:57.025Z"
+    },
+    {
+      "id": "log_mvawf40b68xd",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ha je t avait pas vu. Cv ?",
+      "timestamp": "2026-10-16T11:42:57.035Z"
+    },
+    {
+      "id": "log_mvawf40dmo1n",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ha je t avait pas vu. Cv ?",
+      "timestamp": "2026-10-16T11:42:57.037Z"
+    },
+    {
+      "id": "log_mvawf40p58lf",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Merci beaucoup mi amor",
+      "timestamp": "2026-10-16T11:42:57.049Z"
+    },
+    {
+      "id": "log_mvawf40s8t4j",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Merci beaucoup mi amor",
+      "timestamp": "2026-10-16T11:42:57.052Z"
+    },
+    {
+      "id": "log_mvawf41d65w6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’espère que tu passe une bonne journée chéri !!!!",
+      "timestamp": "2026-10-16T11:42:57.073Z"
+    },
+    {
+      "id": "log_mvawf41havmb",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’espère que tu passe une bonne journée chéri !!!!",
+      "timestamp": "2026-10-16T11:42:57.077Z"
+    },
+    {
+      "id": "log_mvawf423wzey",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ce soir on se fait une petite soirée tout les deux pr ton an",
+      "timestamp": "2026-10-16T11:42:57.099Z"
+    },
+    {
+      "id": "log_mvawf426r1td",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ce soir on se fait une petite soirée tout les deux pr ton an",
+      "timestamp": "2026-10-16T11:42:57.102Z"
+    },
+    {
+      "id": "log_mvawf42pjd99",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je ne fais rien toute la journée",
+      "timestamp": "2026-10-16T11:42:57.121Z"
+    },
+    {
+      "id": "log_mvawf42sgqsl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je ne fais rien toute la journée",
+      "timestamp": "2026-10-16T11:42:57.124Z"
+    },
+    {
+      "id": "log_mvawf439qvmc",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tu travailles pas ??",
+      "timestamp": "2026-10-16T11:42:57.141Z"
+    },
+    {
+      "id": "log_mvawf43ciyet",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tu travailles pas ??",
+      "timestamp": "2026-10-16T11:42:57.144Z"
+    },
+    {
+      "id": "log_mvawf43qrm85",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: C’est cool ça bah ce soir réserve ta soirée on la passe tout",
+      "timestamp": "2026-10-16T11:42:57.158Z"
+    },
+    {
+      "id": "log_mvawf43sxe6m",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: C’est cool ça bah ce soir réserve ta soirée on la passe tout",
+      "timestamp": "2026-10-16T11:42:57.160Z"
+    },
+    {
+      "id": "log_mvawf44c49b2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je vais fait faire un programme pr ton anniversaire ce soir ",
+      "timestamp": "2026-10-16T11:42:57.180Z"
+    },
+    {
+      "id": "log_mvawf44f4a0n",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je vais fait faire un programme pr ton anniversaire ce soir ",
+      "timestamp": "2026-10-16T11:42:57.183Z"
+    },
+    {
+      "id": "log_mvawf44zluux",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je gère tout mon amour ne tkt pas ce que tu dois faire toi c",
+      "timestamp": "2026-10-16T11:42:57.203Z"
+    },
+    {
+      "id": "log_mvawf451vr6f",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je gère tout mon amour ne tkt pas ce que tu dois faire toi c",
+      "timestamp": "2026-10-16T11:42:57.205Z"
+    },
+    {
+      "id": "log_mvawf45b9qvx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire mon amoureux !!!!!!! 🎉🥳🎂",
+      "timestamp": "2026-10-16T11:42:57.215Z"
+    },
+    {
+      "id": "log_mvawf45euos7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire mon amoureux !!!!!!! 🎉🥳🎂",
+      "timestamp": "2026-10-16T11:42:57.218Z"
+    },
+    {
+      "id": "log_mvawf46d8mko",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tu vas passer la meilleure soirée de ta vie mon amoureux ♥️\ud83d",
+      "timestamp": "2026-10-16T11:42:57.253Z"
+    },
+    {
+      "id": "log_mvawf46fwpq6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tu vas passer la meilleure soirée de ta vie mon amoureux ♥️\ud83d",
+      "timestamp": "2026-10-16T11:42:57.255Z"
+    },
+    {
+      "id": "log_mvawf46pntfn",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bon moi j’ai fini ma matinée je reprend à 16h là je vais fai",
+      "timestamp": "2026-10-16T11:42:57.265Z"
+    },
+    {
+      "id": "log_mvawf46s4rm6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bon moi j’ai fini ma matinée je reprend à 16h là je vais fai",
+      "timestamp": "2026-10-16T11:42:57.268Z"
+    },
+    {
+      "id": "log_mvawf471bpvq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je te dis à toute à l’heure mon chéri essaye de te reposer a",
+      "timestamp": "2026-10-16T11:42:57.277Z"
+    },
+    {
+      "id": "log_mvawf4738720",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je te dis à toute à l’heure mon chéri essaye de te reposer a",
+      "timestamp": "2026-10-16T11:42:57.279Z"
+    },
+    {
+      "id": "log_mvawf47z4iny",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Putain je t’aime trop bordel de merde 🖤🦋✨",
+      "timestamp": "2026-10-16T11:42:57.311Z"
+    },
+    {
+      "id": "log_mvawf4821p5j",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Putain je t’aime trop bordel de merde 🖤🦋✨",
+      "timestamp": "2026-10-16T11:42:57.314Z"
+    },
+    {
+      "id": "log_mvawf48w9gm1",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bifait chéri bisous 😘🦋",
+      "timestamp": "2026-10-16T11:42:57.344Z"
+    },
+    {
+      "id": "log_mvawf48zb78p",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bifait chéri bisous 😘🦋",
+      "timestamp": "2026-10-16T11:42:57.347Z"
+    },
+    {
+      "id": "log_mvawf49ueg3l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: D'accord",
+      "timestamp": "2026-10-16T11:42:57.378Z"
+    },
+    {
+      "id": "log_mvawf49x8xfp",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: D'accord",
+      "timestamp": "2026-10-16T11:42:57.381Z"
+    },
+    {
+      "id": "log_mvawf4aaeavh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: D'accord mon amour a plus tard je t'aime",
+      "timestamp": "2026-10-16T11:42:57.394Z"
+    },
+    {
+      "id": "log_mvawf4acroau",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: D'accord mon amour a plus tard je t'aime",
+      "timestamp": "2026-10-16T11:42:57.396Z"
+    },
+    {
+      "id": "log_mvawf4b8uw8j",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’ai froid 🥲🥲 réchauffe moi chéri 😏😏",
+      "timestamp": "2026-10-16T11:42:57.428Z"
+    },
+    {
+      "id": "log_mvawf4beqzi9",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’ai froid 🥲🥲 réchauffe moi chéri 😏😏",
+      "timestamp": "2026-10-16T11:42:57.434Z"
+    },
+    {
+      "id": "log_mvawf4cjubqa",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ah weh??",
+      "timestamp": "2026-10-16T11:42:57.475Z"
+    },
+    {
+      "id": "log_mvawf4cothyq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ah weh??",
+      "timestamp": "2026-10-16T11:42:57.480Z"
+    },
+    {
+      "id": "log_mvawf4d1zk7t",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 L'autrice de Gachiakuta a confirmé que le manga reprendra",
+      "timestamp": "2026-10-16T11:42:57.493Z"
+    },
+    {
+      "id": "log_mvawf4d53k5g",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 L'autrice de Gachiakuta a confirmé que le manga reprendra",
+      "timestamp": "2026-10-16T11:42:57.497Z"
+    },
+    {
+      "id": "log_mvawf4dfup4b",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: !menu",
+      "timestamp": "2026-10-16T11:42:57.507Z"
+    },
+    {
+      "id": "log_mvawf4di9wp8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: !menu",
+      "timestamp": "2026-10-16T11:42:57.510Z"
+    },
+    {
+      "id": "log_mvawf4ggurha",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 Bonjour à tous ! Voici les sorties animes du jeudi 15 oct",
+      "timestamp": "2026-10-16T11:42:57.616Z"
+    },
+    {
+      "id": "log_mvawf4gj5rne",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 Bonjour à tous ! Voici les sorties animes du jeudi 15 oct",
+      "timestamp": "2026-10-16T11:42:57.619Z"
+    },
+    {
+      "id": "log_mvawf4v8jj9t",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: /menu",
+      "timestamp": "2026-10-16T11:42:58.148Z"
+    },
+    {
+      "id": "log_mvawf4vcd115",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: /menu",
+      "timestamp": "2026-10-16T11:42:58.152Z"
+    },
+    {
+      "id": "log_mvawf4ys207l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: A louer \n\nBobo-Dioulasso \n\nCours unique ( R+1 )\n\nDeux 02 cha",
+      "timestamp": "2026-10-16T11:42:58.276Z"
+    },
+    {
+      "id": "log_mvawf4yvba29",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: A louer \n\nBobo-Dioulasso \n\nCours unique ( R+1 )\n\nDeux 02 cha",
+      "timestamp": "2026-10-16T11:42:58.279Z"
+    },
+    {
+      "id": "log_mvawf577vfc8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: #Bobo Dioulasso\nÀ accarville juste a coté du pont en face de",
+      "timestamp": "2026-10-16T11:42:58.579Z"
+    },
+    {
+      "id": "log_mvawf579mogn",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: #Bobo Dioulasso\nÀ accarville juste a coté du pont en face de",
+      "timestamp": "2026-10-16T11:42:58.581Z"
+    },
+    {
+      "id": "log_mvawf59o325z",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Gros congélateur \nMarque Boréal \n320L\nPrix : 310.000f à disc",
+      "timestamp": "2026-10-16T11:42:58.668Z"
+    },
+    {
+      "id": "log_mvawf59rfx0y",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Gros congélateur \nMarque Boréal \n320L\nPrix : 310.000f à disc",
+      "timestamp": "2026-10-16T11:42:58.671Z"
+    },
+    {
+      "id": "log_mvawf5zcvphi",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire mon chéri d’amour !!!!!🌹✨🎉",
+      "timestamp": "2026-10-16T11:42:59.592Z"
+    },
+    {
+      "id": "log_mvawf5zgu5ti",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire mon chéri d’amour !!!!!🌹✨🎉",
+      "timestamp": "2026-10-16T11:42:59.596Z"
+    },
+    {
+      "id": "log_mvawf5zn7x0e",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime arrerh",
+      "timestamp": "2026-10-16T11:42:59.603Z"
+    },
+    {
+      "id": "log_mvawf5zqbvjt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je t’aime arrerh",
+      "timestamp": "2026-10-16T11:42:59.606Z"
+    },
+    {
+      "id": "log_mvawhr0lrskh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!! 🎉🥳🥳",
+      "timestamp": "2026-10-16T11:45:00.165Z"
+    },
+    {
+      "id": "log_mvawhr0oaf5l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!! 🎉🥳🥳",
+      "timestamp": "2026-10-16T11:45:00.168Z"
+    },
+    {
+      "id": "log_mvawhr0wuvqi",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Franchement j’espère que tu vas passer une bonne journée auj",
+      "timestamp": "2026-10-16T11:45:00.176Z"
+    },
+    {
+      "id": "log_mvawhr105crw",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Franchement j’espère que tu vas passer une bonne journée auj",
+      "timestamp": "2026-10-16T11:45:00.180Z"
+    },
+    {
+      "id": "log_mvawjvnszv2b",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T11:46:39.496Z"
+    },
+    {
+      "id": "log_mvawjvnwufil",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
       "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:10:02.733Z"
+      "timestamp": "2026-10-16T11:46:39.500Z"
     },
     {
-      "id": "log_mv9z3dyn44yl",
+      "id": "log_mvawjvnxbpps",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Initialisation du jumelage pour le numéro +22607603281",
-      "timestamp": "2026-10-15T20:10:02.735Z"
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T11:46:39.502Z"
     },
     {
-      "id": "log_mv9z3gz0cg8l",
+      "id": "log_mvawjwx7rsgy",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T11:46:41.131Z"
+    },
+    {
+      "id": "log_mvawkbnd2e20",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Code de jumelage généré : MQKW3368. En attente de saisie dans WhatsApp.",
-      "timestamp": "2026-10-15T20:10:06.636Z"
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T11:47:00.217Z"
     },
     {
-      "id": "log_mv9z3xkkrqzt",
+      "id": "log_mvawkbngrr5n",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "État connexion WhatsApp : fermée (515) — Stream Errored (restart required)",
-      "timestamp": "2026-10-15T20:10:28.148Z"
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T11:47:00.220Z"
     },
     {
-      "id": "log_mv9z3xklbau9",
+      "id": "log_mvawkbnif9k8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T11:47:00.222Z"
+    },
+    {
+      "id": "log_mvawkcx0m65q",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T11:47:01.860Z"
+    },
+    {
+      "id": "log_mvawl9hf2mlt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T11:47:44.067Z"
+    },
+    {
+      "id": "log_mvawl9ibmlji",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Fichiers d'authentification WhatsApp purgés de manière sécurisée.",
+      "timestamp": "2026-10-16T11:47:44.099Z"
+    },
+    {
+      "id": "log_mvawl9m4oo9b",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "État connexion WhatsApp : fermée (normal) — Arrêt demandé par l'utilisateur",
+      "timestamp": "2026-10-16T11:47:44.236Z"
+    },
+    {
+      "id": "log_mvawl9m5bdnc",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
       "message": "Reconnexion WhatsApp automatique (#1) dans 3s...",
-      "timestamp": "2026-10-15T20:10:28.149Z"
+      "timestamp": "2026-10-16T11:47:44.237Z"
     },
     {
-      "id": "log_mv9z3zw0xp6u",
+      "id": "log_mvaxpdc5lnta",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:10:31.152Z"
+      "message": "Paramètres de configuration du bot mis à jour.",
+      "timestamp": "2026-10-16T12:18:55.301Z"
     },
     {
-      "id": "log_mv9z3zw1rnxa",
+      "id": "log_mvaxpk8hpozr",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:10:31.153Z"
+      "message": "Préfixe de commande mis à jour : [ / ]",
+      "timestamp": "2026-10-16T12:19:04.241Z"
     },
     {
-      "id": "log_mv9z41uvfnkg",
+      "id": "log_mvaxpldbb2x5",
       "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:10:33.703Z"
-    },
-    {
-      "id": "log_mv9z4bvfn7te",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: On a dit pas de mensonge tu t’en rappelles là je sens un tru",
-      "timestamp": "2026-10-15T20:10:46.683Z"
-    },
-    {
-      "id": "log_mv9z4bvg105t",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: On a dit pas de mensonge tu t’en rappelles là je sens un tru",
-      "timestamp": "2026-10-15T20:10:46.684Z"
-    },
-    {
-      "id": "log_mv9z4ey5pjit",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Va dormir",
-      "timestamp": "2026-10-15T20:10:50.669Z"
-    },
-    {
-      "id": "log_mv9z4ey7d2pv",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Va dormir",
-      "timestamp": "2026-10-15T20:10:50.671Z"
-    },
-    {
-      "id": "log_mv9z4j328lm7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est quoi ???",
-      "timestamp": "2026-10-15T20:10:56.030Z"
-    },
-    {
-      "id": "log_mv9z4j34dnss",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est quoi ???",
-      "timestamp": "2026-10-15T20:10:56.032Z"
-    },
-    {
-      "id": "log_mv9z4oqljf4j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’ai raison y’a bien un truc",
-      "timestamp": "2026-10-15T20:11:03.357Z"
-    },
-    {
-      "id": "log_mv9z4oqmpa0p",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’ai raison y’a bien un truc",
-      "timestamp": "2026-10-15T20:11:03.358Z"
-    },
-    {
-      "id": "log_mv9z4tewofso",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est pas coool",
-      "timestamp": "2026-10-15T20:11:09.416Z"
-    },
-    {
-      "id": "log_mv9z4texvz3j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est pas coool",
-      "timestamp": "2026-10-15T20:11:09.417Z"
-    },
-    {
-      "id": "log_mv9z4utxj7kt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Non 🤣",
-      "timestamp": "2026-10-15T20:11:11.253Z"
-    },
-    {
-      "id": "log_mv9z4uu2q2jk",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Non 🤣",
-      "timestamp": "2026-10-15T20:11:11.258Z"
-    },
-    {
-      "id": "log_mv9z4y89xxqp",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Si",
-      "timestamp": "2026-10-15T20:11:15.657Z"
-    },
-    {
-      "id": "log_mv9z4y8b4yn5",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Si",
-      "timestamp": "2026-10-15T20:11:15.659Z"
-    },
-    {
-      "id": "log_mv9z54zczxaz",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Il y a rien mon amour",
-      "timestamp": "2026-10-15T20:11:24.408Z"
-    },
-    {
-      "id": "log_mv9z54ze3o1a",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Il y a rien mon amour",
-      "timestamp": "2026-10-15T20:11:24.410Z"
-    },
-    {
-      "id": "log_mv9z5d64a97k",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Jure le sur notre mariage alors",
-      "timestamp": "2026-10-15T20:11:35.020Z"
-    },
-    {
-      "id": "log_mv9z5d66ybfs",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Jure le sur notre mariage alors",
-      "timestamp": "2026-10-15T20:11:35.022Z"
-    },
-    {
-      "id": "log_mv9z5j5p9k7q",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et là je serais rassurée",
-      "timestamp": "2026-10-15T20:11:42.782Z"
-    },
-    {
-      "id": "log_mv9z5j5r35ua",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et là je serais rassurée",
-      "timestamp": "2026-10-15T20:11:42.783Z"
-    },
-    {
-      "id": "log_mv9z60j1d944",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Vas dormir",
-      "timestamp": "2026-10-15T20:12:05.293Z"
-    },
-    {
-      "id": "log_mv9z60j4qhz7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Vas dormir",
-      "timestamp": "2026-10-15T20:12:05.296Z"
-    },
-    {
-      "id": "log_mv9z6277trb5",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: VOILÀ",
-      "timestamp": "2026-10-15T20:12:07.459Z"
-    },
-    {
-      "id": "log_mv9z6279knxk",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: VOILÀ",
-      "timestamp": "2026-10-15T20:12:07.461Z"
-    },
-    {
-      "id": "log_mv9z64q9mvy0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Y’A UN TRUC",
-      "timestamp": "2026-10-15T20:12:10.737Z"
-    },
-    {
-      "id": "log_mv9z64qaoeoq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Y’A UN TRUC",
-      "timestamp": "2026-10-15T20:12:10.738Z"
-    },
-    {
-      "id": "log_mv9z6699c68q",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !!!!!!!!",
-      "timestamp": "2026-10-15T20:12:12.717Z"
-    },
-    {
-      "id": "log_mv9z669gtno2",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !!!!!!!!",
-      "timestamp": "2026-10-15T20:12:12.724Z"
-    },
-    {
-      "id": "log_mv9z69wf3ira",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: DIT C’EST QUOI",
-      "timestamp": "2026-10-15T20:12:17.439Z"
-    },
-    {
-      "id": "log_mv9z69wggcxf",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: DIT C’EST QUOI",
-      "timestamp": "2026-10-15T20:12:17.440Z"
-    },
-    {
-      "id": "log_mv9z6tuxue84",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: TU VOIS QUAND MON INSTINCT ME DIT QUE T’ES BIZARRE CE SOIR B",
-      "timestamp": "2026-10-15T20:12:43.305Z"
-    },
-    {
-      "id": "log_mv9z6tuz3qqt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: TU VOIS QUAND MON INSTINCT ME DIT QUE T’ES BIZARRE CE SOIR B",
-      "timestamp": "2026-10-15T20:12:43.307Z"
-    },
-    {
-      "id": "log_mv9z6v0a6i4s",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !!!",
-      "timestamp": "2026-10-15T20:12:44.794Z"
-    },
-    {
-      "id": "log_mv9z6v0cf2cz",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !!!",
-      "timestamp": "2026-10-15T20:12:44.796Z"
-    },
-    {
-      "id": "log_mv9z70jr8mtg",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Demain je vais te le dire",
-      "timestamp": "2026-10-15T20:12:51.975Z"
-    },
-    {
-      "id": "log_mv9z70jti3qu",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Demain je vais te le dire",
-      "timestamp": "2026-10-15T20:12:51.977Z"
-    },
-    {
-      "id": "log_mv9z73svwvfh",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Mais non",
-      "timestamp": "2026-10-15T20:12:56.191Z"
-    },
-    {
-      "id": "log_mv9z73sx0bnh",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Mais non",
-      "timestamp": "2026-10-15T20:12:56.193Z"
-    },
-    {
-      "id": "log_mv9z7649ywtm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est pas cool",
-      "timestamp": "2026-10-15T20:12:59.193Z"
-    },
-    {
-      "id": "log_mv9z764bzwko",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est pas cool",
-      "timestamp": "2026-10-15T20:12:59.195Z"
-    },
-    {
-      "id": "log_mv9z79w13ext",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Franchement c’est pas cool",
-      "timestamp": "2026-10-15T20:13:04.081Z"
-    },
-    {
-      "id": "log_mv9z79w3f7t4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Franchement c’est pas cool",
-      "timestamp": "2026-10-15T20:13:04.083Z"
-    },
-    {
-      "id": "log_mv9z7e0o22l1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je te parle plus",
-      "timestamp": "2026-10-15T20:13:09.432Z"
-    },
-    {
-      "id": "log_mv9z7e0qzcpn",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je te parle plus",
-      "timestamp": "2026-10-15T20:13:09.434Z"
-    },
-    {
-      "id": "log_mv9z7f8ctot3",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Promis mon amour",
-      "timestamp": "2026-10-15T20:13:11.004Z"
-    },
-    {
-      "id": "log_mv9z7f8eoy8j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Promis mon amour",
-      "timestamp": "2026-10-15T20:13:11.006Z"
-    },
-    {
-      "id": "log_mv9z7um6usmm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Mon amour",
-      "timestamp": "2026-10-15T20:13:30.942Z"
-    },
-    {
-      "id": "log_mv9z7um8lc4s",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Mon amour",
-      "timestamp": "2026-10-15T20:13:30.944Z"
-    },
-    {
-      "id": "log_mv9z894upjc0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: r🚀LANCEMENT OFFICIEL DE MINING INVEST !\n\nDate de sortie off",
-      "timestamp": "2026-10-15T20:13:49.758Z"
-    },
-    {
-      "id": "log_mv9z894w3618",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: r🚀LANCEMENT OFFICIEL DE MINING INVEST !\n\nDate de sortie off",
-      "timestamp": "2026-10-15T20:13:49.760Z"
-    },
-    {
-      "id": "log_mv9z8bmwr7jd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !menu",
-      "timestamp": "2026-10-15T20:13:53.000Z"
-    },
-    {
-      "id": "log_mv9z8bmz9zrt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !menu",
-      "timestamp": "2026-10-15T20:13:53.003Z"
-    },
-    {
-      "id": "log_mv9zapzoglrw",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Laisse moi tranquille.",
-      "timestamp": "2026-10-15T20:15:44.916Z"
-    },
-    {
-      "id": "log_mv9zapzrzuwx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Laisse moi tranquille.",
-      "timestamp": "2026-10-15T20:15:44.919Z"
-    },
-    {
-      "id": "log_mv9zbd3y4cg6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je pars dormir comme tu m’as dis. Vu que tu veux rien me dir",
-      "timestamp": "2026-10-15T20:16:14.878Z"
-    },
-    {
-      "id": "log_mv9zbd413tpj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je pars dormir comme tu m’as dis. Vu que tu veux rien me dir",
-      "timestamp": "2026-10-15T20:16:14.881Z"
-    },
-    {
-      "id": "log_mv9zbegrttb4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: MR Zoumbri merci pr l soutient bon usage e lng vie ",
-      "timestamp": "2026-10-15T20:16:16.635Z"
-    },
-    {
-      "id": "log_mv9zbegsbvok",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: MR Zoumbri merci pr l soutient bon usage e lng vie ",
-      "timestamp": "2026-10-15T20:16:16.636Z"
-    },
-    {
-      "id": "log_mv9zbq7jqxi0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bisou",
-      "timestamp": "2026-10-15T20:16:31.855Z"
-    },
-    {
-      "id": "log_mv9zbq7l3jvq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bisou",
-      "timestamp": "2026-10-15T20:16:31.857Z"
-    },
-    {
-      "id": "log_mv9zbyvjbxqq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Te fâche pas stp mon amour",
-      "timestamp": "2026-10-15T20:16:43.087Z"
-    },
-    {
-      "id": "log_mv9zbyvm82rm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Te fâche pas stp mon amour",
-      "timestamp": "2026-10-15T20:16:43.090Z"
-    },
-    {
-      "id": "log_mv9zc77naueq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: *🚨 CÔTE 200 POUR CE SOIR 23H30 🕦 🔥🚨*\n\n3e coupon du jour ",
-      "timestamp": "2026-10-15T20:16:53.891Z"
-    },
-    {
-      "id": "log_mv9zc77p672h",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: *🚨 CÔTE 200 POUR CE SOIR 23H30 🕦 🔥🚨*\n\n3e coupon du jour ",
-      "timestamp": "2026-10-15T20:16:53.893Z"
-    },
-    {
-      "id": "log_mv9zchhptqjk",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je suis pas fâchée",
-      "timestamp": "2026-10-15T20:17:07.213Z"
-    },
-    {
-      "id": "log_mv9zchhr8hva",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je suis pas fâchée",
-      "timestamp": "2026-10-15T20:17:07.215Z"
-    },
-    {
-      "id": "log_mv9zcrqz3l7i",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C'est faux",
-      "timestamp": "2026-10-15T20:17:20.507Z"
-    },
-    {
-      "id": "log_mv9zcrr1hlgk",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C'est faux",
-      "timestamp": "2026-10-15T20:17:20.509Z"
-    },
-    {
-      "id": "log_mv9zcvb7hnap",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: *🚨 CÔTE 200 AUTHENTIQUE POUR CE SOIR 23H30 🕦 🔥🚨*\n\n3e cou",
-      "timestamp": "2026-10-15T20:17:25.123Z"
-    },
-    {
-      "id": "log_mv9zcvb90673",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: *🚨 CÔTE 200 AUTHENTIQUE POUR CE SOIR 23H30 🕦 🔥🚨*\n\n3e cou",
-      "timestamp": "2026-10-15T20:17:25.125Z"
-    },
-    {
-      "id": "log_mv9zcwc4yjh5",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Non",
-      "timestamp": "2026-10-15T20:17:26.452Z"
-    },
-    {
-      "id": "log_mv9zcwc7khrq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Non",
-      "timestamp": "2026-10-15T20:17:26.455Z"
-    },
-    {
-      "id": "log_mv9zd44kre2x",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Stp mon amour Promis demain je vais te le dire",
-      "timestamp": "2026-10-15T20:17:36.548Z"
-    },
-    {
-      "id": "log_mv9zd44m3so8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Stp mon amour Promis demain je vais te le dire",
-      "timestamp": "2026-10-15T20:17:36.550Z"
-    },
-    {
-      "id": "log_mv9zdch7g6rq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: À chaque fois tu dis ça",
-      "timestamp": "2026-10-15T20:17:47.371Z"
-    },
-    {
-      "id": "log_mv9zdcha43x6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: À chaque fois tu dis ça",
-      "timestamp": "2026-10-15T20:17:47.374Z"
-    },
-    {
-      "id": "log_mv9zedyjqzwq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ok je vais te dire pour que tu sois pas stressée pour rien m",
-      "timestamp": "2026-10-15T20:18:35.947Z"
-    },
-    {
-      "id": "log_mv9zedymtmte",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ok je vais te dire pour que tu sois pas stressée pour rien m",
-      "timestamp": "2026-10-15T20:18:35.950Z"
-    },
-    {
-      "id": "log_mv9zensw8lrj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu as fais quoi ???",
-      "timestamp": "2026-10-15T20:18:48.704Z"
-    },
-    {
-      "id": "log_mv9zent7su2j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu as fais quoi ???",
-      "timestamp": "2026-10-15T20:18:48.715Z"
-    },
-    {
-      "id": "log_mv9zfsdkfa2v",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Il faut me promettre",
-      "timestamp": "2026-10-15T20:19:41.288Z"
-    },
-    {
-      "id": "log_mv9zfsdmiu76",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Il faut me promettre",
-      "timestamp": "2026-10-15T20:19:41.290Z"
-    },
-    {
-      "id": "log_mv9zfz5e3s38",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je te promet",
-      "timestamp": "2026-10-15T20:19:50.066Z"
-    },
-    {
-      "id": "log_mv9zfz5g14fj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je te promet",
-      "timestamp": "2026-10-15T20:19:50.068Z"
-    },
-    {
-      "id": "log_mv9zg3z5h5ej",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Voilà dit maintenant",
-      "timestamp": "2026-10-15T20:19:56.321Z"
-    },
-    {
-      "id": "log_mv9zg3z8sleq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Voilà dit maintenant",
-      "timestamp": "2026-10-15T20:19:56.324Z"
-    },
-    {
-      "id": "log_mv9zh24lj15m",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ???",
-      "timestamp": "2026-10-15T20:20:40.581Z"
-    },
-    {
-      "id": "log_mv9zh24onj6n",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ???",
-      "timestamp": "2026-10-15T20:20:40.584Z"
-    },
-    {
-      "id": "log_mv9zhk2qr6lr",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu as fais quoi ??",
-      "timestamp": "2026-10-15T20:21:03.842Z"
-    },
-    {
-      "id": "log_mv9zhk2ssm9r",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu as fais quoi ??",
-      "timestamp": "2026-10-15T20:21:03.844Z"
-    },
-    {
-      "id": "log_mv9zid68u9f1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu vois quand je te dis que je te sentais bizarre ce soir ba",
-      "timestamp": "2026-10-15T20:21:41.552Z"
-    },
-    {
-      "id": "log_mv9zid6akdy7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu vois quand je te dis que je te sentais bizarre ce soir ba",
-      "timestamp": "2026-10-15T20:21:41.554Z"
-    },
-    {
-      "id": "log_mv9zifhu0d66",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Accouche",
-      "timestamp": "2026-10-15T20:21:44.562Z"
-    },
-    {
-      "id": "log_mv9zifhxwmbd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Accouche",
-      "timestamp": "2026-10-15T20:21:44.565Z"
-    },
-    {
-      "id": "log_mv9zlagmk40q",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C'est juste que je n'ai pas encore reçu mon argent c'est dem",
-      "timestamp": "2026-10-15T20:23:58.006Z"
-    },
-    {
-      "id": "log_mv9zlagpia9z",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C'est juste que je n'ai pas encore reçu mon argent c'est dem",
-      "timestamp": "2026-10-15T20:23:58.009Z"
-    },
-    {
-      "id": "log_mv9zmcupah3b",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je m’inquiète pas pr rien ok je m’inquiéterais toujours pour",
-      "timestamp": "2026-10-15T20:24:47.761Z"
-    },
-    {
-      "id": "log_mv9zmcusbji9",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je m’inquiète pas pr rien ok je m’inquiéterais toujours pour",
-      "timestamp": "2026-10-15T20:24:47.764Z"
-    },
-    {
-      "id": "log_mv9zmicguufo",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: @all  vous êtes là",
-      "timestamp": "2026-10-15T20:24:54.880Z"
-    },
-    {
-      "id": "log_mv9zmici2umu",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: @all  vous êtes là",
-      "timestamp": "2026-10-15T20:24:54.882Z"
-    },
-    {
-      "id": "log_mv9zn0y1adlm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bah je suis rassurée si c’est rien de trop grave mon amour",
-      "timestamp": "2026-10-15T20:25:18.985Z"
-    },
-    {
-      "id": "log_mv9zn0y4yifq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bah je suis rassurée si c’est rien de trop grave mon amour",
-      "timestamp": "2026-10-15T20:25:18.988Z"
-    },
-    {
-      "id": "log_mv9znkogrbnm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’en suis sûr qu’il va arriver demain je pris pr ça mon amou",
-      "timestamp": "2026-10-15T20:25:44.560Z"
-    },
-    {
-      "id": "log_mv9znkoitfh3",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’en suis sûr qu’il va arriver demain je pris pr ça mon amou",
-      "timestamp": "2026-10-15T20:25:44.562Z"
-    },
-    {
-      "id": "log_mv9znolb4qxc",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je vais prier pr toi chéri",
-      "timestamp": "2026-10-15T20:25:49.631Z"
-    },
-    {
-      "id": "log_mv9znole2wdz",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je vais prier pr toi chéri",
-      "timestamp": "2026-10-15T20:25:49.634Z"
-    },
-    {
-      "id": "log_mv9znz5uibz9",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et si tu es rien encore tu me le dis oki",
-      "timestamp": "2026-10-15T20:26:03.330Z"
-    },
-    {
-      "id": "log_mv9znz5wbwrt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et si tu es rien encore tu me le dis oki",
-      "timestamp": "2026-10-15T20:26:03.332Z"
-    },
-    {
-      "id": "log_mv9zow5b3e3m",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime 🥺🥺",
-      "timestamp": "2026-10-15T20:26:46.079Z"
-    },
-    {
-      "id": "log_mv9zow5dvmna",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime 🥺🥺",
-      "timestamp": "2026-10-15T20:26:46.081Z"
-    },
-    {
-      "id": "log_mv9zpfnw0wap",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Moi aussi mi amor",
-      "timestamp": "2026-10-15T20:27:11.372Z"
-    },
-    {
-      "id": "log_mv9zpfny65zc",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Moi aussi mi amor",
-      "timestamp": "2026-10-15T20:27:11.374Z"
-    },
-    {
-      "id": "log_mv9zpoirtas8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: @all  meilleur plateforme",
-      "timestamp": "2026-10-15T20:27:22.851Z"
-    },
-    {
-      "id": "log_mv9zpoitojf1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: @all  meilleur plateforme",
-      "timestamp": "2026-10-15T20:27:22.853Z"
-    },
-    {
-      "id": "log_mv9zpsyii4k4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 70000f u a bon télé androïde   Avec un ans d garantie 💸💸❤️",
-      "timestamp": "2026-10-15T20:27:28.602Z"
-    },
-    {
-      "id": "log_mv9zpsyl2gnt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 70000f u a bon télé androïde   Avec un ans d garantie 💸💸❤️",
-      "timestamp": "2026-10-15T20:27:28.605Z"
-    },
-    {
-      "id": "log_mv9zqnnun2a7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je dois y aller chéri je suis vraiment fatiguée mais t’inqui",
-      "timestamp": "2026-10-15T20:28:08.394Z"
-    },
-    {
-      "id": "log_mv9zqnnwlao5",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je dois y aller chéri je suis vraiment fatiguée mais t’inqui",
-      "timestamp": "2026-10-15T20:28:08.396Z"
-    },
-    {
-      "id": "log_mv9zqvjtc5nq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🌚",
-      "timestamp": "2026-10-15T20:28:18.617Z"
-    },
-    {
-      "id": "log_mv9zqvjvdar4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🌚",
-      "timestamp": "2026-10-15T20:28:18.619Z"
-    },
-    {
-      "id": "log_mv9zr37z6bia",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime trop ✨🌹",
-      "timestamp": "2026-10-15T20:28:28.559Z"
-    },
-    {
-      "id": "log_mv9zr381h7tz",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime trop ✨🌹",
-      "timestamp": "2026-10-15T20:28:28.561Z"
-    },
-    {
-      "id": "log_mv9zrgu4c2wk",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Vous pouvez investir en tout sérieux @all",
-      "timestamp": "2026-10-15T20:28:46.204Z"
-    },
-    {
-      "id": "log_mv9zrgu7oojg",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Vous pouvez investir en tout sérieux @all",
-      "timestamp": "2026-10-15T20:28:46.207Z"
-    },
-    {
-      "id": "log_mv9zswg2fnd4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Restauration automatique du bot (++22607603281)...",
-      "timestamp": "2026-10-15T20:29:53.090Z"
-    },
-    {
-      "id": "log_mv9zswg58h2z",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:29:53.093Z"
-    },
-    {
-      "id": "log_mv9zswg737nx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:29:53.095Z"
-    },
-    {
-      "id": "log_mv9zsy64hnb6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:29:55.324Z"
-    },
-    {
-      "id": "log_mv9zt1z5tqnf",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ramène le je veux 1v1 💀",
-      "timestamp": "2026-10-15T20:30:00.257Z"
-    },
-    {
-      "id": "log_mv9zt1zncrmp",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ramène le je veux 1v1 💀",
-      "timestamp": "2026-10-15T20:30:00.275Z"
-    },
-    {
-      "id": "log_mv9zt2i5gtyg",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et lui montrer aussi qui doit s'acheter une arme 💀",
-      "timestamp": "2026-10-15T20:30:00.941Z"
-    },
-    {
-      "id": "log_mv9zt2i70ron",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et lui montrer aussi qui doit s'acheter une arme 💀",
-      "timestamp": "2026-10-15T20:30:00.943Z"
-    },
-    {
-      "id": "log_mv9zvxtqmghd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ! ping",
-      "timestamp": "2026-10-15T20:32:14.846Z"
-    },
-    {
-      "id": "log_mv9zvxttlyu1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ! ping",
-      "timestamp": "2026-10-15T20:32:14.850Z"
-    },
-    {
-      "id": "log_mv9zwukzemk0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: @all",
-      "timestamp": "2026-10-15T20:32:57.299Z"
-    },
-    {
-      "id": "log_mv9zwul2qowx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: @all",
-      "timestamp": "2026-10-15T20:32:57.302Z"
-    },
-    {
-      "id": "log_mv9zxiuudq11",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: r🚀LANCEMENT OFFICIEL DE MINING INVEST !\n\nDate de sortie off",
-      "timestamp": "2026-10-15T20:33:28.758Z"
-    },
-    {
-      "id": "log_mv9zxiuw6hnj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: r🚀LANCEMENT OFFICIEL DE MINING INVEST !\n\nDate de sortie off",
-      "timestamp": "2026-10-15T20:33:28.760Z"
-    },
-    {
-      "id": "log_mva00900ygix",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ✍🏼🖤",
-      "timestamp": "2026-10-15T20:35:35.952Z"
-    },
-    {
-      "id": "log_mva00904ty48",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ✍🏼🖤",
-      "timestamp": "2026-10-15T20:35:35.956Z"
-    },
-    {
-      "id": "log_mva01dhvej3c",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Longue vie Chef Lewandoski 🎉🎉",
-      "timestamp": "2026-10-15T20:36:28.435Z"
-    },
-    {
-      "id": "log_mva01dhxnq9g",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Longue vie Chef Lewandoski 🎉🎉",
-      "timestamp": "2026-10-15T20:36:28.437Z"
-    },
-    {
-      "id": "log_mva03vvmt6ka",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Spark 40 \n128Gb",
-      "timestamp": "2026-10-15T20:38:25.570Z"
-    },
-    {
-      "id": "log_mva03vvr0l2s",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Spark 40 \n128Gb",
-      "timestamp": "2026-10-15T20:38:25.575Z"
-    },
-    {
-      "id": "log_mva06eoh3w4f",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: https://chat.whatsapp.com/L4Ea75nGWAPKwBysT324jy?s=cl&p=a&ml",
-      "timestamp": "2026-10-15T20:40:23.249Z"
-    },
-    {
-      "id": "log_mva06eol8j30",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: https://chat.whatsapp.com/L4Ea75nGWAPKwBysT324jy?s=cl&p=a&ml",
-      "timestamp": "2026-10-15T20:40:23.253Z"
-    },
-    {
-      "id": "log_mva06r2l4qfg",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: https://chat.whatsapp.com/L4Ea75nGWAPKwBysT324jy?s=cl&p=a&ml",
-      "timestamp": "2026-10-15T20:40:39.309Z"
-    },
-    {
-      "id": "log_mva06r2n45d0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: https://chat.whatsapp.com/L4Ea75nGWAPKwBysT324jy?s=cl&p=a&ml",
-      "timestamp": "2026-10-15T20:40:39.311Z"
-    },
-    {
-      "id": "log_mva076rf1x23",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Pas de problème",
-      "timestamp": "2026-10-15T20:40:59.643Z"
-    },
-    {
-      "id": "log_mva076rj74kj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Pas de problème",
-      "timestamp": "2026-10-15T20:40:59.647Z"
-    },
-    {
-      "id": "log_mva07dz9zm7s",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: On dirait bien",
-      "timestamp": "2026-10-15T20:41:08.997Z"
-    },
-    {
-      "id": "log_mva07dzckl1e",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: On dirait bien",
-      "timestamp": "2026-10-15T20:41:09.000Z"
-    },
-    {
-      "id": "log_mva07ijm7r1v",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Restauration automatique du bot (++22607603281)...",
-      "timestamp": "2026-10-15T20:41:14.914Z"
-    },
-    {
-      "id": "log_mva07ijpuu5h",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:41:14.917Z"
-    },
-    {
-      "id": "log_mva07ijr4k1e",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:41:14.919Z"
-    },
-    {
-      "id": "log_mva07jmdhgpf",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:41:16.309Z"
-    },
-    {
-      "id": "log_mva07vut22lh",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Restauration automatique du bot (++22607603281)...",
-      "timestamp": "2026-10-15T20:41:32.165Z"
-    },
-    {
-      "id": "log_mva07vuxrv5y",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:41:32.169Z"
-    },
-    {
-      "id": "log_mva07vuye04s",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:41:32.170Z"
-    },
-    {
-      "id": "log_mva07xkb6won",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:41:34.379Z"
-    },
-    {
-      "id": "log_mva0dpbkfubb",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Restauration automatique du bot (++22607603281)...",
-      "timestamp": "2026-10-15T20:46:03.632Z"
-    },
-    {
-      "id": "log_mva0dpbn0xls",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:46:03.635Z"
-    },
-    {
-      "id": "log_mva0dpbo7sa0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:46:03.636Z"
-    },
-    {
-      "id": "log_mva0dqhngdy3",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:46:05.147Z"
-    },
-    {
-      "id": "log_mva0e221qpog",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Restauration automatique du bot (++22607603281)...",
-      "timestamp": "2026-10-15T20:46:20.137Z"
-    },
-    {
-      "id": "log_mva0e224zi64",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:46:20.140Z"
-    },
-    {
-      "id": "log_mva0e226e3c3",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:46:20.142Z"
-    },
-    {
-      "id": "log_mva0e3tmfjzx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:46:22.426Z"
-    },
-    {
-      "id": "log_mva0fx9zwa2l",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: The cold sato san is only sweet to me.\nTu as regarder ?",
-      "timestamp": "2026-10-15T20:47:47.255Z"
-    },
-    {
-      "id": "log_mva0fxaszq0q",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: The cold sato san is only sweet to me.\nTu as regarder ?",
-      "timestamp": "2026-10-15T20:47:47.284Z"
-    },
-    {
-      "id": "log_mva0pp7nzbu0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu:            🥰🥰🥰🥰🥰\n\n**Soir **",
-      "timestamp": "2026-10-15T20:55:23.363Z"
-    },
-    {
-      "id": "log_mva0pp7q5jhd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu:            🥰🥰🥰🥰🥰\n\n**Soir **",
-      "timestamp": "2026-10-15T20:55:23.366Z"
-    },
-    {
-      "id": "log_mva0pvdjifub",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Viens on fait s'affronter nos 2 clans..",
-      "timestamp": "2026-10-15T20:55:31.351Z"
-    },
-    {
-      "id": "log_mva0pvdo9v55",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Viens on fait s'affronter nos 2 clans..",
-      "timestamp": "2026-10-15T20:55:31.356Z"
-    },
-    {
-      "id": "log_mva0qpitbfa9",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ha non",
-      "timestamp": "2026-10-15T20:56:10.421Z"
-    },
-    {
-      "id": "log_mva0qpivk19r",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ha non",
-      "timestamp": "2026-10-15T20:56:10.423Z"
-    },
-    {
-      "id": "log_mva0qvuvazpl",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Attendez en décembre svp !",
-      "timestamp": "2026-10-15T20:56:18.631Z"
-    },
-    {
-      "id": "log_mva0qvuzcrx4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Attendez en décembre svp !",
-      "timestamp": "2026-10-15T20:56:18.635Z"
-    },
-    {
-      "id": "log_mva0rryik983",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Y'a max 4 personne actif mm..",
-      "timestamp": "2026-10-15T20:57:00.234Z"
-    },
-    {
-      "id": "log_mva0rryley71",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Y'a max 4 personne actif mm..",
-      "timestamp": "2026-10-15T20:57:00.237Z"
-    },
-    {
-      "id": "log_mva0rupd3q6p",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Az..",
-      "timestamp": "2026-10-15T20:57:03.793Z"
-    },
-    {
-      "id": "log_mva0rupfy795",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Az..",
-      "timestamp": "2026-10-15T20:57:03.795Z"
-    },
-    {
-      "id": "log_mva0sik8by6k",
-      "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Message reçu: 00 conquérant \nToujours Tifla ℂℍ𝔼𝔼",
-      "timestamp": "2026-10-15T20:57:34.712Z"
+      "message": "Préfixe de commande mis à jour : [ ? ]",
+      "timestamp": "2026-10-16T12:19:05.711Z"
     },
     {
-      "id": "log_mva0sikf27dh",
+      "id": "log_mvaxpnutu0mm",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Message reçu: 00 conquérant \nToujours Tifla ℂℍ𝔼𝔼",
-      "timestamp": "2026-10-15T20:57:34.719Z"
+      "message": "Préfixe de commande mis à jour : [ ! ]",
+      "timestamp": "2026-10-16T12:19:08.933Z"
     },
     {
-      "id": "log_mva0t8bhtq3y",
+      "id": "log_mvaxprkd4gks",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Message reçu: Vu que c Locole !",
-      "timestamp": "2026-10-15T20:58:08.093Z"
+      "message": "Préfixe de commande mis à jour : [ ! ]",
+      "timestamp": "2026-10-16T12:19:13.741Z"
     },
     {
-      "id": "log_mva0t8bkw7f7",
+      "id": "log_mvaxpwxomle9",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Message reçu: Vu que c Locole !",
-      "timestamp": "2026-10-15T20:58:08.096Z"
+      "message": "Préfixe de commande mis à jour : [ ? ]",
+      "timestamp": "2026-10-16T12:19:20.700Z"
     },
     {
-      "id": "log_mva0u25t6yox",
+      "id": "log_mvaxq18yie5r",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Restauration automatique du bot (++22607603281)...",
-      "timestamp": "2026-10-15T20:58:46.769Z"
+      "message": "Préfixe de commande mis à jour : [ G ]",
+      "timestamp": "2026-10-16T12:19:26.290Z"
     },
     {
-      "id": "log_mva0u25x54rc",
+      "id": "log_mvaxq8d7nsjk",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Instance de bot arrêtée proprement.",
-      "timestamp": "2026-10-15T20:58:46.773Z"
+      "message": "Préfixe de commande mis à jour : [ 💸 ]",
+      "timestamp": "2026-10-16T12:19:35.515Z"
     },
     {
-      "id": "log_mva0u25zec13",
+      "id": "log_mvaxqhyx019r",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
-      "message": "Démarrage du moteur JARVIS...",
-      "timestamp": "2026-10-15T20:58:46.775Z"
-    },
-    {
-      "id": "log_mva0u31g0z6x",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "success",
-      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
-      "timestamp": "2026-10-15T20:58:47.908Z"
+      "message": "Préfixe de commande mis à jour : [ . ]",
+      "timestamp": "2026-10-16T12:19:47.961Z"
     }
   ]
 }

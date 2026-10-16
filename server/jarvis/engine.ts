@@ -72,6 +72,19 @@ class JarvisEngineManager {
   }
 
   /**
+   * Retourne le nombre exact de sessions WhatsApp actuellement en ligne
+   */
+  public getRealOnlineCount(): number {
+    let count = 0;
+    for (const session of this.activeSessions.values()) {
+      if (session.status === 'ONLINE') {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /**
    * Démarrer le processus de jumelage par Code (Pairing Code)
    */
   public async requestPairingCode(instanceId: string, rawPhoneNumber: string): Promise<string> {
@@ -126,6 +139,14 @@ class JarvisEngineManager {
       connectTimeoutMs: 60000,
       defaultQueryTimeoutMs: 60000,
       keepAliveIntervalMs: 30000,
+      getMessage: async (key: proto.IMessageKey) => {
+        try {
+          const { getCachedMessage } = await import('../../lib/antiSuppressionManager.js');
+          const cached = getCachedMessage(key.id || '');
+          if (cached?.msg?.message) return cached.msg.message;
+        } catch {}
+        return undefined;
+      },
     });
 
     const activeSession: ActiveBotSession = {
@@ -276,6 +297,14 @@ class JarvisEngineManager {
       connectTimeoutMs: 60000,
       defaultQueryTimeoutMs: 60000,
       keepAliveIntervalMs: 25000,
+      getMessage: async (key: proto.IMessageKey) => {
+        try {
+          const { getCachedMessage } = await import('../../lib/antiSuppressionManager.js');
+          const cached = getCachedMessage(key.id || '');
+          if (cached?.msg?.message) return cached.msg.message;
+        } catch {}
+        return undefined;
+      },
     });
 
     const activeSession: ActiveBotSession = {
