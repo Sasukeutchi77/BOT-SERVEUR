@@ -128,6 +128,30 @@ export const builtInCommands: CommandDefinition[] = [
     },
   },
   {
+    name: 'repo',
+    aliases: ['liens', 'links', 'git'],
+    category: 'Général',
+    description: 'Affiche les liens officiels Telegram, WhatsApp et dépôt du bot',
+    usage: 'repo',
+    execute: async (ctx: CommandContext) => {
+      await ctx.reply(
+        `╭━━━〔 🔗 *${ctx.botConfig.botName} • LIENS OFFICIELS* 〕━━━╮\n` +
+        `│\n` +
+        `├─〔 ✈️ TELEGRAM 〕\n` +
+        `│ • Groupe : https://t.me/+kcLFkzePlwwyZjE8\n` +
+        `│ • Chaîne : https://t.me/nexusforger\n` +
+        `│\n` +
+        `├─〔 📢 WHATSAPP 〕\n` +
+        `│ • Voir la chaîne : https://whatsapp.com/channel/0029VbCRcEJLdQeYxw5g3m2o\n` +
+        `│\n` +
+        `│ 👑 Développeur : 𝐋𝐎𝐑𝐃 𝐃𝐄𝐌𝐎𝐍\n` +
+        `│ ⚒️ Équipe : 𝐍𝐄𝐗𝐔𝐒-𝐅𝐎𝐑𝐆𝐄𝐑\n` +
+        `│\n` +
+        `╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯`
+      );
+    },
+  },
+  {
     name: 'ai',
     aliases: ['gemini', 'ask', 'ia'],
     category: 'Intelligence Artificielle',

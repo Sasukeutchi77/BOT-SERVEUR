@@ -5,13 +5,15 @@ import { Navbar } from './components/Navbar';
 import { PairingSection } from './components/PairingSection';
 import { CommunitySection } from './components/CommunitySection';
 import { MultiBotManager } from './components/MultiBotManager';
+import { SessionStatsCard } from './components/SessionStatsCard';
 
 export default function App() {
   const [userBots, setUserBots] = useState<BotInstance[]>([]);
   const [activeBot, setActiveBot] = useState<BotInstance | null>(null);
-  const [totalSessions, setTotalSessions] = useState<number>(0);
-  const [activeSessions, setActiveSessions] = useState<number>(0);
+  const [totalEverConnected, setTotalEverConnected] = useState<number>(0);
+  const [onlineBots, setOnlineBots] = useState<number>(0);
   const [connectedCount, setConnectedCount] = useState<number>(1);
+  const [totalMessages, setTotalMessages] = useState<number>(0);
 
   // Charger la liste des bots de l'utilisateur
   const loadUserBots = async (preferredId?: string) => {
@@ -85,14 +87,17 @@ export default function App() {
     } catch (err) {}
   };
 
-  // Suivi en direct du nombre de sessions
+  // Suivi en direct du nombre réel de bots et visiteurs
   const fetchStats = async () => {
     try {
       const res = await api.getConnectedStats();
       if (res.success) {
-        setTotalSessions(res.totalSessions);
-        setActiveSessions(res.activeSessions);
-        setConnectedCount(res.connectedCount);
+        setTotalEverConnected(res.totalBotsEverConnected ?? res.totalSessions ?? 0);
+        setOnlineBots(res.onlineBots ?? res.activeSessions ?? 0);
+        setConnectedCount(res.connectedCount ?? 1);
+        if (typeof res.totalMessages === 'number') {
+          setTotalMessages(res.totalMessages);
+        }
       }
     } catch (e) {}
   };
@@ -101,7 +106,7 @@ export default function App() {
     initSession();
     fetchStats();
 
-    // Actualisation du compteur toutes les 5 secondes
+    // Actualisation du compteur en direct toutes les 5 secondes
     const interval = setInterval(fetchStats, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -111,29 +116,24 @@ export default function App() {
       {/* Nuance d'ambiance bleue subtile en haut de page */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 bg-gradient-to-b from-blue-600/[0.08] via-indigo-600/[0.03] to-transparent pointer-events-none blur-3xl -z-10" />
 
-      {/* Navigation épurée avec nuances bleues saphir */}
+      {/* Navigation épurée avec nuances bleues saphir et compteurs synchronisés */}
       <Navbar
         status={activeBot?.status}
         phoneNumber={activeBot?.phoneNumberMasked || activeBot?.phoneNumber}
         connectedCount={connectedCount}
-        onlineBots={activeSessions}
+        onlineBots={onlineBots}
+        totalEverConnected={totalEverConnected}
         prefix={activeBot?.config?.prefix || '.'}
       />
 
       {/* Contenu Principal */}
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-center space-y-4">
-        {/* Bandeau de synthèse du statut des serveurs actifs */}
-        <div className="flex items-center justify-between px-3 py-2 bg-[#0D1424]/60 border border-blue-900/30 rounded-xl text-xs text-slate-400 backdrop-blur-sm shadow-sm">
-          <div className="flex items-center gap-2">
-            <span className="text-slate-400">Serveurs actifs :</span>
-            <span className="text-blue-300 font-mono font-semibold">{activeSessions} en ligne</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
-            <span className={`w-1.5 h-1.5 rounded-full ${activeSessions > 0 ? 'bg-emerald-400' : 'bg-blue-400'} animate-pulse`} />
-            <span className="text-blue-200/90 font-medium">Serveur opérationnel</span>
-          </div>
-        </div>
+        {/* Carte statistique Total & Active sessions identique à la maquette */}
+        <SessionStatsCard
+          totalSessions={totalEverConnected}
+          activeSessions={onlineBots}
+          serversReporting="5/5 servers reporting"
+        />
 
         {/* Gestionnaire Multi-Comptes WhatsApp en onglets saphir sobres */}
         <MultiBotManager

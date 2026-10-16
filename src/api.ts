@@ -52,13 +52,17 @@ export const api = {
     return data;
   },
 
-  // Nombre d'utilisateurs connectés en temps réel
+  // Nombre d'utilisateurs et de bots connectés en temps réel
   async getConnectedStats() {
     return this.request<{
       success: boolean;
+      onlineBots: number;
+      totalBotsEverConnected: number;
       totalSessions: number;
       activeSessions: number;
       connectedCount: number;
+      totalMessages?: number;
+      uptimeSeconds?: number;
       timestamp: string;
     }>('/api/stats/connected');
   },

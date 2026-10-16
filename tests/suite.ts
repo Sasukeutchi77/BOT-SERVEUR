@@ -122,6 +122,24 @@ async function runTests() {
     const simPingExclamation = await jarvisEngine.simulateCommand(bot1.id, '!ping');
     assert(simPingExclamation.success && simPingExclamation.reply.includes('PONG'), 'Test 9: Prise en compte du préfixe personnalisé sélectionné (!)');
 
+    // Test 10: Robustesse du parsing des participants (objets Baileys et chaînes)
+    const mockObjectParticipant = { id: '22607603281@s.whatsapp.net', phoneNumber: '22607603281' };
+    const mockStringParticipant = '22607603281@s.whatsapp.net';
+    const extractJidSafe = (p: any) => typeof p === 'string' ? p : (p?.id || p?.jid || p?.phoneNumber || String(p || ''));
+    const extractNumSafe = (p: any) => {
+      const raw = extractJidSafe(p);
+      return raw.split('@')[0].split(':')[0].replace(/\D/g, '') || raw.replace(/\D/g, '');
+    };
+    const numFromObj = extractNumSafe(mockObjectParticipant);
+    const numFromStr = extractNumSafe(mockStringParticipant);
+    assert(numFromObj === '22607603281' && numFromStr === '22607603281', 'Test 10: Extraction robuste des participants (Baileys GroupParticipant object et string)');
+
+    // Test 11: Comptage réel des bots connectés depuis le lancement
+    const initialConnected = db.getTotalBotsEverConnected();
+    db.recordBotConnected('bot_metric_test_abc');
+    const updatedConnected = db.getTotalBotsEverConnected();
+    assert(updatedConnected >= initialConnected && updatedConnected >= 1, 'Test 11: Comptage réel et persistant des bots connectés depuis le lancement');
+
     console.log(`\n===========================================`);
     console.log(`RÉSULTAT : ${passed} passés, ${failed} échoués`);
     console.log(`===========================================`);

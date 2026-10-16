@@ -6,10 +6,17 @@ interface NavbarProps {
   phoneNumber?: string;
   connectedCount?: number;
   onlineBots?: number;
+  totalEverConnected?: number;
   prefix?: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, prefix = '.' }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  status,
+  connectedCount = 1,
+  onlineBots = 0,
+  totalEverConnected = 0,
+  prefix = '.',
+}) => {
   const isOnline = status === 'ONLINE';
 
   return (
@@ -30,14 +37,22 @@ export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, pref
           </div>
         </div>
 
-        {/* Indicateurs sobres avec nuances bleues */}
-        <div className="flex items-center gap-3 text-xs">
-          {/* Nombre de connectés */}
-          <div className="flex items-center gap-1.5 text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            <span className="font-mono text-blue-200 font-medium">{connectedCount}</span>
-            <span className="text-slate-500 hidden sm:inline">en ligne</span>
+        {/* Indicateurs en temps réel bien visibles */}
+        <div className="flex items-center gap-2.5 text-xs">
+          {/* Bots en ligne */}
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#0C172B] border border-emerald-500/30 text-emerald-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono font-bold text-emerald-200">{onlineBots}</span>
+            <span className="text-emerald-400/80 text-[11px] hidden xs:inline">en ligne</span>
           </div>
+
+          {/* Bots connectés depuis le lancement */}
+          {totalEverConnected > 0 && (
+            <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#0A1224] border border-blue-800/40 text-blue-300 text-[11px]">
+              <span className="text-slate-400">Total :</span>
+              <span className="font-mono font-bold text-blue-200">{totalEverConnected}</span>
+            </div>
+          )}
 
           <span className="text-slate-700 hidden sm:inline">·</span>
 
@@ -51,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ status, connectedCount = 1, pref
 
           <span className="text-slate-700 hidden sm:inline">·</span>
 
-          {/* Statut du bot */}
+          {/* Statut du bot actif de l'utilisateur */}
           <div className="flex items-center gap-1.5">
             <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`} />
             <span className="text-slate-400 font-sans text-xs">

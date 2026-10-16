@@ -56,22 +56,32 @@ setInterval(() => {
   }
 }, 15000);
 
-// Endpoint public du nombre d'utilisateurs connectés
+// Endpoint public du nombre d'utilisateurs et de bots connectés en temps réel
 app.get('/api/stats/connected', (req, res) => {
   const visitorId = req.headers['x-visitor-id'] || req.ip || req.socket.remoteAddress || 'guest';
   activeVisitors.set(String(visitorId), Date.now());
 
-  // Comptage 100% réel des sessions WhatsApp connectées
+  // Comptage 100% réel des sessions WhatsApp connectées en direct
   const realOnlineBots = jarvisEngine.getRealOnlineCount();
   
+  // Nombre réel cumulatif de bots connectés depuis le lancement du site
+  const totalEverConnected = db.getTotalBotsEverConnected();
+
   // Nombre d'utilisateurs actuellement sur le site
   const currentConnected = Math.max(activeVisitors.size, 1);
 
+  // Cumul des messages traités par les instances
+  const totalMessages = db.getAllBots().reduce((acc, b) => acc + (b.stats?.messagesHandled || 0), 0);
+
   res.json({
     success: true,
-    totalSessions: realOnlineBots,
+    onlineBots: realOnlineBots,
+    totalBotsEverConnected: totalEverConnected,
+    totalSessions: totalEverConnected,
     activeSessions: realOnlineBots,
     connectedCount: currentConnected,
+    totalMessages,
+    uptimeSeconds: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
   });
 });

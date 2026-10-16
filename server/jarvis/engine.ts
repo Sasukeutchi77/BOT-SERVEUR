@@ -341,6 +341,7 @@ class JarvisEngineManager {
         const phone = userJid.split(':')[0] || userJid.split('@')[0];
 
         this.log(instanceId, 'success', `Connexion WhatsApp établie avec succès ! Connecté sous +${phone}`);
+        db.recordBotConnected(instanceId);
         db.updateBot(instanceId, {
           status: 'ONLINE',
           phoneNumber: phone ? `+${phone}` : botRecord?.phoneNumber,
@@ -509,23 +510,147 @@ class JarvisEngineManager {
     });
 
     // ── Événements de groupe : Bienvenue, Au revoir, Anti-Purge ──
-    sock.ev.on('group-participants.update', async ({ id, participants, action }: any) => {
+    sock.ev.on('group-participants.update', async (event: any) => {
       try {
+        if (!event || !event.id) return;
+        const id = event.id;
+        const action = event.action;
+        const author = event.author;
+        const rawParticipants = event.participants;
+
+        const participantList = Array.isArray(rawParticipants)
+          ? rawParticipants
+          : (rawParticipants ? [rawParticipants] : []);
+
+        if (participantList.length === 0) return;
+
         const { getGroupMeta, invalidateGroupCache } = await import('../../lib/groupConfig.js');
         const meta = await getGroupMeta(sock, id).catch(() => null);
         const { getGroupConfig } = await import('../../lib/groupConfig.js');
         const conf = getGroupConfig(id);
+        const { config: botConfig } = await import('../../config.js');
 
-        for (const jid of participants) {
-          const num = jid.replace(/\D/g, '');
-          if (action === 'add' && conf.welcome) {
-            const welcomeMsg = conf.welcomeMsg ||
-              `╭━━━━━━━━━━━━━━━━━━━━━━╮\n┃  👋 *BIENVENUE !* 👋   ┃\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\nBienvenue @${num} dans *${meta?.subject || 'ce groupe'}* !\n📜 Lisez les règles : *.rules*`;
-            await sock.sendMessage(id, { text: welcomeMsg, mentions: [jid] });
+        let welcomeData: Record<string, any> = {};
+        let goodbyeData: Record<string, any> = {};
+        try {
+          const wPath = path.join(process.cwd(), 'data', 'welcome.json');
+          if (fs.existsSync(wPath)) welcomeData = JSON.parse(fs.readFileSync(wPath, 'utf8'));
+        } catch {}
+        try {
+          const gPath = path.join(process.cwd(), 'data', 'goodbye.json');
+          if (fs.existsSync(gPath)) goodbyeData = JSON.parse(fs.readFileSync(gPath, 'utf8'));
+        } catch {}
+
+        const authorJid = typeof author === 'string'
+          ? author
+          : (author?.id || author?.jid || (author ? String(author) : ''));
+
+        for (const p of participantList) {
+          // Extraction sécurisée du JID quel que soit le format Baileys (string ou objet GroupParticipant)
+          const rawJid = typeof p === 'string'
+            ? p
+            : (p?.id || p?.jid || p?.phoneNumber || (p ? String(p) : ''));
+
+          if (!rawJid || typeof rawJid !== 'string') continue;
+
+          const num = rawJid.split('@')[0].split(':')[0].replace(/\D/g, '') || rawJid.replace(/\D/g, '');
+          const mentionJid = rawJid.includes('@') ? rawJid : `${num}@s.whatsapp.net`;
+
+          const linkBlock = [
+            '━━━━━━━━━━━━━━━━━━',
+            '🔗 *REJOINS-NOUS*',
+            '✈️ Groupe Telegram : https://t.me/+kcLFkzePlwwyZjE8',
+            '📣 Chaîne Telegram : https://t.me/nexusforger',
+            `🤖 *${conf.botName || 'J.A.R.V.I.S'}* • Développeur : *${botConfig?.developerName || '𝐋𝐎𝐑𝐃 𝐃𝐄𝐌𝐎𝐍'}*`,
+            `⚒️ Équipe : *${botConfig?.teamName || '𝐍𝐄𝐗𝐔𝐒-𝐅𝐎𝐑𝐆𝐄𝐑'}*`,
+            '',
+            '📢 *Voir la chaîne WhatsApp :* https://whatsapp.com/channel/0029VbCRcEJLdQeYxw5g3m2o'
+          ].join('\n');
+
+          const imagePath = path.join(process.cwd(), 'assets', 'jarvis-command.jpg');
+          const hasImage = fs.existsSync(imagePath);
+
+          // Bienvenue
+          const isWelcome = conf.welcome || welcomeData[id]?.enabled === true;
+          if (action === 'add' && isWelcome) {
+            const rawTemplate = conf.welcomeMsg || welcomeData[id]?.message ||
+              `🎉 Bienvenue {name} dans *{group}* !\n👥 Membres : {count}\n📜 Consulte les règles avec *.rules*.`;
+            const count = meta?.participants?.length || '?';
+            const welcomeMsg = rawTemplate
+              .replace(/{name}/g, `@${num}`)
+              .replace(/{group}/g, meta?.subject || 'ce groupe')
+              .replace(/{count}/g, String(count));
+            const caption = `${welcomeMsg}\n\n${linkBlock}`;
+
+            if (hasImage) {
+              try {
+                const image = fs.readFileSync(imagePath);
+                await sock.sendMessage(id, { image, caption, mentions: [mentionJid] }).catch(() => {});
+              } catch {
+                await sock.sendMessage(id, { text: caption, mentions: [mentionJid] }).catch(() => {});
+              }
+            } else {
+              await sock.sendMessage(id, { text: caption, mentions: [mentionJid] }).catch(() => {});
+            }
           }
-          if (action === 'remove' && conf.goodbye) {
-            const goodbyeMsg = conf.goodbyeMsg || `👋 @${num} a quitté le groupe. Au revoir !`;
-            await sock.sendMessage(id, { text: goodbyeMsg, mentions: [jid] });
+
+          // Au revoir
+          const isGoodbye = conf.goodbye || goodbyeData[id]?.enabled === true;
+          if (action === 'remove' && isGoodbye) {
+            const rawGoodbye = conf.goodbyeMsg || goodbyeData[id]?.message ||
+              `👋 Au revoir {name} ! Tu nous manqueras dans *{group}*.`;
+            const goodbyeMsg = rawGoodbye
+              .replace(/{name}/g, `@${num}`)
+              .replace(/{group}/g, meta?.subject || 'ce groupe');
+            const caption = `${goodbyeMsg}\n\n${linkBlock}`;
+
+            if (hasImage) {
+              try {
+                const image = fs.readFileSync(imagePath);
+                await sock.sendMessage(id, { image, caption, mentions: [mentionJid] }).catch(() => {});
+              } catch {
+                await sock.sendMessage(id, { text: caption, mentions: [mentionJid] }).catch(() => {});
+              }
+            } else {
+              await sock.sendMessage(id, { text: caption, mentions: [mentionJid] }).catch(() => {});
+            }
+          }
+
+          // Protection anti-purge
+          if (action === 'remove') {
+            try {
+              const { trackRemoval, isPurging, isAntipurgeActive, canTrigger, markTriggered } = await import('../../lib/antipurgeTracker.js');
+              if (isAntipurgeActive(id)) {
+                trackRemoval(id, mentionJid);
+                if (isPurging(id) && canTrigger(id)) {
+                  markTriggered(id);
+                  await sock.groupSettingUpdate(id, 'announcement').catch(() => {});
+                  await sock.sendMessage(id, {
+                    text: `🚨 *ALERTE ANTI-PURGE DÉCLENCHÉE !*\n\nActivité massive de suppression détectée. Le groupe a été scellé (mode annonce) pour protéger les membres.`
+                  }).catch(() => {});
+                }
+              }
+            } catch (purgeErr) {}
+          }
+
+          // Protection anti-demote
+          if (action === 'demote') {
+            try {
+              const { isAntiDemoteActive, protectAdmin } = await import('../../commands/antidemote.js');
+              if (isAntiDemoteActive(id) && authorJid) {
+                await protectAdmin(sock, id, authorJid, mentionJid).catch(() => {});
+              }
+            } catch (demoteErr) {}
+          }
+
+          // Protection anti-promote
+          if (action === 'promote') {
+            try {
+              const { isAntiPromoteActive, blockPromote } = await import('../../commands/antipromote.js');
+              if (isAntiPromoteActive(id) && authorJid) {
+                await blockPromote(sock, id, authorJid, mentionJid).catch(() => {});
+              }
+            } catch (promoteErr) {}
           }
         }
         invalidateGroupCache(id);

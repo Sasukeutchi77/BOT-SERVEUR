@@ -53,11 +53,19 @@ export interface BotLog {
   timestamp: string;
 }
 
+export interface PlatformMetrics {
+  totalBotsEverConnected: number;
+  connectedBotIds: string[];
+  totalConnectionsEstablished: number;
+  lastConnectionAt?: string;
+}
+
 interface DatabaseSchema {
   version: number;
   users: User[];
   bots: BotInstanceRecord[];
   logs: BotLog[];
+  metrics?: PlatformMetrics;
 }
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -69,6 +77,11 @@ class DatabaseService {
     users: [],
     bots: [],
     logs: [],
+    metrics: {
+      totalBotsEverConnected: 0,
+      connectedBotIds: [],
+      totalConnectionsEstablished: 0,
+    },
   };
 
   private isLoaded = false;
@@ -92,6 +105,61 @@ class DatabaseService {
       } else {
         this.save();
       }
+
+      // Initialiser et synchroniser les métriques réelles de la plateforme
+      if (!this.data.metrics) {
+        this.data.metrics = {
+          totalBotsEverConnected: 0,
+          connectedBotIds: [],
+          totalConnectionsEstablished: 0,
+        };
+      }
+      if (!Array.isArray(this.data.metrics.connectedBotIds)) {
+        this.data.metrics.connectedBotIds = [];
+      }
+
+      // Scanner l'historique complet pour comptabiliser tous les bots qui ont été connectés depuis le lancement
+      const historicallyConnected = new Set<string>(this.data.metrics.connectedBotIds);
+
+      // 1. Tous les bots existants avec un statut ONLINE ou une date lastConnectedAt ou des messages traités
+      for (const b of this.data.bots) {
+        if (b.status === 'ONLINE' || b.stats?.lastConnectedAt || (b.stats?.messagesHandled && b.stats.messagesHandled > 0)) {
+          historicallyConnected.add(b.id);
+        }
+      }
+
+      // 2. Tous les dossiers de session enregistrés sur le disque
+      try {
+        const sessionsDir = path.join(DATA_DIR, 'sessions');
+        if (fs.existsSync(sessionsDir)) {
+          const dirs = fs.readdirSync(sessionsDir);
+          for (const d of dirs) {
+            const credsP = path.join(sessionsDir, d, 'creds.json');
+            if (fs.existsSync(credsP)) {
+              historicallyConnected.add(d);
+            }
+          }
+        }
+      } catch (e) {}
+
+      // 3. Tous les bots mentionnés dans les logs de connexion
+      for (const log of this.data.logs) {
+        if (log.botId && log.message && (
+          log.message.includes('Connexion') ||
+          log.message.includes('connecté') ||
+          log.message.includes('Connecté')
+        )) {
+          historicallyConnected.add(log.botId);
+        }
+      }
+
+      this.data.metrics.connectedBotIds = Array.from(historicallyConnected);
+      this.data.metrics.totalBotsEverConnected = Math.max(
+        this.data.metrics.connectedBotIds.length,
+        this.data.metrics.totalBotsEverConnected || 0
+      );
+
+      this.save();
       this.isLoaded = true;
       this.seedDefaultAdmin();
     } catch (err) {
@@ -251,6 +319,43 @@ class DatabaseService {
   }
 
   // --- Stats & Metrics ---
+  public recordBotConnected(botId: string): void {
+    if (!this.data.metrics) {
+      this.data.metrics = {
+        totalBotsEverConnected: 0,
+        connectedBotIds: [],
+        totalConnectionsEstablished: 0,
+      };
+    }
+    if (!Array.isArray(this.data.metrics.connectedBotIds)) {
+      this.data.metrics.connectedBotIds = [];
+    }
+    if (!this.data.metrics.connectedBotIds.includes(botId)) {
+      this.data.metrics.connectedBotIds.push(botId);
+    }
+    this.data.metrics.totalConnectionsEstablished = (this.data.metrics.totalConnectionsEstablished || 0) + 1;
+    this.data.metrics.lastConnectionAt = new Date().toISOString();
+    this.data.metrics.totalBotsEverConnected = Math.max(
+      this.data.metrics.connectedBotIds.length,
+      this.data.metrics.totalBotsEverConnected || 0
+    );
+    this.save();
+  }
+
+  public getTotalBotsEverConnected(): number {
+    const historicalSet = new Set<string>(this.data.metrics?.connectedBotIds || []);
+    for (const b of this.data.bots) {
+      if (b.status === 'ONLINE' || b.stats?.lastConnectedAt || (b.stats?.messagesHandled && b.stats.messagesHandled > 0)) {
+        historicalSet.add(b.id);
+      }
+    }
+    return Math.max(
+      historicalSet.size,
+      this.data.metrics?.totalBotsEverConnected || 0,
+      1
+    );
+  }
+
   public getStats() {
     const totalUsers = this.data.users.length;
     const totalBots = this.data.bots.length;
@@ -259,11 +364,13 @@ class DatabaseService {
     const pairingBots = this.data.bots.filter(b => b.status === 'PAIRING' || b.status === 'CONNECTING').length;
     const totalMessages = this.data.bots.reduce((acc, b) => acc + (b.stats?.messagesHandled || 0), 0);
     const totalCommands = this.data.bots.reduce((acc, b) => acc + (b.stats?.commandsExecuted || 0), 0);
+    const totalBotsEverConnected = this.getTotalBotsEverConnected();
 
     return {
       totalUsers,
       totalBots,
       activeBots,
+      totalBotsEverConnected,
       errorBots,
       pairingBots,
       totalMessages,

@@ -1,211 +1,119 @@
-# 🚀 JARVIS CLOUD — Plateforme Web d'Hébergement Multi-Utilisateurs de Bots WhatsApp
+# ⚡ 𝐉.𝐀.𝐑.𝐕.𝐈.𝐒 V2
 
-JARVIS CLOUD est une plateforme web SaaS clé en main permettant à n'importe quel utilisateur d'associer et d'héberger son propre bot WhatsApp JARVIS en toute autonomie, directement depuis son navigateur web, sans devoir installer Node.js, ouvrir un terminal ou posséder un serveur personnel.
+Bot WhatsApp multi-fonctions basé sur Baileys (Node.js ESM).
+
+## 🚀 Installation
+
+```bash
+# 1. Cloner ou extraire le ZIP
+cd jarvis-v2
+
+# 2. Configurer
+cp .env.example .env
+nano .env  # Remplissez OWNER_NUMBER au minimum
+
+# 3. Démarrer
+chmod +x start.sh
+./start.sh
+```
+
+## 📋 Commandes (112)
+
+| Catégorie | Commandes |
+|-----------|-----------|
+| 🛡️ Modération | ban, unban, kick, warn, warnlist, resetwarn, promote, demote, add |
+| 🔒 Protection | antilink, antispam, antitag, antimention, antiflood, antiword, antipurge, antidemote, antipromote |
+| 🏠 Groupe | mute, unmute, tagall, hidetag, link, revoke, groupname, groupdesc, groupphoto, groupinfo, open, close |
+| ℹ️ Infos | ping, uptime, whoami, userinfo, groupinfo, listadmin, stats, info |
+| 🛠️ Outils | calc, style, translate, dictionary, qrcode, shorturl, url, ocr, tts, sticker |
+| 🎵 Médias | song, ytmp4, lyrics, download, image, vv, pp |
+| 🌤️ Utilitaires | weather, horoscope, remind, schedule, notes, rules, poll |
+| 🎮 Fun | joke, quote, fact, coinflip, dice, choose, 8ball, rps, roast, compliment, tictactoe, quiz |
+| 📊 Profil | daily, afk, rank, leaderboard, profile, pseudo |
+| 👑 Owner | broadcast, setsudo, delsudo, listsudo, setpremium, delpremium, dit, setprefix, setmode, botname, maintenance, backup, restore, stop, restart, eval, exec, logs, modlog, clearstats |
+
+## ⚙️ Configuration
+
+Éditez `.env` :
+- `OWNER_NUMBER` — Votre numéro (obligatoire)
+- `PREFIX` — Préfixe (défaut: `.`)
+- `MODE` — public/private/group
+- `MAX_WARNS` — Warns avant expulsion (défaut: 3)
+
+## 🔑 Système de permissions
+
+- 👑 **Owner** — Accès total
+- 🔑 **Sudo** — Quasi-owner (`.setsudo`)
+- 💎 **Premium** — Fonctions premium (`.setpremium`)
+- ⭐ **Admin** — Commandes d'administration groupe
+- 👤 **Membre** — Commandes publiques
+
+## 📁 Structure
+
+```
+jarvis-v2/
+├── index.js          # Point d'entrée principal
+├── config.js         # Configuration
+├── .env              # Variables d'environnement
+├── commands/         # 112+ commandes
+├── lib/              # Bibliothèques
+│   ├── ownerSystem.js     # Gestion owner/sudo/premium
+│   ├── groupConfig.js     # Config groupes + cache meta
+│   ├── sendMessage.js     # Envoi de messages
+│   ├── animLoader.js      # Loaders animés
+│   ├── spamManager.js     # Anti-spam
+│   ├── antiLinkManager.js # Anti-liens
+│   └── ...
+└── data/             # Données persistantes (JSON)
+```
+
+## 📝 Notes
+
+- Compatible Node.js 18+
+- Basé sur @whiskeysockets/baileys (ESM)
+- Cache groupMetadata 5min (évite rate-limit 429)
+- Système LID pour les comptes liés
+
 
 ---
 
-## 🌟 Points Forts & Architecture
+## 🆕 Nouvelles fonctionnalités — Multi-Session v2
 
-- **Isolation Stricte Multi-Utilisateurs** : Un moteur commun JARVIS avec répertoires de sessions, clés d'authentification Baileys (`data/sessions/<instanceId>/`) et contextes d'exécution 100% indépendants. Aucun utilisateur ne peut accéder ou contrôler la session d'un autre.
-- **Jumelage Instantané WhatsApp** : Support du **Code de Jumelage officiel à 8 caractères** (Pairing Code) et du **QR Code**, sans jamais demander le mot de passe WhatsApp.
-- **Protection & Anti-Ban** : Limitation des tentatives de jumelage (Rate-Limiter), reconnexion automatique avec temporisation exponentielle progressive (5s, 10s, 20s, max 60s) et arrêt propre des sockets.
-- **Suite Complète de Commandes JARVIS** :
-  - **Général** : `.help`, `.ping`, `.runtime`, `.speed`, `.info`
-  - **Intelligence Artificielle** : `.ai <question>`, `.gemini` alimenté par le SDK officiel `@google/genai` (modèle Gemini 2.5 Flash)
-  - **Utilitaires** : `.calc <expression>`, `.qr <texte/lien>`, `.quote`
-  - **Groupe** : `.tagall`
-  - **Personnalisation** : activation ou désactivation unitaire de chaque commande par utilisateur depuis l'interface web.
-- **Simulateur Interactif WhatsApp** : Permet de tester le bot en temps réel directement dans la console web avant ou pendant la liaison avec un téléphone.
-- **Console d'Administration Globale** : Vue en direct des ressources matérielles (RAM, CPU, Heap, Uptime), modération des comptes (suspension/réactivation), et arrêt d'urgence des instances abusives.
-- **Sécurité Maximale** : Mots de passe hachés avec `bcryptjs`, authentification JWT, masquage partiel des numéros de téléphone (`+33 6 ••• •• 78`), et sanitisation automatique des tokens dans les journaux.
+### Système Multi-Session (Bot-as-a-Service)
 
----
+Chaque utilisateur peut connecter son propre compte WhatsApp via un code de pairing.
 
-## 📋 Variables d'Environnement (.env)
+### Commandes ajoutées
 
-Créez un fichier `.env` à la racine du projet :
+| Commande | Description |
+|---|---|
+| `.pairing +226XXXXXXXX` | Générer un code de pairing pour connecter un compte |
+| `.mypair` | Vérifier l'état de votre session active |
+| `.stoppair` | Déconnecter et supprimer votre session |
 
-```ini
-# Port d'écoute du serveur HTTP / WebSocket
-PORT=3000
+### Fonctionnalités
 
-# Environnement (development ou production)
-NODE_ENV=production
+- ✅ Multi-session avec `useMultiFileAuthState` par utilisateur
+- ✅ Sessions stockées dans `sessions/{numero}/`
+- ✅ Reconnexion automatique en cas de déconnexion
+- ✅ Cooldown 60 secondes anti-spam
+- ✅ Détection de session dupliquée
+- ✅ Restauration des sessions au redémarrage du bot
+- ✅ Bot principal non affecté
 
-# Clé secrète pour signer les jetons d'authentification JWT
-JWT_SECRET=super_secret_jwt_key_pour_jarvis_cloud_vps_2026_a_changer
 
-# Identifiants de l'administrateur initial
-ADMIN_EMAIL=admin@jarviscloud.local
-ADMIN_PASSWORD=JarvisCloud2026!
+## Configuration après extraction
 
-# Clé API Google Gemini (optionnel, active l'IA temps réel dans .ai)
-GEMINI_API_KEY=votre_cle_gemini_api
-```
+1. Copiez `.env.example` vers `.env`.
+2. Renseignez au minimum `OWNER_NUMBER` avec votre numéro WhatsApp sans le signe `+`.
+3. Ajoutez vos propres clés API si vous utilisez les fonctions IA correspondantes.
+4. Renseignez `BOT_CONNECT_LINK` lorsque votre lien de connexion sera prêt.
+5. Installez les dépendances avec `npm install`, puis lancez `npm start`.
 
----
+Ne partagez jamais `.env`, le dossier de session WhatsApp ou les fichiers de données runtime. L'archive de distribution ne contient pas le `.env` personnel ni les données JSON runtime.
 
-## 🛠️ Déploiement en Production sur un VPS Linux (Ubuntu 22.04 / 24.04 ou Debian 12)
+### Liens configurés
 
-### 1. Préparation du système et installation de Node.js 22 LTS
-
-Connectez-vous à votre VPS via SSH :
-
-```bash
-ssh root@votre_ip_vps
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl git ufw nginx certbot python3-certbot-nginx
-
-# Installer Node.js 22 LTS
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt install -y nodejs
-node -v # Doit afficher v22.x.x
-```
-
-### 2. Déploiement du code sur le VPS
-
-```bash
-sudo mkdir -p /var/www/jarvis-cloud
-cd /var/www/jarvis-cloud
-
-# Cloner ou transférer le code
-# Ex: git clone <votre_depot> .
-
-# Installer les dépendances et compiler le frontend
-npm install
-npm run build
-```
-
-### 3. Création du service persistant Systemd
-
-Créez le fichier de service `/etc/systemd/system/jarvis-cloud.service` :
-
-```bash
-sudo nano /etc/systemd/system/jarvis-cloud.service
-```
-
-Collez la configuration suivante :
-
-```ini
-[Unit]
-Description=JARVIS CLOUD - Hébergement Bots WhatsApp Multi-Tenant
-After=network.target
-
-[Service]
-Type=simple
-User=root
-WorkingDirectory=/var/www/jarvis-cloud
-ExecStart=/usr/bin/npm run start
-Restart=always
-RestartSec=10
-Environment=NODE_ENV=production
-Environment=PORT=3000
-Environment=JWT_SECRET=generer_une_cle_secrete_aleatoire_64_chars
-Environment=ADMIN_EMAIL=admin@votre-domaine.com
-Environment=ADMIN_PASSWORD=MotDePasseAdminUltraSecurise2026!
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=jarvis-cloud
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Activez et démarrez le service :
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now jarvis-cloud
-sudo systemctl status jarvis-cloud
-```
-
-### 4. Configuration de Nginx en Reverse Proxy et WebSocket
-
-Créez la configuration Nginx :
-
-```bash
-sudo nano /etc/nginx/sites-available/jarvis-cloud
-```
-
-Contenu :
-
-```nginx
-server {
-    listen 80;
-    server_name jarvis.votre-domaine.com;
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name jarvis.votre-domaine.com;
-
-    # Certificats SSL générés par Certbot
-    ssl_certificate /etc/letsencrypt/live/jarvis.votre-domaine.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/jarvis.votre-domaine.com/privkey.pem;
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_read_timeout 86400s;
-        proxy_send_timeout 86400s;
-    }
-}
-```
-
-Activez le site et obtenez un certificat SSL HTTPS gratuit :
-
-```bash
-sudo ln -s /etc/nginx/sites-available/jarvis-cloud /etc/nginx/sites-enabled/
-sudo ufw allow 'Nginx Full'
-sudo certbot --nginx -d jarvis.votre-domaine.com
-sudo systemctl restart nginx
-```
-
----
-
-## 💾 Sauvegarde et Restauration
-
-### Sauvegarde automatique :
-Toutes les données (utilisateurs, configurations, statistiques et clés de session WhatsApp isolées) sont stockées dans le dossier `/var/www/jarvis-cloud/data/`.
-
-Pour effectuer une sauvegarde :
-```bash
-# Sauvegarde compressée horodatée
-tar -czvf /backup/jarvis-backup-$(date +%F).tar.gz -C /var/www/jarvis-cloud data
-```
-
-### Restauration :
-```bash
-sudo systemctl stop jarvis-cloud
-tar -xzvf /backup/jarvis-backup-2026-10-15.tar.gz -C /var/www/jarvis-cloud/
-sudo systemctl start jarvis-cloud
-```
-
----
-
-## 🧪 Tests Automatisés
-
-Pour exécuter la suite de tests unitaires et de vérification d'isolation multi-tenant :
-
-```bash
-npm run test # ou: npx tsx tests/suite.ts
-```
-
-La suite vérifie :
-1. Le hachage et la validation des mots de passe avec `bcryptjs`.
-2. La création et séparation de plusieurs utilisateurs indépendants.
-3. L'isolation stricte des instances de bots et de leurs dossiers de session.
-4. L'étanchéité des configurations (modifier le bot A ne modifie jamais le bot B).
-5. Le masquage sécurisé des numéros WhatsApp.
-6. La sanitisation des clés d'autorisation et des tokens secrets dans les logs.
-7. L'exécution sandboxée du simulateur de commandes.
-8. Le blocage des commandes désactivées individuellement.
+- Groupe Telegram : https://t.me/+kcLFkzePlwwyZjE8
+- Chaîne Telegram : https://t.me/nexusforger
+- Chaîne WhatsApp : https://whatsapp.com/channel/0029VbCRcEJLdQeYxw5g3m2o

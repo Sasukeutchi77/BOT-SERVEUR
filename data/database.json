@@ -20,22 +20,31 @@
       "updatedAt": "2026-10-15T20:00:58.083Z"
     },
     {
-      "id": "usr_test_1",
-      "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$7aVeAGepRqk2VO.hNq8oaeMW3RiAw9AZvhJaqEo0MgkoVUma0grV2",
+      "id": "usr_guest_mvay3hd9000c",
+      "email": "utilisateur_9000c@jarvis.local",
+      "passwordHash": "guest_auto_session",
       "role": "user",
       "isSuspended": false,
-      "createdAt": "2026-10-16T12:25:57.189Z",
-      "updatedAt": "2026-10-16T12:25:57.189Z"
+      "createdAt": "2026-10-16T12:29:53.709Z",
+      "updatedAt": "2026-10-16T12:29:53.709Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$IICeOxovn8UqqenIa8MkAeV7FFzEnhZV28jdx0nK6PcbK3uWB54xC",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-16T13:46:57.728Z",
+      "updatedAt": "2026-10-16T13:46:57.728Z"
     },
     {
       "id": "usr_test_2",
       "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$7aVeAGepRqk2VO.hNq8oaeMW3RiAw9AZvhJaqEo0MgkoVUma0grV2",
+      "passwordHash": "$2b$10$IICeOxovn8UqqenIa8MkAeV7FFzEnhZV28jdx0nK6PcbK3uWB54xC",
       "role": "user",
       "isSuspended": false,
-      "createdAt": "2026-10-16T12:25:57.189Z",
-      "updatedAt": "2026-10-16T12:25:57.189Z"
+      "createdAt": "2026-10-16T13:46:57.729Z",
+      "updatedAt": "2026-10-16T13:46:57.729Z"
     }
   ],
   "bots": [
@@ -43,6 +52,42 @@
       "id": "bot_mv9yrppg4bop",
       "userId": "usr_guest_mv9yrppfdd2a",
       "name": "Numéro WhatsApp #1 (Principal)",
+      "status": "ONLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 1398,
+        "commandsExecuted": 0,
+        "lastConnectedAt": "2026-10-16T13:41:31.492Z",
+        "lastActivityAt": "2026-10-16T13:45:17.673Z",
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-15T20:00:58.084Z",
+      "updatedAt": "2026-10-16T13:45:17.673Z",
+      "phoneNumber": "+22607603281"
+    },
+    {
+      "id": "bot_mvay3hdag8tx",
+      "userId": "usr_guest_mvay3hd9000c",
+      "name": "Mon Assistant JARVIS",
       "status": "OFFLINE",
       "config": {
         "botName": "JARVIS",
@@ -65,14 +110,12 @@
         ]
       },
       "stats": {
-        "messagesHandled": 1156,
+        "messagesHandled": 0,
         "commandsExecuted": 0,
-        "lastConnectedAt": "2026-10-16T11:47:01.862Z",
-        "lastActivityAt": "2026-10-16T11:47:01.862Z",
-        "reconnectAttempts": 1
+        "reconnectAttempts": 0
       },
-      "createdAt": "2026-10-15T20:00:58.084Z",
-      "updatedAt": "2026-10-16T12:19:47.960Z"
+      "createdAt": "2026-10-16T12:29:53.710Z",
+      "updatedAt": "2026-10-16T12:29:53.710Z"
     }
   ],
   "logs": [
@@ -350,1196 +393,6 @@
       "timestamp": "2026-10-15T17:57:38.101Z"
     },
     {
-      "id": "log_mvawf098i07e",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . whoami",
-      "timestamp": "2026-10-16T11:42:52.172Z"
-    },
-    {
-      "id": "log_mvawf0fs5fpb",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime chéri 🖤✨",
-      "timestamp": "2026-10-16T11:42:52.408Z"
-    },
-    {
-      "id": "log_mvawf0fvnngt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime chéri 🖤✨",
-      "timestamp": "2026-10-16T11:42:52.411Z"
-    },
-    {
-      "id": "log_mvawf0hdm4v8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’espère que ça t’a plu le texte 🌹",
-      "timestamp": "2026-10-16T11:42:52.465Z"
-    },
-    {
-      "id": "log_mvawf0hg65t1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’espère que ça t’a plu le texte 🌹",
-      "timestamp": "2026-10-16T11:42:52.468Z"
-    },
-    {
-      "id": "log_mvawf0jr3l8m",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!",
-      "timestamp": "2026-10-16T11:42:52.551Z"
-    },
-    {
-      "id": "log_mvawf0jvm2px",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!",
-      "timestamp": "2026-10-16T11:42:52.555Z"
-    },
-    {
-      "id": "log_mvawf0lb82s8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui mon amour j'ai tout lu mots par mots",
-      "timestamp": "2026-10-16T11:42:52.607Z"
-    },
-    {
-      "id": "log_mvawf0leo6m0",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui mon amour j'ai tout lu mots par mots",
-      "timestamp": "2026-10-16T11:42:52.610Z"
-    },
-    {
-      "id": "log_mvawf0swxtk6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Va dormir",
-      "timestamp": "2026-10-16T11:42:52.880Z"
-    },
-    {
-      "id": "log_mvawf0sze8ym",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Va dormir",
-      "timestamp": "2026-10-16T11:42:52.883Z"
-    },
-    {
-      "id": "log_mvawf14252s6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .menu",
-      "timestamp": "2026-10-16T11:42:53.282Z"
-    },
-    {
-      "id": "log_mvawf145jjgi",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .menu",
-      "timestamp": "2026-10-16T11:42:53.285Z"
-    },
-    {
-      "id": "log_mvawf1c39v2n",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Moi je suis réveillée je part au stage je suis crevée j’ai m",
-      "timestamp": "2026-10-16T11:42:53.571Z"
-    },
-    {
-      "id": "log_mvawf1c78p98",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Moi je suis réveillée je part au stage je suis crevée j’ai m",
-      "timestamp": "2026-10-16T11:42:53.575Z"
-    },
-    {
-      "id": "log_mvawf1embdry",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’espère avoir été la première à te l’avoir souhaité 🥲🥲🥲\ud83e",
-      "timestamp": "2026-10-16T11:42:53.662Z"
-    },
-    {
-      "id": "log_mvawf1ep005v",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’espère avoir été la première à te l’avoir souhaité 🥲🥲🥲\ud83e",
-      "timestamp": "2026-10-16T11:42:53.665Z"
-    },
-    {
-      "id": "log_mvawf1juav3k",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .ping",
-      "timestamp": "2026-10-16T11:42:53.850Z"
-    },
-    {
-      "id": "log_mvawf1jxsx1m",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .ping",
-      "timestamp": "2026-10-16T11:42:53.853Z"
-    },
-    {
-      "id": "log_mvawf1qfuh2o",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui mon amour c'est toi la première",
-      "timestamp": "2026-10-16T11:42:54.087Z"
-    },
-    {
-      "id": "log_mvawf1qii5ft",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui mon amour c'est toi la première",
-      "timestamp": "2026-10-16T11:42:54.090Z"
-    },
-    {
-      "id": "log_mvawf1z9juop",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: D'accord mon amour il faut essayer de trouver quelque chose ",
-      "timestamp": "2026-10-16T11:42:54.405Z"
-    },
-    {
-      "id": "log_mvawf1zce1im",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: D'accord mon amour il faut essayer de trouver quelque chose ",
-      "timestamp": "2026-10-16T11:42:54.408Z"
-    },
-    {
-      "id": "log_mvawf29rgldw",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Maintenant va dodo aller !!!!",
-      "timestamp": "2026-10-16T11:42:54.783Z"
-    },
-    {
-      "id": "log_mvawf29upywv",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Maintenant va dodo aller !!!!",
-      "timestamp": "2026-10-16T11:42:54.786Z"
-    },
-    {
-      "id": "log_mvawf2e8vs2v",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui t’inquiète pas je prend déjà assez de médoc 🥲🥲 mais là",
-      "timestamp": "2026-10-16T11:42:54.944Z"
-    },
-    {
-      "id": "log_mvawf2ebw79s",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui t’inquiète pas je prend déjà assez de médoc 🥲🥲 mais là",
-      "timestamp": "2026-10-16T11:42:54.947Z"
-    },
-    {
-      "id": "log_mvawf2guox1g",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et oki fait attention à toi bonne nuit repose toi bien bisou",
-      "timestamp": "2026-10-16T11:42:55.038Z"
-    },
-    {
-      "id": "log_mvawf2gy5diy",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Et oki fait attention à toi bonne nuit repose toi bien bisou",
-      "timestamp": "2026-10-16T11:42:55.042Z"
-    },
-    {
-      "id": "log_mvawf2i61x5h",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire",
-      "timestamp": "2026-10-16T11:42:55.086Z"
-    },
-    {
-      "id": "log_mvawf2i9n3qo",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire",
-      "timestamp": "2026-10-16T11:42:55.089Z"
-    },
-    {
-      "id": "log_mvawf30fueg7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire mon chéri d’amour !!!!!🌹✨🎉",
-      "timestamp": "2026-10-16T11:42:55.743Z"
-    },
-    {
-      "id": "log_mvawf30igfrx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire mon chéri d’amour !!!!!🌹✨🎉",
-      "timestamp": "2026-10-16T11:42:55.746Z"
-    },
-    {
-      "id": "log_mvawf30sa7no",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime arrerh",
-      "timestamp": "2026-10-16T11:42:55.756Z"
-    },
-    {
-      "id": "log_mvawf30vnson",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime arrerh",
-      "timestamp": "2026-10-16T11:42:55.759Z"
-    },
-    {
-      "id": "log_mvawf31i1q3l",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!! 🎉🥳🥳",
-      "timestamp": "2026-10-16T11:42:55.782Z"
-    },
-    {
-      "id": "log_mvawf31kld8k",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!! 🎉🥳🥳",
-      "timestamp": "2026-10-16T11:42:55.784Z"
-    },
-    {
-      "id": "log_mvawf31sixgr",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Franchement j’espère que tu vas passer une bonne journée auj",
-      "timestamp": "2026-10-16T11:42:55.792Z"
-    },
-    {
-      "id": "log_mvawf31v1w0o",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Franchement j’espère que tu vas passer une bonne journée auj",
-      "timestamp": "2026-10-16T11:42:55.795Z"
-    },
-    {
-      "id": "log_mvawf34pescx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Sasuke lui fait les fesses",
-      "timestamp": "2026-10-16T11:42:55.897Z"
-    },
-    {
-      "id": "log_mvawf34tv4lm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Sasuke lui fait les fesses",
-      "timestamp": "2026-10-16T11:42:55.901Z"
-    },
-    {
-      "id": "log_mvawf352efso",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Shanks peut faire quoi a un susanoo",
-      "timestamp": "2026-10-16T11:42:55.910Z"
-    },
-    {
-      "id": "log_mvawf356gy6q",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Shanks peut faire quoi a un susanoo",
-      "timestamp": "2026-10-16T11:42:55.914Z"
-    },
-    {
-      "id": "log_mvawf362e6om",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Moi aussi je l'espère",
-      "timestamp": "2026-10-16T11:42:55.946Z"
-    },
-    {
-      "id": "log_mvawf366d1hj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Moi aussi je l'espère",
-      "timestamp": "2026-10-16T11:42:55.950Z"
-    },
-    {
-      "id": "log_mvawf37anhi5",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .repo",
-      "timestamp": "2026-10-16T11:42:55.990Z"
-    },
-    {
-      "id": "log_mvawf37c0cfx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .repo",
-      "timestamp": "2026-10-16T11:42:55.992Z"
-    },
-    {
-      "id": "log_mvawf37qfu0u",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: *arrive avec sa bécane \nBah là personne ?",
-      "timestamp": "2026-10-16T11:42:56.006Z"
-    },
-    {
-      "id": "log_mvawf37vthcq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: *arrive avec sa bécane \nBah là personne ?",
-      "timestamp": "2026-10-16T11:42:56.011Z"
-    },
-    {
-      "id": "log_mvawf38qo0ov",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Pas de problème juste que j'ai commandé un PC qui vient à la",
-      "timestamp": "2026-10-16T11:42:56.042Z"
-    },
-    {
-      "id": "log_mvawf38sf0i3",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Pas de problème juste que j'ai commandé un PC qui vient à la",
-      "timestamp": "2026-10-16T11:42:56.044Z"
-    },
-    {
-      "id": "log_mvawf391yotp",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Boss  aidé à vendre cette tablette",
-      "timestamp": "2026-10-16T11:42:56.053Z"
-    },
-    {
-      "id": "log_mvawf393llas",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Boss  aidé à vendre cette tablette",
-      "timestamp": "2026-10-16T11:42:56.055Z"
-    },
-    {
-      "id": "log_mvawf3a53yrh",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire",
-      "timestamp": "2026-10-16T11:42:56.093Z"
-    },
-    {
-      "id": "log_mvawf3a8wfis",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire",
-      "timestamp": "2026-10-16T11:42:56.096Z"
-    },
-    {
-      "id": "log_mvawf3arafjf",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: REGARDE CE QUE MA POTE A FAIT MDR 😒😒😭😭😭😭",
-      "timestamp": "2026-10-16T11:42:56.115Z"
-    },
-    {
-      "id": "log_mvawf3aus5ez",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: REGARDE CE QUE MA POTE A FAIT MDR 😒😒😭😭😭😭",
-      "timestamp": "2026-10-16T11:42:56.118Z"
-    },
-    {
-      "id": "log_mvawf3c9ebpa",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JE T’AIME MON AMOUR !!!!!",
-      "timestamp": "2026-10-16T11:42:56.169Z"
-    },
-    {
-      "id": "log_mvawf3cen55i",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JE T’AIME MON AMOUR !!!!!",
-      "timestamp": "2026-10-16T11:42:56.174Z"
-    },
-    {
-      "id": "log_mvawf3crlf03",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE CHÉRI 🎉🎉🎉🎉🥳🥳🥳🥳",
-      "timestamp": "2026-10-16T11:42:56.187Z"
-    },
-    {
-      "id": "log_mvawf3cvr8la",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE CHÉRI 🎉🎉🎉🎉🥳🥳🥳🥳",
-      "timestamp": "2026-10-16T11:42:56.191Z"
-    },
-    {
-      "id": "log_mvawf3d7g6j4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tkt pas ce soir tu aura plein de cadeau mon chéri d’amour 👀",
-      "timestamp": "2026-10-16T11:42:56.203Z"
-    },
-    {
-      "id": "log_mvawf3ddbr98",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tkt pas ce soir tu aura plein de cadeau mon chéri d’amour 👀",
-      "timestamp": "2026-10-16T11:42:56.209Z"
-    },
-    {
-      "id": "log_mvawf3ex1rbi",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ✨✨",
-      "timestamp": "2026-10-16T11:42:56.265Z"
-    },
-    {
-      "id": "log_mvawf3f08bzq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: ✨✨",
-      "timestamp": "2026-10-16T11:42:56.268Z"
-    },
-    {
-      "id": "log_mvawf3fvvug7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J'ai hâte alors 🫠",
-      "timestamp": "2026-10-16T11:42:56.299Z"
-    },
-    {
-      "id": "log_mvawf3fyfhry",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J'ai hâte alors 🫠",
-      "timestamp": "2026-10-16T11:42:56.302Z"
-    },
-    {
-      "id": "log_mvawf3hemmty",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .menu",
-      "timestamp": "2026-10-16T11:42:56.354Z"
-    },
-    {
-      "id": "log_mvawf3hi04kl",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .menu",
-      "timestamp": "2026-10-16T11:42:56.358Z"
-    },
-    {
-      "id": "log_mvawf3i26gsl",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . welcome on",
-      "timestamp": "2026-10-16T11:42:56.378Z"
-    },
-    {
-      "id": "log_mvawf3i4393e",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . welcome on",
-      "timestamp": "2026-10-16T11:42:56.380Z"
-    },
-    {
-      "id": "log_mvawf3ik6h7g",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .info",
-      "timestamp": "2026-10-16T11:42:56.396Z"
-    },
-    {
-      "id": "log_mvawf3in0hpa",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .info",
-      "timestamp": "2026-10-16T11:42:56.399Z"
-    },
-    {
-      "id": "log_mvawf3j0fxyd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .repo",
-      "timestamp": "2026-10-16T11:42:56.412Z"
-    },
-    {
-      "id": "log_mvawf3j22o4f",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .repo",
-      "timestamp": "2026-10-16T11:42:56.414Z"
-    },
-    {
-      "id": "log_mvawf3kgfk8j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bobo Dioulasso\nÀ belle ville après la clinique eurika\nCour c",
-      "timestamp": "2026-10-16T11:42:56.464Z"
-    },
-    {
-      "id": "log_mvawf3kjcxjc",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bobo Dioulasso\nÀ belle ville après la clinique eurika\nCour c",
-      "timestamp": "2026-10-16T11:42:56.467Z"
-    },
-    {
-      "id": "log_mvawf3lfayyn",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE",
-      "timestamp": "2026-10-16T11:42:56.499Z"
-    },
-    {
-      "id": "log_mvawf3lhtdmm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE",
-      "timestamp": "2026-10-16T11:42:56.501Z"
-    },
-    {
-      "id": "log_mvawf3lq1w9v",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🥳🥳🥳",
-      "timestamp": "2026-10-16T11:42:56.510Z"
-    },
-    {
-      "id": "log_mvawf3ltpha3",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🥳🥳🥳",
-      "timestamp": "2026-10-16T11:42:56.513Z"
-    },
-    {
-      "id": "log_mvawf3m8gbgo",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 👀😏",
-      "timestamp": "2026-10-16T11:42:56.528Z"
-    },
-    {
-      "id": "log_mvawf3masam6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 👀😏",
-      "timestamp": "2026-10-16T11:42:56.530Z"
-    },
-    {
-      "id": "log_mvawf3mk34q8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est une connasse même si c’est drôle 🤣",
-      "timestamp": "2026-10-16T11:42:56.540Z"
-    },
-    {
-      "id": "log_mvawf3mn3f2g",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est une connasse même si c’est drôle 🤣",
-      "timestamp": "2026-10-16T11:42:56.543Z"
-    },
-    {
-      "id": "log_mvawf3nl3jin",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .menu",
-      "timestamp": "2026-10-16T11:42:56.577Z"
-    },
-    {
-      "id": "log_mvawf3noyut7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .menu",
-      "timestamp": "2026-10-16T11:42:56.580Z"
-    },
-    {
-      "id": "log_mvawf3oj8ls6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . statue",
-      "timestamp": "2026-10-16T11:42:56.611Z"
-    },
-    {
-      "id": "log_mvawf3oml867",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . statue",
-      "timestamp": "2026-10-16T11:42:56.614Z"
-    },
-    {
-      "id": "log_mvawf3p359dr",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime mon amour vraiment vraiment beaucoup",
-      "timestamp": "2026-10-16T11:42:56.631Z"
-    },
-    {
-      "id": "log_mvawf3p5ycwn",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je t’aime mon amour vraiment vraiment beaucoup",
-      "timestamp": "2026-10-16T11:42:56.633Z"
-    },
-    {
-      "id": "log_mvawf3pg4bkq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Mon chéri I love you !!!!",
-      "timestamp": "2026-10-16T11:42:56.644Z"
-    },
-    {
-      "id": "log_mvawf3pioced",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Mon chéri I love you !!!!",
-      "timestamp": "2026-10-16T11:42:56.646Z"
-    },
-    {
-      "id": "log_mvawf3qd7qwv",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .info",
-      "timestamp": "2026-10-16T11:42:56.677Z"
-    },
-    {
-      "id": "log_mvawf3qglxt2",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .info",
-      "timestamp": "2026-10-16T11:42:56.680Z"
-    },
-    {
-      "id": "log_mvawf3qzsodd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . repo",
-      "timestamp": "2026-10-16T11:42:56.699Z"
-    },
-    {
-      "id": "log_mvawf3r214ig",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . repo",
-      "timestamp": "2026-10-16T11:42:56.702Z"
-    },
-    {
-      "id": "log_mvawf3rcncek",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Suivre la chaîne Free Sûrf sur WhatsApp  : https://whatsapp.",
-      "timestamp": "2026-10-16T11:42:56.712Z"
-    },
-    {
-      "id": "log_mvawf3rl4ea2",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Suivre la chaîne Free Sûrf sur WhatsApp  : https://whatsapp.",
-      "timestamp": "2026-10-16T11:42:56.721Z"
-    },
-    {
-      "id": "log_mvawf3scagjp",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: https://chat.whatsapp.com/DDrdpX4q9XeCJRRTKY8iIC?s=cl&p=a&ml",
-      "timestamp": "2026-10-16T11:42:56.748Z"
-    },
-    {
-      "id": "log_mvawf3sfwibz",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: https://chat.whatsapp.com/DDrdpX4q9XeCJRRTKY8iIC?s=cl&p=a&ml",
-      "timestamp": "2026-10-16T11:42:56.751Z"
-    },
-    {
-      "id": "log_mvawf3ssi4zx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 2go mon frère",
-      "timestamp": "2026-10-16T11:42:56.764Z"
-    },
-    {
-      "id": "log_mvawf3sxgw0d",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 2go mon frère",
-      "timestamp": "2026-10-16T11:42:56.769Z"
-    },
-    {
-      "id": "log_mvawf3u2fzdj",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: RÉSEAU :Orange illimité ⭐\nApp: NPV TUNNEL \nEXPIRE : 07H30\nCO",
-      "timestamp": "2026-10-16T11:42:56.810Z"
-    },
-    {
-      "id": "log_mvawf3u6st2r",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: RÉSEAU :Orange illimité ⭐\nApp: NPV TUNNEL \nEXPIRE : 07H30\nCO",
-      "timestamp": "2026-10-16T11:42:56.814Z"
-    },
-    {
-      "id": "log_mvawf3vd248w",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C'est pour ceux qui ont déjà pris leur formation au orange n",
-      "timestamp": "2026-10-16T11:42:56.857Z"
-    },
-    {
-      "id": "log_mvawf3vgkeb6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C'est pour ceux qui ont déjà pris leur formation au orange n",
-      "timestamp": "2026-10-16T11:42:56.860Z"
-    },
-    {
-      "id": "log_mvawf3vulvfm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui aussi mi amor",
-      "timestamp": "2026-10-16T11:42:56.874Z"
-    },
-    {
-      "id": "log_mvawf3vw12bc",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Oui aussi mi amor",
-      "timestamp": "2026-10-16T11:42:56.876Z"
-    },
-    {
-      "id": "log_mvawf3xlrtpm",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🔥 MONÉTISATION DES COMPTES TIKTOK 🔥\n\n💰 Disponible aujourd",
-      "timestamp": "2026-10-16T11:42:56.937Z"
-    },
-    {
-      "id": "log_mvawf3xnx04v",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🔥 MONÉTISATION DES COMPTES TIKTOK 🔥\n\n💰 Disponible aujourd",
-      "timestamp": "2026-10-16T11:42:56.939Z"
-    },
-    {
-      "id": "log_mvawf3ydleoq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!!",
-      "timestamp": "2026-10-16T11:42:56.965Z"
-    },
-    {
-      "id": "log_mvawf3yfxgjt",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: JOYEUX ANNIVERSAIRE !!!!!!",
-      "timestamp": "2026-10-16T11:42:56.967Z"
-    },
-    {
-      "id": "log_mvawf3z3fk10",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . lyrics leto",
-      "timestamp": "2026-10-16T11:42:56.991Z"
-    },
-    {
-      "id": "log_mvawf3z560p1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . lyrics leto",
-      "timestamp": "2026-10-16T11:42:56.993Z"
-    },
-    {
-      "id": "log_mvawf3zg38ff",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . lyrics menace santana",
-      "timestamp": "2026-10-16T11:42:57.004Z"
-    },
-    {
-      "id": "log_mvawf3zjh39e",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: . lyrics menace santana",
-      "timestamp": "2026-10-16T11:42:57.007Z"
-    },
-    {
-      "id": "log_mvawf3zyu3e4",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .song lybro",
-      "timestamp": "2026-10-16T11:42:57.022Z"
-    },
-    {
-      "id": "log_mvawf401lzki",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: .song lybro",
-      "timestamp": "2026-10-16T11:42:57.025Z"
-    },
-    {
-      "id": "log_mvawf40b68xd",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ha je t avait pas vu. Cv ?",
-      "timestamp": "2026-10-16T11:42:57.035Z"
-    },
-    {
-      "id": "log_mvawf40dmo1n",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ha je t avait pas vu. Cv ?",
-      "timestamp": "2026-10-16T11:42:57.037Z"
-    },
-    {
-      "id": "log_mvawf40p58lf",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Merci beaucoup mi amor",
-      "timestamp": "2026-10-16T11:42:57.049Z"
-    },
-    {
-      "id": "log_mvawf40s8t4j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Merci beaucoup mi amor",
-      "timestamp": "2026-10-16T11:42:57.052Z"
-    },
-    {
-      "id": "log_mvawf41d65w6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’espère que tu passe une bonne journée chéri !!!!",
-      "timestamp": "2026-10-16T11:42:57.073Z"
-    },
-    {
-      "id": "log_mvawf41havmb",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’espère que tu passe une bonne journée chéri !!!!",
-      "timestamp": "2026-10-16T11:42:57.077Z"
-    },
-    {
-      "id": "log_mvawf423wzey",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ce soir on se fait une petite soirée tout les deux pr ton an",
-      "timestamp": "2026-10-16T11:42:57.099Z"
-    },
-    {
-      "id": "log_mvawf426r1td",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ce soir on se fait une petite soirée tout les deux pr ton an",
-      "timestamp": "2026-10-16T11:42:57.102Z"
-    },
-    {
-      "id": "log_mvawf42pjd99",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je ne fais rien toute la journée",
-      "timestamp": "2026-10-16T11:42:57.121Z"
-    },
-    {
-      "id": "log_mvawf42sgqsl",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je ne fais rien toute la journée",
-      "timestamp": "2026-10-16T11:42:57.124Z"
-    },
-    {
-      "id": "log_mvawf439qvmc",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu travailles pas ??",
-      "timestamp": "2026-10-16T11:42:57.141Z"
-    },
-    {
-      "id": "log_mvawf43ciyet",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu travailles pas ??",
-      "timestamp": "2026-10-16T11:42:57.144Z"
-    },
-    {
-      "id": "log_mvawf43qrm85",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est cool ça bah ce soir réserve ta soirée on la passe tout",
-      "timestamp": "2026-10-16T11:42:57.158Z"
-    },
-    {
-      "id": "log_mvawf43sxe6m",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: C’est cool ça bah ce soir réserve ta soirée on la passe tout",
-      "timestamp": "2026-10-16T11:42:57.160Z"
-    },
-    {
-      "id": "log_mvawf44c49b2",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je vais fait faire un programme pr ton anniversaire ce soir ",
-      "timestamp": "2026-10-16T11:42:57.180Z"
-    },
-    {
-      "id": "log_mvawf44f4a0n",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je vais fait faire un programme pr ton anniversaire ce soir ",
-      "timestamp": "2026-10-16T11:42:57.183Z"
-    },
-    {
-      "id": "log_mvawf44zluux",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je gère tout mon amour ne tkt pas ce que tu dois faire toi c",
-      "timestamp": "2026-10-16T11:42:57.203Z"
-    },
-    {
-      "id": "log_mvawf451vr6f",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je gère tout mon amour ne tkt pas ce que tu dois faire toi c",
-      "timestamp": "2026-10-16T11:42:57.205Z"
-    },
-    {
-      "id": "log_mvawf45b9qvx",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire mon amoureux !!!!!!! 🎉🥳🎂",
-      "timestamp": "2026-10-16T11:42:57.215Z"
-    },
-    {
-      "id": "log_mvawf45euos7",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Joyeux anniversaire mon amoureux !!!!!!! 🎉🥳🎂",
-      "timestamp": "2026-10-16T11:42:57.218Z"
-    },
-    {
-      "id": "log_mvawf46d8mko",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu vas passer la meilleure soirée de ta vie mon amoureux ♥️\ud83d",
-      "timestamp": "2026-10-16T11:42:57.253Z"
-    },
-    {
-      "id": "log_mvawf46fwpq6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Tu vas passer la meilleure soirée de ta vie mon amoureux ♥️\ud83d",
-      "timestamp": "2026-10-16T11:42:57.255Z"
-    },
-    {
-      "id": "log_mvawf46pntfn",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bon moi j’ai fini ma matinée je reprend à 16h là je vais fai",
-      "timestamp": "2026-10-16T11:42:57.265Z"
-    },
-    {
-      "id": "log_mvawf46s4rm6",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bon moi j’ai fini ma matinée je reprend à 16h là je vais fai",
-      "timestamp": "2026-10-16T11:42:57.268Z"
-    },
-    {
-      "id": "log_mvawf471bpvq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je te dis à toute à l’heure mon chéri essaye de te reposer a",
-      "timestamp": "2026-10-16T11:42:57.277Z"
-    },
-    {
-      "id": "log_mvawf4738720",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Je te dis à toute à l’heure mon chéri essaye de te reposer a",
-      "timestamp": "2026-10-16T11:42:57.279Z"
-    },
-    {
-      "id": "log_mvawf47z4iny",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Putain je t’aime trop bordel de merde 🖤🦋✨",
-      "timestamp": "2026-10-16T11:42:57.311Z"
-    },
-    {
-      "id": "log_mvawf4821p5j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Putain je t’aime trop bordel de merde 🖤🦋✨",
-      "timestamp": "2026-10-16T11:42:57.314Z"
-    },
-    {
-      "id": "log_mvawf48w9gm1",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bifait chéri bisous 😘🦋",
-      "timestamp": "2026-10-16T11:42:57.344Z"
-    },
-    {
-      "id": "log_mvawf48zb78p",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Bifait chéri bisous 😘🦋",
-      "timestamp": "2026-10-16T11:42:57.347Z"
-    },
-    {
-      "id": "log_mvawf49ueg3l",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: D'accord",
-      "timestamp": "2026-10-16T11:42:57.378Z"
-    },
-    {
-      "id": "log_mvawf49x8xfp",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: D'accord",
-      "timestamp": "2026-10-16T11:42:57.381Z"
-    },
-    {
-      "id": "log_mvawf4aaeavh",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: D'accord mon amour a plus tard je t'aime",
-      "timestamp": "2026-10-16T11:42:57.394Z"
-    },
-    {
-      "id": "log_mvawf4acroau",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: D'accord mon amour a plus tard je t'aime",
-      "timestamp": "2026-10-16T11:42:57.396Z"
-    },
-    {
-      "id": "log_mvawf4b8uw8j",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’ai froid 🥲🥲 réchauffe moi chéri 😏😏",
-      "timestamp": "2026-10-16T11:42:57.428Z"
-    },
-    {
-      "id": "log_mvawf4beqzi9",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: J’ai froid 🥲🥲 réchauffe moi chéri 😏😏",
-      "timestamp": "2026-10-16T11:42:57.434Z"
-    },
-    {
-      "id": "log_mvawf4cjubqa",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ah weh??",
-      "timestamp": "2026-10-16T11:42:57.475Z"
-    },
-    {
-      "id": "log_mvawf4cothyq",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Ah weh??",
-      "timestamp": "2026-10-16T11:42:57.480Z"
-    },
-    {
-      "id": "log_mvawf4d1zk7t",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🚨 L'autrice de Gachiakuta a confirmé que le manga reprendra",
-      "timestamp": "2026-10-16T11:42:57.493Z"
-    },
-    {
-      "id": "log_mvawf4d53k5g",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🚨 L'autrice de Gachiakuta a confirmé que le manga reprendra",
-      "timestamp": "2026-10-16T11:42:57.497Z"
-    },
-    {
-      "id": "log_mvawf4dfup4b",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !menu",
-      "timestamp": "2026-10-16T11:42:57.507Z"
-    },
-    {
-      "id": "log_mvawf4di9wp8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: !menu",
-      "timestamp": "2026-10-16T11:42:57.510Z"
-    },
-    {
-      "id": "log_mvawf4ggurha",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🚨 Bonjour à tous ! Voici les sorties animes du jeudi 15 oct",
-      "timestamp": "2026-10-16T11:42:57.616Z"
-    },
-    {
-      "id": "log_mvawf4gj5rne",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: 🚨 Bonjour à tous ! Voici les sorties animes du jeudi 15 oct",
-      "timestamp": "2026-10-16T11:42:57.619Z"
-    },
-    {
-      "id": "log_mvawf4v8jj9t",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: /menu",
-      "timestamp": "2026-10-16T11:42:58.148Z"
-    },
-    {
-      "id": "log_mvawf4vcd115",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: /menu",
-      "timestamp": "2026-10-16T11:42:58.152Z"
-    },
-    {
-      "id": "log_mvawf4ys207l",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: A louer \n\nBobo-Dioulasso \n\nCours unique ( R+1 )\n\nDeux 02 cha",
-      "timestamp": "2026-10-16T11:42:58.276Z"
-    },
-    {
-      "id": "log_mvawf4yvba29",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: A louer \n\nBobo-Dioulasso \n\nCours unique ( R+1 )\n\nDeux 02 cha",
-      "timestamp": "2026-10-16T11:42:58.279Z"
-    },
-    {
-      "id": "log_mvawf577vfc8",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: #Bobo Dioulasso\nÀ accarville juste a coté du pont en face de",
-      "timestamp": "2026-10-16T11:42:58.579Z"
-    },
-    {
-      "id": "log_mvawf579mogn",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: #Bobo Dioulasso\nÀ accarville juste a coté du pont en face de",
-      "timestamp": "2026-10-16T11:42:58.581Z"
-    },
-    {
-      "id": "log_mvawf59o325z",
-      "botId": "bot_mv9yrppg4bop",
-      "level": "info",
-      "message": "Message reçu: Gros congélateur \nMarque Boréal \n320L\nPrix : 310.000f à disc",
-      "timestamp": "2026-10-16T11:42:58.668Z"
-    },
-    {
       "id": "log_mvawf59rfx0y",
       "botId": "bot_mv9yrppg4bop",
       "level": "info",
@@ -1748,6 +601,1206 @@
       "level": "info",
       "message": "Préfixe de commande mis à jour : [ . ]",
       "timestamp": "2026-10-16T12:19:47.961Z"
+    },
+    {
+      "id": "log_mvay33o82jzf",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (+connecté)...",
+      "timestamp": "2026-10-16T12:29:35.960Z"
+    },
+    {
+      "id": "log_mvay33oat955",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:29:35.962Z"
+    },
+    {
+      "id": "log_mvay33obua4m",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:29:35.963Z"
+    },
+    {
+      "id": "log_mvay36o4msa3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:29:39.844Z"
+    },
+    {
+      "id": "log_mvay54h209ua",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:31:10.310Z"
+    },
+    {
+      "id": "log_mvay54h46j0r",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:31:10.312Z"
+    },
+    {
+      "id": "log_mvay54h51ch2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:31:10.313Z"
+    },
+    {
+      "id": "log_mvay55yh2hs3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:31:12.233Z"
+    },
+    {
+      "id": "log_mvay5hm97us2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:31:27.345Z"
+    },
+    {
+      "id": "log_mvay5hmbqc6q",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:31:27.347Z"
+    },
+    {
+      "id": "log_mvay5hmbd6bu",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:31:27.347Z"
+    },
+    {
+      "id": "log_mvay5ivc8wbj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:31:28.968Z"
+    },
+    {
+      "id": "log_mvaybeohnfeo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:36:03.473Z"
+    },
+    {
+      "id": "log_mvaybeojndnx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:36:03.475Z"
+    },
+    {
+      "id": "log_mvaybeoj7moq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:36:03.475Z"
+    },
+    {
+      "id": "log_mvaybfmwj46x",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:36:04.712Z"
+    },
+    {
+      "id": "log_mvaybm3hqr8r",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:36:13.085Z"
+    },
+    {
+      "id": "log_mvaybm3j3h8s",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:36:13.087Z"
+    },
+    {
+      "id": "log_mvaybm3kq454",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:36:13.088Z"
+    },
+    {
+      "id": "log_mvaybn9ixh7j",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:36:14.598Z"
+    },
+    {
+      "id": "log_mvaycrwjsbag",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: #BOBODIOULASSO📍💰\n\nDES PARCELLES A VENDRE AU SECTEUR 23. \nS",
+      "timestamp": "2026-10-16T12:37:07.267Z"
+    },
+    {
+      "id": "log_mvaycrwu6o5l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: #BOBODIOULASSO📍💰\n\nDES PARCELLES A VENDRE AU SECTEUR 23. \nS",
+      "timestamp": "2026-10-16T12:37:07.278Z"
+    },
+    {
+      "id": "log_mvayjhheky15",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:42:20.354Z"
+    },
+    {
+      "id": "log_mvayjhhg76vp",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:42:20.356Z"
+    },
+    {
+      "id": "log_mvayjhhh5033",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:42:20.357Z"
+    },
+    {
+      "id": "log_mvayjig7wtcw",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:42:21.607Z"
+    },
+    {
+      "id": "log_mvayjz1tif06",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:42:43.121Z"
+    },
+    {
+      "id": "log_mvayjz1vgyds",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:42:43.123Z"
+    },
+    {
+      "id": "log_mvayjz1w7x3x",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:42:43.124Z"
+    },
+    {
+      "id": "log_mvayk04hkhcc",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:42:44.513Z"
+    },
+    {
+      "id": "log_mvaykjtzz3cf",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: #BOBODIOULASSO📍💰\n\nDES PARCELLES A VENDRE AU SECTEUR 23. \nS",
+      "timestamp": "2026-10-16T12:43:10.055Z"
+    },
+    {
+      "id": "log_mvaykju9gqdn",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: #BOBODIOULASSO📍💰\n\nDES PARCELLES A VENDRE AU SECTEUR 23. \nS",
+      "timestamp": "2026-10-16T12:43:10.065Z"
+    },
+    {
+      "id": "log_mvaypit8ynn8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:47:02.012Z"
+    },
+    {
+      "id": "log_mvaypitawb7f",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:47:02.014Z"
+    },
+    {
+      "id": "log_mvaypitb3sww",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:47:02.015Z"
+    },
+    {
+      "id": "log_mvaypjt4e00y",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:47:03.304Z"
+    },
+    {
+      "id": "log_mvayq1481hom",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T12:47:25.736Z"
+    },
+    {
+      "id": "log_mvayq14almpj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T12:47:25.738Z"
+    },
+    {
+      "id": "log_mvayq14b5z1u",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T12:47:25.739Z"
+    },
+    {
+      "id": "log_mvayq29y8l1x",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T12:47:27.238Z"
+    },
+    {
+      "id": "log_mvayqofn64i8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Moi aussi je l'espère",
+      "timestamp": "2026-10-16T12:47:55.955Z"
+    },
+    {
+      "id": "log_mvayqofqnc0u",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Moi aussi je l'espère",
+      "timestamp": "2026-10-16T12:47:55.958Z"
+    },
+    {
+      "id": "log_mvazad2y9kxw",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Retrait d'un montant d'un montant de 1.000.000 validé chez o",
+      "timestamp": "2026-10-16T13:03:14.362Z"
+    },
+    {
+      "id": "log_mvazad302nsz",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Retrait d'un montant d'un montant de 1.000.000 validé chez o",
+      "timestamp": "2026-10-16T13:03:14.364Z"
+    },
+    {
+      "id": "log_mvazadhowpg8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Retrait d'un montant de 1000000 validé avec succès félicitat",
+      "timestamp": "2026-10-16T13:03:14.892Z"
+    },
+    {
+      "id": "log_mvazadhp24bl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Retrait d'un montant de 1000000 validé avec succès félicitat",
+      "timestamp": "2026-10-16T13:03:14.893Z"
+    },
+    {
+      "id": "log_mvazadhvj7xf",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt d'un montant de 200.000 effectué chez ouermi service 2",
+      "timestamp": "2026-10-16T13:03:14.899Z"
+    },
+    {
+      "id": "log_mvazadhwrbfo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt d'un montant de 200.000 effectué chez ouermi service 2",
+      "timestamp": "2026-10-16T13:03:14.900Z"
+    },
+    {
+      "id": "log_mvazadpaz97j",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt d'un montant de 250.000 effectué chez ouermi service 2",
+      "timestamp": "2026-10-16T13:03:15.166Z"
+    },
+    {
+      "id": "log_mvazadpcsm0m",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt d'un montant de 250.000 effectué chez ouermi service 2",
+      "timestamp": "2026-10-16T13:03:15.168Z"
+    },
+    {
+      "id": "log_mvazae3qcvsa",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt d'un montant de 200.000 effectué chez ouermi service 2",
+      "timestamp": "2026-10-16T13:03:15.686Z"
+    },
+    {
+      "id": "log_mvazae3tnqq7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt d'un montant de 200.000 effectué chez ouermi service 2",
+      "timestamp": "2026-10-16T13:03:15.689Z"
+    },
+    {
+      "id": "log_mvazaodid85b",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Histoire de préserver votre argent de fête",
+      "timestamp": "2026-10-16T13:03:28.998Z"
+    },
+    {
+      "id": "log_mvazaodtshjl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Histoire de préserver votre argent de fête",
+      "timestamp": "2026-10-16T13:03:29.009Z"
+    },
+    {
+      "id": "log_mvazaoeirpvr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Guys",
+      "timestamp": "2026-10-16T13:03:29.034Z"
+    },
+    {
+      "id": "log_mvazaoek7jqg",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Guys",
+      "timestamp": "2026-10-16T13:03:29.036Z"
+    },
+    {
+      "id": "log_mvazaqedh8zh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Aminnnna🙏🏽🙏🏽🙏🏽",
+      "timestamp": "2026-10-16T13:03:31.621Z"
+    },
+    {
+      "id": "log_mvazaqeexzbo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Aminnnna🙏🏽🙏🏽🙏🏽",
+      "timestamp": "2026-10-16T13:03:31.622Z"
+    },
+    {
+      "id": "log_mvazaqeoeva4",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Méchant",
+      "timestamp": "2026-10-16T13:03:31.632Z"
+    },
+    {
+      "id": "log_mvazaqep3noz",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Méchant",
+      "timestamp": "2026-10-16T13:03:31.633Z"
+    },
+    {
+      "id": "log_mvazc1ifvggr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: <<l’esclave qui n’est pas capable d’assumer sa révolte ne mé",
+      "timestamp": "2026-10-16T13:04:32.679Z"
+    },
+    {
+      "id": "log_mvazc1igg70t",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: <<l’esclave qui n’est pas capable d’assumer sa révolte ne mé",
+      "timestamp": "2026-10-16T13:04:32.680Z"
+    },
+    {
+      "id": "log_mvazdeg63vch",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Hien ?",
+      "timestamp": "2026-10-16T13:05:36.102Z"
+    },
+    {
+      "id": "log_mvazdeg8s0iz",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Hien ?",
+      "timestamp": "2026-10-16T13:05:36.104Z"
+    },
+    {
+      "id": "log_mvazeoyqb2rh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: So vacances",
+      "timestamp": "2026-10-16T13:06:36.386Z"
+    },
+    {
+      "id": "log_mvazeoysq24c",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: So vacances",
+      "timestamp": "2026-10-16T13:06:36.388Z"
+    },
+    {
+      "id": "log_mvazeq6k3n2d",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt de 410k effectué bonne chance à vous chers clients tou",
+      "timestamp": "2026-10-16T13:06:37.964Z"
+    },
+    {
+      "id": "log_mvazeq6lvx47",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Dépôt de 410k effectué bonne chance à vous chers clients tou",
+      "timestamp": "2026-10-16T13:06:37.965Z"
+    },
+    {
+      "id": "log_mvazeudsanu2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Parce que plus le temps passe moins on a le temps",
+      "timestamp": "2026-10-16T13:06:43.408Z"
+    },
+    {
+      "id": "log_mvazeudtv17p",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Parce que plus le temps passe moins on a le temps",
+      "timestamp": "2026-10-16T13:06:43.409Z"
+    },
+    {
+      "id": "log_mvazev7h4pby",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🤧🤧🤧🤧",
+      "timestamp": "2026-10-16T13:06:44.477Z"
+    },
+    {
+      "id": "log_mvazev7j7z0p",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🤧🤧🤧🤧",
+      "timestamp": "2026-10-16T13:06:44.479Z"
+    },
+    {
+      "id": "log_mvazev7q5uzr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je l'attends avec impatience",
+      "timestamp": "2026-10-16T13:06:44.486Z"
+    },
+    {
+      "id": "log_mvazev7rrl5a",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Je l'attends avec impatience",
+      "timestamp": "2026-10-16T13:06:44.487Z"
+    },
+    {
+      "id": "log_mvazg644k7vd",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ouais un truc cm ça",
+      "timestamp": "2026-10-16T13:07:45.268Z"
+    },
+    {
+      "id": "log_mvazg6478izf",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ouais un truc cm ça",
+      "timestamp": "2026-10-16T13:07:45.271Z"
+    },
+    {
+      "id": "log_mvazg65budgy",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Motivation matinale 🥲",
+      "timestamp": "2026-10-16T13:07:45.311Z"
+    },
+    {
+      "id": "log_mvazg65di8o3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Motivation matinale 🥲",
+      "timestamp": "2026-10-16T13:07:45.313Z"
+    },
+    {
+      "id": "log_mvazg6czxwnd",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Avant de jouer les *Durs* \n *Assure* tes *arrières* ,soit *f",
+      "timestamp": "2026-10-16T13:07:45.587Z"
+    },
+    {
+      "id": "log_mvazg6d0lqk8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Avant de jouer les *Durs* \n *Assure* tes *arrières* ,soit *f",
+      "timestamp": "2026-10-16T13:07:45.588Z"
+    },
+    {
+      "id": "log_mvazg6djocxv",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Saison 11 ?? C'est quand ?? On est à la saison 9..donc jusqu",
+      "timestamp": "2026-10-16T13:07:45.607Z"
+    },
+    {
+      "id": "log_mvazg6dmwkv2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Saison 11 ?? C'est quand ?? On est à la saison 9..donc jusqu",
+      "timestamp": "2026-10-16T13:07:45.610Z"
+    },
+    {
+      "id": "log_mvazg6m7u95g",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: VO ou VF peu m'importe 🤧🤣",
+      "timestamp": "2026-10-16T13:07:45.919Z"
+    },
+    {
+      "id": "log_mvazg6m9milt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: VO ou VF peu m'importe 🤧🤣",
+      "timestamp": "2026-10-16T13:07:45.921Z"
+    },
+    {
+      "id": "log_mvazg6umn6le",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Mm en VO",
+      "timestamp": "2026-10-16T13:07:46.222Z"
+    },
+    {
+      "id": "log_mvazg6uotl35",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Mm en VO",
+      "timestamp": "2026-10-16T13:07:46.224Z"
+    },
+    {
+      "id": "log_mvazmpduvp4o",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: On va buy Epuis put 🙌",
+      "timestamp": "2026-10-16T13:12:50.178Z"
+    },
+    {
+      "id": "log_mvazmpdwe50k",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: On va buy Epuis put 🙌",
+      "timestamp": "2026-10-16T13:12:50.180Z"
+    },
+    {
+      "id": "log_mvazmpe2u8no",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: La go 🎉❤️",
+      "timestamp": "2026-10-16T13:12:50.186Z"
+    },
+    {
+      "id": "log_mvazmpe4myw5",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: La go 🎉❤️",
+      "timestamp": "2026-10-16T13:12:50.188Z"
+    },
+    {
+      "id": "log_mvazpbl6dxsu",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tu penses que eux ça leur fait qlq chose ?",
+      "timestamp": "2026-10-16T13:14:52.267Z"
+    },
+    {
+      "id": "log_mvazpbla5kni",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Tu penses que eux ça leur fait qlq chose ?",
+      "timestamp": "2026-10-16T13:14:52.270Z"
+    },
+    {
+      "id": "log_mvazpblgwyp9",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Mec ils t'ont banne dans le groupe de satey à cause de ça",
+      "timestamp": "2026-10-16T13:14:52.276Z"
+    },
+    {
+      "id": "log_mvazpbli5gge",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Mec ils t'ont banne dans le groupe de satey à cause de ça",
+      "timestamp": "2026-10-16T13:14:52.278Z"
+    },
+    {
+      "id": "log_mvazukrc7pac",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ça fait longtemps que j’avais pas essayé les Cinamons rolls✨",
+      "timestamp": "2026-10-16T13:18:57.432Z"
+    },
+    {
+      "id": "log_mvazukren1h7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ça fait longtemps que j’avais pas essayé les Cinamons rolls✨",
+      "timestamp": "2026-10-16T13:18:57.434Z"
+    },
+    {
+      "id": "log_mvazum53aekn",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Que Dieu vous facilite 2 pulls aussi",
+      "timestamp": "2026-10-16T13:18:59.223Z"
+    },
+    {
+      "id": "log_mvazum54igb0",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Que Dieu vous facilite 2 pulls aussi",
+      "timestamp": "2026-10-16T13:18:59.224Z"
+    },
+    {
+      "id": "log_mvazumjjaub0",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Pk mentionné en statut en vrai je vois pas trop l'importance",
+      "timestamp": "2026-10-16T13:18:59.743Z"
+    },
+    {
+      "id": "log_mvazumjl8ptt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Pk mentionné en statut en vrai je vois pas trop l'importance",
+      "timestamp": "2026-10-16T13:18:59.745Z"
+    },
+    {
+      "id": "log_mvazuoc8tmnk",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Net il t'ont banne la minute qui suit il t'ont oublié. \nC'es",
+      "timestamp": "2026-10-16T13:19:02.072Z"
+    },
+    {
+      "id": "log_mvazuoc9usey",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Net il t'ont banne la minute qui suit il t'ont oublié. \nC'es",
+      "timestamp": "2026-10-16T13:19:02.073Z"
+    },
+    {
+      "id": "log_mvazuocfz4kl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ah ouais...",
+      "timestamp": "2026-10-16T13:19:02.079Z"
+    },
+    {
+      "id": "log_mvazuochvtjt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ah ouais...",
+      "timestamp": "2026-10-16T13:19:02.081Z"
+    },
+    {
+      "id": "log_mvazuocz7uc6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Peace and love",
+      "timestamp": "2026-10-16T13:19:02.099Z"
+    },
+    {
+      "id": "log_mvazuod01skz",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Peace and love",
+      "timestamp": "2026-10-16T13:19:02.100Z"
+    },
+    {
+      "id": "log_mvazuod75uuo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Euh je vois un peu...",
+      "timestamp": "2026-10-16T13:19:02.107Z"
+    },
+    {
+      "id": "log_mvazuod8j5r7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Euh je vois un peu...",
+      "timestamp": "2026-10-16T13:19:02.108Z"
+    },
+    {
+      "id": "log_mvazw0rqnw7e",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Le motard 🎊🚀",
+      "timestamp": "2026-10-16T13:20:04.838Z"
+    },
+    {
+      "id": "log_mvazw0rrr4nj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Le motard 🎊🚀",
+      "timestamp": "2026-10-16T13:20:04.839Z"
+    },
+    {
+      "id": "log_mvazw1d1xl0c",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui\nEt il veut pas te dire pour paraître poli",
+      "timestamp": "2026-10-16T13:20:05.605Z"
+    },
+    {
+      "id": "log_mvazw1d3tfmv",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Oui\nEt il veut pas te dire pour paraître poli",
+      "timestamp": "2026-10-16T13:20:05.607Z"
+    },
+    {
+      "id": "log_mvazw3782jkk",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Hi dsl pour les jours sans en lig’e",
+      "timestamp": "2026-10-16T13:20:07.988Z"
+    },
+    {
+      "id": "log_mvazw379uq4i",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Hi dsl pour les jours sans en lig’e",
+      "timestamp": "2026-10-16T13:20:07.989Z"
+    },
+    {
+      "id": "log_mvazw37qyxc2",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’1vais pas mon tel",
+      "timestamp": "2026-10-16T13:20:08.006Z"
+    },
+    {
+      "id": "log_mvazw37sjycr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: J’1vais pas mon tel",
+      "timestamp": "2026-10-16T13:20:08.008Z"
+    },
+    {
+      "id": "log_mvazw37wp6pb",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Apres qql minutes je vias redonner",
+      "timestamp": "2026-10-16T13:20:08.012Z"
+    },
+    {
+      "id": "log_mvazw37xsknh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Apres qql minutes je vias redonner",
+      "timestamp": "2026-10-16T13:20:08.013Z"
+    },
+    {
+      "id": "log_mvazw387z25l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 L'autrice de Gachiakuta a confirmé que le manga reprendra",
+      "timestamp": "2026-10-16T13:20:08.023Z"
+    },
+    {
+      "id": "log_mvazw3895jqm",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 L'autrice de Gachiakuta a confirmé que le manga reprendra",
+      "timestamp": "2026-10-16T13:20:08.025Z"
+    },
+    {
+      "id": "log_mvazw38hezwq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ah weh??",
+      "timestamp": "2026-10-16T13:20:08.033Z"
+    },
+    {
+      "id": "log_mvazw38kv6tu",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ah weh??",
+      "timestamp": "2026-10-16T13:20:08.036Z"
+    },
+    {
+      "id": "log_mvazw38ucl8f",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bon vendredi a tous 🌌🌌🌌🤲🏼🤲🏼",
+      "timestamp": "2026-10-16T13:20:08.046Z"
+    },
+    {
+      "id": "log_mvazw38vnro8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Bon vendredi a tous 🌌🌌🌌🤲🏼🤲🏼",
+      "timestamp": "2026-10-16T13:20:08.047Z"
+    },
+    {
+      "id": "log_mvazw395avty",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ha je t avait pas vu. Cv ?",
+      "timestamp": "2026-10-16T13:20:08.057Z"
+    },
+    {
+      "id": "log_mvazw3976jp5",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Ha je t avait pas vu. Cv ?",
+      "timestamp": "2026-10-16T13:20:08.059Z"
+    },
+    {
+      "id": "log_mvazyogwertr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 Bonjour à tous ! Voici les sorties animes du jeudi 15 oct",
+      "timestamp": "2026-10-16T13:22:08.864Z"
+    },
+    {
+      "id": "log_mvazyogz76u3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: 🚨 Bonjour à tous ! Voici les sorties animes du jeudi 15 oct",
+      "timestamp": "2026-10-16T13:22:08.867Z"
+    },
+    {
+      "id": "log_mvazyoohb8zq",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire chéri 🎉🥳",
+      "timestamp": "2026-10-16T13:22:09.137Z"
+    },
+    {
+      "id": "log_mvazyooienxk",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Joyeux anniversaire chéri 🎉🥳",
+      "timestamp": "2026-10-16T13:22:09.138Z"
+    },
+    {
+      "id": "log_mvazyp40wima",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: ...",
+      "timestamp": "2026-10-16T13:22:09.696Z"
+    },
+    {
+      "id": "log_mvazyp41wmpt",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: ...",
+      "timestamp": "2026-10-16T13:22:09.697Z"
+    },
+    {
+      "id": "log_mvazyp5g1dtw",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Partager la vidéo 🙏🏽🎊🇧🇫🔥 intéressé +226 02422419",
+      "timestamp": "2026-10-16T13:22:09.748Z"
+    },
+    {
+      "id": "log_mvazyp5jab7e",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Partager la vidéo 🙏🏽🎊🇧🇫🔥 intéressé +226 02422419",
+      "timestamp": "2026-10-16T13:22:09.751Z"
+    },
+    {
+      "id": "log_mvazyp5qvtoa",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Notre frère était en dépression sans toi\n@209517765734511",
+      "timestamp": "2026-10-16T13:22:09.758Z"
+    },
+    {
+      "id": "log_mvazyp5sin7t",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Notre frère était en dépression sans toi\n@209517765734511",
+      "timestamp": "2026-10-16T13:22:09.760Z"
+    },
+    {
+      "id": "log_mvazyp6eiimj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Sasuke lui fait les fesses",
+      "timestamp": "2026-10-16T13:22:09.782Z"
+    },
+    {
+      "id": "log_mvazyp6ge1dj",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Sasuke lui fait les fesses",
+      "timestamp": "2026-10-16T13:22:09.784Z"
+    },
+    {
+      "id": "log_mvb000bezj9c",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .repo",
+      "timestamp": "2026-10-16T13:23:10.874Z"
+    },
+    {
+      "id": "log_mvb000bihtbk",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .repo",
+      "timestamp": "2026-10-16T13:23:10.878Z"
+    },
+    {
+      "id": "log_mvb000r9z1dp",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T13:23:11.445Z"
+    },
+    {
+      "id": "log_mvb000rbdbgl",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T13:23:11.447Z"
+    },
+    {
+      "id": "log_mvb001vgaelh",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . welcome on",
+      "timestamp": "2026-10-16T13:23:12.892Z"
+    },
+    {
+      "id": "log_mvb001vi3o9h",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . welcome on",
+      "timestamp": "2026-10-16T13:23:12.894Z"
+    },
+    {
+      "id": "log_mvb0024ky8y7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T13:23:13.220Z"
+    },
+    {
+      "id": "log_mvb0024nh2ok",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .menu",
+      "timestamp": "2026-10-16T13:23:13.223Z"
+    },
+    {
+      "id": "log_mvb002hr5zkg",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . statue",
+      "timestamp": "2026-10-16T13:23:13.695Z"
+    },
+    {
+      "id": "log_mvb002hs5oj8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . statue",
+      "timestamp": "2026-10-16T13:23:13.696Z"
+    },
+    {
+      "id": "log_mvb002i4i7s9",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .info",
+      "timestamp": "2026-10-16T13:23:13.708Z"
+    },
+    {
+      "id": "log_mvb002i542qv",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .info",
+      "timestamp": "2026-10-16T13:23:13.709Z"
+    },
+    {
+      "id": "log_mvb002ilodqb",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . repo",
+      "timestamp": "2026-10-16T13:23:13.725Z"
+    },
+    {
+      "id": "log_mvb002imanbo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . repo",
+      "timestamp": "2026-10-16T13:23:13.726Z"
+    },
+    {
+      "id": "log_mvb002itmpcu",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: https://chat.whatsapp.com/DDrdpX4q9XeCJRRTKY8iIC?s=cl&p=a&ml",
+      "timestamp": "2026-10-16T13:23:13.733Z"
+    },
+    {
+      "id": "log_mvb002iuj63g",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: https://chat.whatsapp.com/DDrdpX4q9XeCJRRTKY8iIC?s=cl&p=a&ml",
+      "timestamp": "2026-10-16T13:23:13.734Z"
+    },
+    {
+      "id": "log_mvb002j0z10f",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics leto",
+      "timestamp": "2026-10-16T13:23:13.740Z"
+    },
+    {
+      "id": "log_mvb002j13v2t",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics leto",
+      "timestamp": "2026-10-16T13:23:13.741Z"
+    },
+    {
+      "id": "log_mvb002jjqjte",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics menace santana",
+      "timestamp": "2026-10-16T13:23:13.759Z"
+    },
+    {
+      "id": "log_mvb002jley3l",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: . lyrics menace santana",
+      "timestamp": "2026-10-16T13:23:13.761Z"
+    },
+    {
+      "id": "log_mvb002juiy7v",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .song lybro",
+      "timestamp": "2026-10-16T13:23:13.770Z"
+    },
+    {
+      "id": "log_mvb002jv7ox8",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: .song lybro",
+      "timestamp": "2026-10-16T13:23:13.771Z"
+    },
+    {
+      "id": "log_mvb004d3v5ii",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Shanks peut faire quoi a un susanoo",
+      "timestamp": "2026-10-16T13:23:16.119Z"
+    },
+    {
+      "id": "log_mvb004d51788",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: Shanks peut faire quoi a un susanoo",
+      "timestamp": "2026-10-16T13:23:16.121Z"
+    },
+    {
+      "id": "log_mvb004dqijvr",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: *arrive avec sa bécane \nBah là personne ?",
+      "timestamp": "2026-10-16T13:23:16.142Z"
+    },
+    {
+      "id": "log_mvb004dsqyl7",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Message reçu: *arrive avec sa bécane \nBah là personne ?",
+      "timestamp": "2026-10-16T13:23:16.144Z"
+    },
+    {
+      "id": "log_mvb08a84wiyo",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "État connexion WhatsApp : fermée (428) — Connection Terminated",
+      "timestamp": "2026-10-16T13:29:36.964Z"
+    },
+    {
+      "id": "log_mvb08a85fqd9",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Reconnexion WhatsApp automatique (#1) dans 3s...",
+      "timestamp": "2026-10-16T13:29:36.965Z"
+    },
+    {
+      "id": "log_mvb0niozr6c5",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Restauration automatique du bot (++22607603281)...",
+      "timestamp": "2026-10-16T13:41:27.779Z"
+    },
+    {
+      "id": "log_mvb0nip1yya6",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-16T13:41:27.781Z"
+    },
+    {
+      "id": "log_mvb0nip21so3",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "info",
+      "message": "Démarrage du moteur JARVIS...",
+      "timestamp": "2026-10-16T13:41:27.782Z"
+    },
+    {
+      "id": "log_mvb0nlk3rswx",
+      "botId": "bot_mv9yrppg4bop",
+      "level": "success",
+      "message": "Connexion WhatsApp établie avec succès ! Connecté sous +22607603281",
+      "timestamp": "2026-10-16T13:41:31.491Z"
     }
-  ]
+  ],
+  "metrics": {
+    "totalBotsEverConnected": 3,
+    "connectedBotIds": [
+      "bot_mv9yrppg4bop",
+      "bot_mv9tvqx6usv5",
+      "bot_metric_test_abc"
+    ],
+    "totalConnectionsEstablished": 9,
+    "lastConnectionAt": "2026-10-16T13:46:57.737Z"
+  }
 }
