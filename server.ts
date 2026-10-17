@@ -33,12 +33,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
-// Middlewares fondamentaux
+// Middlewares fondamentaux avec CORS universel pour les environnements iFrame
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-visitor-id', 'x-server-email', 'x-server-code'],
+  origin: true,
+  credentials: true,
 }));
+app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

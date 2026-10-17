@@ -68,12 +68,44 @@ export default function App() {
 
       // Session instantanée libre sans aucun formulaire ni compte
       const guestRes = await api.initGuestSession();
-      if (guestRes.bot) {
+      if (guestRes && guestRes.bot) {
         setUserBots([guestRes.bot]);
         setActiveBot(guestRes.bot);
       }
     } catch (err) {
       console.error('Erreur initialisation session:', err);
+      // Fallback gracieux pour garantir que l'interface reste toujours active
+      setUserBots((prev) => {
+        if (prev.length > 0) return prev;
+        const fallback: BotInstance = {
+          id: 'bot_guest_' + Date.now().toString(36),
+          userId: 'usr_guest',
+          name: 'Mon Assistant JARVIS',
+          status: 'OFFLINE',
+          config: {
+            botName: 'JARVIS',
+            prefix: '.',
+            autoRead: false,
+            reactToStatus: false,
+            antiDelete: false,
+            antiSpam: true,
+            welcomeMessage: 'Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.',
+            enabledCommands: ['help', 'ping', 'calc', 'ai'],
+          },
+          stats: {
+            messagesHandled: 0,
+            commandsExecuted: 0,
+            reconnectAttempts: 0,
+          },
+        };
+        setActiveBot(fallback);
+        return [fallback];
+      });
+
+      // Tentative de rattrapage en arrière-plan après 2 secondes
+      setTimeout(() => {
+        loadUserBots();
+      }, 2000);
     }
   };
 

@@ -1,7 +1,7 @@
 import { CommandDefinition, CommandContext } from './types';
 import { GoogleGenAI } from '@google/genai';
 // @ts-ignore
-import { listCommandMetas } from '../../lib/commandRegistry.js';
+import { listCommandMetas, COMMAND_CATEGORIES, getCommandMeta } from '../../lib/commandRegistry.js';
 
 let geminiClient: GoogleGenAI | null = null;
 function getGeminiClient() {
@@ -132,9 +132,53 @@ async function executeJarvisCommand(name: string, ctx: CommandContext): Promise<
 }
 
 // Récupération dynamique et typée des métadonnées de l'ensemble des 129 commandes
-const rawMetas = typeof listCommandMetas === 'function' ? listCommandMetas() : [];
+const registeredNames = new Set<string>();
+const allMetas: any[] = [];
 
-export const builtInCommands: CommandDefinition[] = (rawMetas as any[]).map(m => ({
+if (typeof listCommandMetas === 'function') {
+  for (const meta of listCommandMetas()) {
+    if (meta && meta.command) {
+      registeredNames.add(meta.command);
+      allMetas.push(meta);
+    }
+  }
+}
+
+if (Array.isArray(COMMAND_CATEGORIES)) {
+  for (const cat of COMMAND_CATEGORIES) {
+    if (Array.isArray(cat.commands)) {
+      for (const cmdName of cat.commands) {
+        if (!registeredNames.has(cmdName)) {
+          registeredNames.add(cmdName);
+          allMetas.push(typeof getCommandMeta === 'function' ? getCommandMeta(cmdName) : {
+            command: cmdName,
+            categoryTitle: cat.title,
+            description: `Commande ${cmdName}`,
+            scope: 'any',
+            permission: 'public',
+          });
+        }
+      }
+    }
+  }
+}
+
+// Commandes intégrées fondamentales toujours garanties
+const coreBuiltIns = ['ping', 'help', 'menu', 'calc', 'ai', 'jarvis', 'runtime', 'uptime', 'tagall', 'hidetag'];
+for (const core of coreBuiltIns) {
+  if (!registeredNames.has(core)) {
+    registeredNames.add(core);
+    allMetas.push({
+      command: core,
+      categoryTitle: 'Général',
+      description: `Commande ${core}`,
+      scope: 'any',
+      permission: 'public',
+    });
+  }
+}
+
+export const builtInCommands: CommandDefinition[] = allMetas.map(m => ({
   name: m.command,
   category: String(m.categoryTitle || 'Général').replace(/^[^\w\sÀ-ÿ]+/u, '').trim(),
   description: m.description || `Commande ${m.command}`,

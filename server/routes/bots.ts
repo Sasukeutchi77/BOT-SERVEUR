@@ -171,6 +171,55 @@ router.post('/:id/prefix', requireBotOwner, (req: AuthenticatedRequest, res: Res
   });
 });
 
+// Route universelle de configuration du bot (GET / POST / PATCH / PUT :id/config)
+router.all('/:id/config', requireBotOwner, (req: AuthenticatedRequest, res: Response) => {
+  const bot = req.bot!;
+  
+  if (req.method === 'GET') {
+    return res.json({
+      success: true,
+      config: bot.config,
+      prefix: bot.config.prefix,
+    });
+  }
+
+  const { prefix, botName, autoRead, reactToStatus, antiDelete, antiSpam, welcomeMessage, enabledCommands } = req.body || {};
+
+  const cleanPrefix = typeof prefix === 'string' && prefix.trim().length > 0 && prefix.trim().length <= 5
+    ? prefix.trim()
+    : bot.config.prefix;
+
+  const updatedConfig = {
+    ...bot.config,
+    prefix: cleanPrefix,
+    ...(botName !== undefined ? { botName: String(botName).trim().slice(0, 30) } : {}),
+    ...(autoRead !== undefined ? { autoRead: Boolean(autoRead) } : {}),
+    ...(reactToStatus !== undefined ? { reactToStatus: Boolean(reactToStatus) } : {}),
+    ...(antiDelete !== undefined ? { antiDelete: Boolean(antiDelete) } : {}),
+    ...(antiSpam !== undefined ? { antiSpam: Boolean(antiSpam) } : {}),
+    ...(welcomeMessage !== undefined ? { welcomeMessage: String(welcomeMessage).slice(0, 300) } : {}),
+    ...(Array.isArray(enabledCommands) ? { enabledCommands } : {}),
+  };
+
+  const updated = db.updateBot(bot.id, {
+    config: updatedConfig,
+  });
+
+  const liveSession = jarvisEngine.getActiveSession(bot.id);
+  if (liveSession?.sock) {
+    (liveSession.sock as any)._jarvisPrefix = cleanPrefix;
+  }
+
+  jarvisEngine.log(bot.id, 'info', `Configuration du bot mise à jour (Préfixe: [ ${cleanPrefix} ])`);
+
+  return res.json({
+    success: true,
+    message: `Configuration enregistrée avec succès.`,
+    prefix: cleanPrefix,
+    config: updated?.config,
+  });
+});
+
 // Demander un QR Code
 router.post('/:id/qr', requireBotOwner, async (req: AuthenticatedRequest, res: Response) => {
   const bot = req.bot!;

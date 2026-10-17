@@ -13,7 +13,7 @@ function isValidEmail(email: string): boolean {
 }
 
 // Session Invité Automatique (Accès direct sans inscription ni mot de passe)
-router.post('/guest', (req, res: Response) => {
+router.all('/guest', (req, res: Response) => {
   try {
     const guestId = 'usr_guest_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
     const guestUser = db.createUser({
