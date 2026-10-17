@@ -1,10 +1,14 @@
-// commands/info.js — 𝑴𝑼𝑹𝑨𝑺𝑨𝑲𝑰 𝐒𝐒𝐊 𓂀
+// commands/info.js — J.A.R.V.I.S.
 // ✅ Informations complètes du bot avec design premium
 
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { sendMessage } from "../lib/sendMessage.js"
 import { showProgressLoader, deleteLoader } from "../lib/animLoader.js"
 import { config } from "../config.js"
 import { BOT_START_TIME } from "../index.js"
+
+const COMMAND_GIF_PATH = path.join(process.cwd(), 'assets', 'command-animation.mp4')
 
 function formatUptime(seconds) {
     const d = Math.floor(seconds / 86400)
@@ -37,7 +41,8 @@ export default async function info(sock, sender, args, msg) {
             `│\n` +
             `│  🤖 *Nom :* ${config.botName || 'J.A.R.V.I.S.'}\n` +
             `│  🏷️ *Version :* v1 Ultimate\n` +
-            `│  👨‍💻 *Développeur :* 𝑴𝑼𝑹𝑨𝑺𝑨𝑲𝑰 𝐒𝐒𝐊 𓂀\n` +
+            `│  👨‍💻 *Développeur :* ${config.developerName || '𝐋𝐎𝐑𝐃 𝐃𝐄𝐌𝐎𝐍'}\n` +
+            `│  🛠️ *Équipe :* ${config.teamName || '𝐍𝐄𝐗𝐔𝐒-𝐅𝐎𝐑𝐆𝐄𝐑'}\n` +
             `│\n` +
             `│  ⚙️ *Statut :* En ligne\n` +
             `│  ⏱️ *Uptime :* ${formatUptime(botUptime)}\n` +
@@ -55,7 +60,13 @@ export default async function info(sock, sender, args, msg) {
             `🕸️━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🕸️\n\n` +
             `_🔥 𝐉.𝐀.𝐑.𝐕.𝐈.𝐒 — Le Bot WhatsApp Ultime_`
 
-        await sendMessage(sock, sender, text)
+        try {
+            const gif = await readFile(COMMAND_GIF_PATH)
+            await sock.sendMessage(sender, { video: gif, gifPlayback: true, caption: text })
+        } catch (imageError) {
+            console.warn('⚠️ GIF de info indisponible, envoi du texte seul :', imageError?.message || imageError)
+            await sendMessage(sock, sender, text)
+        }
 
     } catch (e) {
         console.error("❌ info.js:", e)

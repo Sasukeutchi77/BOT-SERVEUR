@@ -22,6 +22,26 @@ export function generateToken(user: User): string {
 }
 
 export function requireAuth(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  // Autorisation directe via le Code et l'Email du Serveur (SERVER_CODE & SERVER_EMAIL)
+  const reqServerCode = req.headers['x-server-code'] as string | undefined;
+  const configuredServerCode = process.env.SERVER_CODE;
+
+  if (configuredServerCode && reqServerCode && reqServerCode.trim() === configuredServerCode.trim()) {
+    const serverEmail = (req.headers['x-server-email'] as string) || process.env.SERVER_EMAIL || 'server@jarviscloud.local';
+    let serverUser = db.getUserByEmail(serverEmail);
+    if (!serverUser) {
+      serverUser = db.createUser({
+        id: 'usr_server_' + Buffer.from(serverEmail).toString('hex').slice(0, 10),
+        email: serverEmail,
+        passwordHash: 'server_authorized_handshake',
+        role: 'admin',
+        isSuspended: false,
+      });
+    }
+    req.user = serverUser;
+    return next();
+  }
+
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({

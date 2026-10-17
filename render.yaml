@@ -1,0 +1,42 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  RENDER BLUEPRINT — J.A.R.V.I.S CLOUD WHATSAPP                   ║
+# ║  Déploiement automatique du site web et du bot sur Render        ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+services:
+  - type: web
+    name: jarvis-whatsapp-bot
+    runtime: node
+    plan: starter
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+
+    envVars:
+      # Environnement Node.js & Port Render
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: TZ
+        value: Africa/Ouagadougou
+
+      # Stockage persistant des sessions WhatsApp (sur le disque Render)
+      - key: DATA_DIR
+        value: /var/data
+
+      # Variables de connexion du serveur au site web
+      - key: SERVER_URL
+        sync: false
+      - key: SERVER_EMAIL
+        sync: false
+      - key: SERVER_CODE
+        sync: false
+
+    # Disque persistant pour sauvegarder les sessions WhatsApp (creds.json) en continu
+    disk:
+      name: jarvis-sessions
+      mountPath: /var/data
+      sizeGB: 1

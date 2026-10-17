@@ -206,6 +206,71 @@ router.get('/me', requireAuth, (req: AuthenticatedRequest, res: Response) => {
   });
 });
 
+// Informations publiques sur la configuration du serveur (Email & Code / Status)
+router.get('/server-info', (req, res: Response) => {
+  const cfg = db.getServerConfig();
+  const allUsers = db.getAllUsers();
+  const isDefaultAdmin = cfg.adminEmail === 'admin@jarviscloud.local';
+
+  return res.json({
+    success: true,
+    adminEmail: isDefaultAdmin ? 'Non configuré (Compte par défaut)' : cfg.adminEmail,
+    isDefaultAdmin,
+    hasGeminiKey: !!(process.env.GEMINI_API_KEY || cfg.geminiApiKey),
+    ownerNumberConfigured: !!(process.env.OWNER_NUMBER || cfg.ownerNumber),
+    totalUsers: allUsers.length,
+  });
+});
+
+// Installation initiale de l'Email et du Code Serveur Admin directement depuis l'interface web
+router.post('/setup-admin', async (req, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Email et code d\'accès serveur requis.' });
+    }
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ success: false, error: 'Format d\'adresse email invalide.' });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ success: false, error: 'Le code serveur doit comporter au moins 6 caractères.' });
+    }
+
+    const cfg = db.getServerConfig();
+    const isDefaultAdmin = cfg.adminEmail === 'admin@jarviscloud.local';
+
+    if (isDefaultAdmin) {
+      await db.updateServerConfig({
+        adminEmail: email,
+        newAdminPassword: password,
+      });
+
+      const adminUser = db.getUserByEmail(email);
+      if (adminUser) {
+        const token = generateToken(adminUser);
+        return res.json({
+          success: true,
+          message: 'Email et code d\'accès administrateur configurés avec succès !',
+          token,
+          user: {
+            id: adminUser.id,
+            email: adminUser.email,
+            role: adminUser.role,
+            createdAt: adminUser.createdAt,
+          },
+        });
+      }
+    }
+
+    return res.status(403).json({
+      success: false,
+      error: 'Un administrateur personnalisé est déjà configuré. Utilisez l\'onglet Connexion avec votre email et code.',
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Déconnexion
 router.post('/logout', (req, res: Response) => {
   return res.json({ success: true, message: 'Déconnexion effectuée.' });

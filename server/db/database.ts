@@ -60,15 +60,27 @@ export interface PlatformMetrics {
   lastConnectionAt?: string;
 }
 
+export interface ServerConfig {
+  adminEmail: string;
+  adminPasswordHash?: string;
+  ownerNumber?: string;
+  sudoNumbers?: string[];
+  geminiApiKey?: string;
+  defaultPrefix?: string;
+  botName?: string;
+  updatedAt?: string;
+}
+
 interface DatabaseSchema {
   version: number;
   users: User[];
   bots: BotInstanceRecord[];
   logs: BotLog[];
   metrics?: PlatformMetrics;
+  serverConfig?: ServerConfig;
 }
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
+const DATA_DIR = process.env.DATA_DIR || path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'database.json');
 
 class DatabaseService {
@@ -182,11 +194,41 @@ class DatabaseService {
   }
 
   private async seedDefaultAdmin() {
-    // Create initial admin if none exists
+    const envAdminEmail = (process.env.ADMIN_EMAIL || '').trim();
+    const envAdminPassword = (process.env.ADMIN_PASSWORD || '').trim();
+
+    if (envAdminEmail) {
+      let adminUser = this.data.users.find(u => u.email.toLowerCase() === envAdminEmail.toLowerCase());
+      if (adminUser) {
+        adminUser.role = 'admin';
+        if (envAdminPassword) {
+          const salt = await bcrypt.genSalt(10);
+          adminUser.passwordHash = await bcrypt.hash(envAdminPassword, salt);
+        }
+        this.save();
+      } else {
+        const salt = await bcrypt.genSalt(10);
+        const pass = envAdminPassword || 'JarvisCloud2026!';
+        const hash = await bcrypt.hash(pass, salt);
+        this.data.users.push({
+          id: 'usr_admin_' + Date.now().toString(36),
+          email: envAdminEmail,
+          passwordHash: hash,
+          role: 'admin',
+          isSuspended: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        });
+        this.save();
+      }
+      return;
+    }
+
+    // Créer un administrateur par défaut si aucun n'existe encore
     const adminExists = this.data.users.some(u => u.role === 'admin');
     if (!adminExists) {
-      const email = process.env.ADMIN_EMAIL || 'admin@jarviscloud.local';
-      const password = process.env.ADMIN_PASSWORD || 'JarvisCloud2026!';
+      const email = 'admin@jarviscloud.local';
+      const password = 'JarvisCloud2026!';
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
       const adminUser: User = {
@@ -202,6 +244,75 @@ class DatabaseService {
       this.save();
       console.log(`[DB] Default administrator created: ${email}`);
     }
+  }
+
+  // --- Configuration Serveur (Emails & Codes / Variables) ---
+  public getServerConfig(): ServerConfig {
+    if (!this.data.serverConfig) {
+      const admin = this.data.users.find(u => u.role === 'admin');
+      this.data.serverConfig = {
+        adminEmail: process.env.ADMIN_EMAIL || admin?.email || 'admin@jarviscloud.local',
+        ownerNumber: process.env.OWNER_NUMBER || process.env.OWNER || '',
+        geminiApiKey: process.env.GEMINI_API_KEY || process.env.CLE_GEMINI || '',
+        defaultPrefix: process.env.PREFIX || '.',
+        botName: process.env.BOT_NAME || 'JARVIS',
+        updatedAt: new Date().toISOString(),
+      };
+    }
+    return this.data.serverConfig;
+  }
+
+  public async updateServerConfig(updates: Partial<ServerConfig & { newAdminPassword?: string }>): Promise<ServerConfig> {
+    const current = this.getServerConfig();
+
+    if (updates.adminEmail) {
+      const emailClean = updates.adminEmail.trim().toLowerCase();
+      current.adminEmail = emailClean;
+      process.env.ADMIN_EMAIL = emailClean;
+      // Mettre à jour l'email de l'administrateur
+      const admin = this.data.users.find(u => u.role === 'admin');
+      if (admin) {
+        admin.email = emailClean;
+      }
+    }
+
+    if (updates.newAdminPassword && updates.newAdminPassword.length >= 6) {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(updates.newAdminPassword, salt);
+      current.adminPasswordHash = hash;
+      process.env.ADMIN_PASSWORD = updates.newAdminPassword;
+      const admin = this.data.users.find(u => u.role === 'admin');
+      if (admin) {
+        admin.passwordHash = hash;
+      }
+    }
+
+    if (updates.ownerNumber !== undefined) {
+      current.ownerNumber = updates.ownerNumber.trim();
+      process.env.OWNER_NUMBER = current.ownerNumber;
+      process.env.OWNER = current.ownerNumber;
+    }
+
+    if (updates.geminiApiKey !== undefined) {
+      current.geminiApiKey = updates.geminiApiKey.trim();
+      process.env.GEMINI_API_KEY = current.geminiApiKey;
+      process.env.CLE_GEMINI = current.geminiApiKey;
+    }
+
+    if (updates.defaultPrefix) {
+      current.defaultPrefix = updates.defaultPrefix.trim();
+      process.env.PREFIX = current.defaultPrefix;
+    }
+
+    if (updates.botName) {
+      current.botName = updates.botName.trim();
+      process.env.BOT_NAME = current.botName;
+    }
+
+    current.updatedAt = new Date().toISOString();
+    this.data.serverConfig = current;
+    this.save();
+    return current;
   }
 
   // --- User Operations ---

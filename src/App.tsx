@@ -39,7 +39,7 @@ export default function App() {
     } catch (e) {}
   };
 
-  // Initialisation instantanée de l'instance
+  // Initialisation instantanée de l'instance sans création de compte
   const initSession = async () => {
     try {
       const existingToken = api.getToken();
@@ -57,7 +57,7 @@ export default function App() {
         }
       }
 
-      // Session instantanée libre sans formulaire de connexion
+      // Session instantanée libre sans aucun formulaire ni compte
       const guestRes = await api.initGuestSession();
       if (guestRes.bot) {
         setUserBots([guestRes.bot]);

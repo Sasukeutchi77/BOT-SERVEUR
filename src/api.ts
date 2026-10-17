@@ -2,6 +2,22 @@ import { User, BotInstance, BotLog, BotCommand, SystemStats, SystemMetrics } fro
 
 const TOKEN_KEY = 'jarvis_cloud_token';
 
+// Configuration de connexion au serveur distant pour faire tourner le bot H24
+let serverUrl = ((import.meta as any).env?.VITE_SERVER_URL || '').replace(/\/$/, '');
+let serverEmail = (import.meta as any).env?.VITE_SERVER_EMAIL || '';
+let serverCode = (import.meta as any).env?.VITE_SERVER_CODE || '';
+
+if (typeof window !== 'undefined') {
+  fetch('/api/server-connection')
+    .then((r) => r.json())
+    .then((data) => {
+      if (data?.serverUrl) serverUrl = data.serverUrl.replace(/\/$/, '');
+      if (data?.serverEmail) serverEmail = data.serverEmail;
+      if (data?.serverCode) serverCode = data.serverCode;
+    })
+    .catch(() => {});
+}
+
 export const api = {
   getToken(): string | null {
     return localStorage.getItem(TOKEN_KEY);
@@ -26,7 +42,17 @@ export const api = {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    const response = await fetch(endpoint, {
+    if (serverEmail) {
+      headers['x-server-email'] = serverEmail;
+    }
+
+    if (serverCode) {
+      headers['x-server-code'] = serverCode;
+    }
+
+    const targetUrl = endpoint.startsWith('http') ? endpoint : (serverUrl ? `${serverUrl}${endpoint}` : endpoint);
+
+    const response = await fetch(targetUrl, {
       ...options,
       headers,
     });
@@ -229,5 +255,64 @@ export const api = {
 
   async getAdminSystem() {
     return this.request<{ success: boolean; system: SystemMetrics }>('/api/admin/system');
+  },
+
+  async getServerInfo() {
+    return this.request<{
+      success: boolean;
+      adminEmail: string;
+      isDefaultAdmin: boolean;
+      hasGeminiKey: boolean;
+      ownerNumberConfigured: boolean;
+      totalUsers: number;
+    }>('/api/auth/server-info');
+  },
+
+  async setupAdmin(email: string, password: string) {
+    const data = await this.request<{ success: boolean; message: string; token: string; user: User }>('/api/auth/setup-admin', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    this.setToken(data.token);
+    return data;
+  },
+
+  async getAdminConfig() {
+    return this.request<{
+      success: boolean;
+      config: {
+        adminEmail: string;
+        ownerNumber: string;
+        hasGeminiApiKey: boolean;
+        defaultPrefix: string;
+        botName: string;
+        updatedAt?: string;
+      };
+    }>('/api/admin/config');
+  },
+
+  async updateAdminConfig(config: {
+    adminEmail?: string;
+    newAdminPassword?: string;
+    ownerNumber?: string;
+    geminiApiKey?: string;
+    defaultPrefix?: string;
+    botName?: string;
+  }) {
+    return this.request<{
+      success: boolean;
+      message: string;
+      config: {
+        adminEmail: string;
+        ownerNumber: string;
+        hasGeminiApiKey: boolean;
+        defaultPrefix: string;
+        botName: string;
+        updatedAt?: string;
+      };
+    }>('/api/admin/config', {
+      method: 'POST',
+      body: JSON.stringify(config),
+    });
   },
 };

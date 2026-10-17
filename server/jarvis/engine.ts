@@ -35,7 +35,7 @@ async function getBaileysVersion(): Promise<[number, number, number]> {
 }
 
 // Configuration paths
-const SESSIONS_DIR = path.resolve(process.cwd(), 'data', 'sessions');
+const SESSIONS_DIR = process.env.SESSIONS_DIR || (process.env.DATA_DIR ? path.join(process.env.DATA_DIR, 'sessions') : path.resolve(process.cwd(), 'data', 'sessions'));
 
 class JarvisEngineManager {
   private activeSessions = new Map<string, ActiveBotSession>();

@@ -146,4 +146,49 @@ router.get('/archive-status', (req: AuthenticatedRequest, res: Response) => {
   });
 });
 
+// Récupération des variables et configuration du serveur (Emails & Codes)
+router.get('/config', (req: AuthenticatedRequest, res: Response) => {
+  const cfg = db.getServerConfig();
+  return res.json({
+    success: true,
+    config: {
+      adminEmail: cfg.adminEmail,
+      ownerNumber: cfg.ownerNumber || '',
+      hasGeminiApiKey: !!(cfg.geminiApiKey || process.env.GEMINI_API_KEY),
+      defaultPrefix: cfg.defaultPrefix || '.',
+      botName: cfg.botName || 'JARVIS',
+      updatedAt: cfg.updatedAt,
+    },
+  });
+});
+
+// Mise à jour des variables serveur (Email, Code/Mot de passe, Numéro WhatsApp, Clé Gemini)
+router.post('/config', async (req: AuthenticatedRequest, res: Response) => {
+  const { adminEmail, newAdminPassword, ownerNumber, geminiApiKey, defaultPrefix, botName } = req.body;
+  try {
+    const updated = await db.updateServerConfig({
+      adminEmail,
+      newAdminPassword,
+      ownerNumber,
+      geminiApiKey,
+      defaultPrefix,
+      botName,
+    });
+    return res.json({
+      success: true,
+      message: 'Variables du serveur mises à jour avec succès.',
+      config: {
+        adminEmail: updated.adminEmail,
+        ownerNumber: updated.ownerNumber || '',
+        hasGeminiApiKey: !!(updated.geminiApiKey || process.env.GEMINI_API_KEY),
+        defaultPrefix: updated.defaultPrefix || '.',
+        botName: updated.botName || 'JARVIS',
+        updatedAt: updated.updatedAt,
+      },
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 export default router;

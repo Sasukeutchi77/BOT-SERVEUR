@@ -1,52 +1,34 @@
 // ╔══════════════════════════════════════════════════╗
 // ║  CONFIG — J.A.R.V.I.S.                            ║
 // ║                                                  ║
-// ║  SOURCE DE VÉRITÉ OWNER : fichier .env UNIQUEMENT║
-// ║  Le bot ne démarre PAS si OWNER_NUMBER manque    ║
+// ║  ADAPTÉ POUR LE SITE WEB & MULTI-TENANT          ║
 // ╚══════════════════════════════════════════════════╝
 
-// dotenv est chargé ICI en premier pour que process.env
-// soit disponible quelle que soit la façon de lancer le bot
 import dotenv from 'dotenv'
 dotenv.config()
 
 // ═══════════════════════════════════════════════════════
-// ── FUSEAU HORAIRE — évite les heures fausses dans .menu,
-//    .uptime, .ping, les rappels programmés, etc.
-//    Le serveur qui héberge le bot n'est pas forcément dans
-//    le même fuseau que l'owner (souvent UTC par défaut).
-//    Définissez TZ dans .env pour le changer (ex: Africa/Abidjan).
+// ── FUSEAU HORAIRE
 // ═══════════════════════════════════════════════════════
 process.env.TZ = process.env.TZ || 'Africa/Ouagadougou'
 
 // ═══════════════════════════════════════════════════════
-// ── OWNER — LU EXCLUSIVEMENT DEPUIS .env ───────────────
+// ── OWNER — LU DEPUIS .env OU CONFIGURÉ VIA LE SITE WEB ─
 // ═══════════════════════════════════════════════════════
-//
-//  Variables à définir dans votre fichier .env :
-//    OWNER_NUMBER  → votre numéro (indicatif + numéro, sans +)
-//    OWNER_NUMBERS → owners supplémentaires séparés par virgule (optionnel)
-//    OWNER_LID     → LID WhatsApp de l'owner (optionnel, auto-détecté)
-//
-//  ⚠️  AUCUNE valeur par défaut n'est définie ici.
-//      Si OWNER_NUMBER est absent → le bot REFUSE de démarrer.
-// ═══════════════════════════════════════════════════════
-
 const primaryOwnerRaw = process.env.OWNER_NUMBER || process.env.OWNER || ""
 const extraOwnersRaw  = process.env.OWNER_NUMBERS || ""
 const ownerLidRaw     = process.env.OWNER_LID     || ""
 
-// Arrêt immédiat si OWNER_NUMBER est absent ou vide dans .env en mode CLI autonome
 if (!primaryOwnerRaw || !primaryOwnerRaw.replace(/\D/g, "")) {
-  console.warn("⚠️ [JARVIS CLOUD] OWNER_NUMBER non défini dans .env — le bot fonctionne en mode multi-tenant avec configuration dynamique par utilisateur.")
+  console.log("ℹ️ [JARVIS CLOUD] Mode Web actif : les numéros WhatsApp et préfixes sont configurés dynamiquement par les utilisateurs sur le site web.")
 }
 
 // ── SUDO pré-configurés depuis .env ──────────────────────
 const sudoRaw = process.env.SUDO || process.env.SUDO_NUMBERS || ""
 
 export const config = {
-  // ── Owner (lu exclusivement depuis .env) ──────────────
-  ownerNumber:       primaryOwnerRaw.replace(/\D/g, ""),
+  // ── Owner ─────────────────────────────────────────────
+  ownerNumber: primaryOwnerRaw.replace(/\D/g, ""),
   extraOwnerNumbers: extraOwnersRaw
     ? extraOwnersRaw.split(",").map(n => n.replace(/\D/g, "")).filter(Boolean)
     : [],
@@ -58,7 +40,7 @@ export const config = {
 
   // ── Paramètres généraux ──────────────────────────────
   prefix:  process.env.PREFIX   || ".",
-  botName: process.env.BOT_NAME || "𝐉.𝐀.𝐑.𝐕.𝐈.𝐒.",
+  botName: process.env.BOT_NAME || "𝐉.𝐀.𝐑.𝐕.𝐈.𝐒",
   developerName: process.env.DEVELOPER_NAME || "𝐋𝐎𝐑𝐃 𝐃𝐄𝐌𝐎𝐍",
   teamName: process.env.TEAM_NAME || "𝐍𝐄𝐗𝐔𝐒-𝐅𝐎𝐑𝐆𝐄𝐑",
   mode:    process.env.MODE     || "public",
@@ -73,6 +55,10 @@ export const config = {
   cooldownMs:  parseInt(process.env.COOLDOWN_MS  || "2000"),
   floodMax:    parseInt(process.env.FLOOD_MAX    || "5"),
   floodWindow: parseInt(process.env.FLOOD_WINDOW || "5000"),
+
+  // ── Report / Signalement ─────────────────────────────
+  reportCooldownMs:    parseInt(process.env.REPORT_COOLDOWN_MS || "10000"),
+  reportBridgeEnabled: process.env.REPORT_BRIDGE_ENABLED !== "false",
 
   // ── Comportement du bot ──────────────────────────────
   settings: {

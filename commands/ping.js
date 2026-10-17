@@ -1,94 +1,279 @@
-// commands/ping.js — 𝑴𝑼𝑹𝑨𝑺𝑨𝑲𝑰 𝐒𝐒𝐊 𓂀
-// ✅ Loader animé avec nettoyage sécurisé
-// ✅ Mesure du temps d'exécution du loader
-// ✅ Mode détaillé : -d / --detailed
-// ✅ Statistiques RAM, heap et uptime
-// ✅ Gestion des erreurs sans exposer les détails internes
 
-import { performance } from "node:perf_hooks";
-import { sendMessage } from "../lib/sendMessage.js";
+'use strict';
+
+// commands/ping.js
+// JARVIS-AI — Commande PING premium
+//
+// Fonctionnalités :
+// - Loader animé avec nettoyage sécurisé
+// - Mesure monotone du temps de réponse initial
+// - Mode détaillé : .ping -d / .ping --detailed
+// - Mémoire RSS, Heap, External et ArrayBuffers
+// - Uptime détaillé, CPU, version Node.js et plateforme
+// - Qualité et barre de performance adaptatives
+// - Messages d'erreur sécurisés
+// - Compatible avec les helpers existants du projet
+
+import { performance } from 'node:perf_hooks';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { config } from '../config.js';
+import { listCommandMetas } from '../lib/commandRegistry.js';
+import { sendMessage } from '../lib/sendMessage.js';
 import {
     showProgressLoader,
     deleteLoader
-} from "../lib/animLoader.js";
+} from '../lib/animLoader.js';
+
+const PREFIX = config.prefix || '.';
+const MAX_DISPLAY_MS = 60_000;
+const COMMAND_GIF_PATH = path.join(process.cwd(), 'assets', 'command-animation.mp4');
+
+const FR_TIME = new Intl.DateTimeFormat('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+});
+
+const MB = 1024 * 1024;
+const GB = 1024 * MB;
+
+function formatBytes(bytes) {
+    if (!Number.isFinite(bytes) || bytes < 0) return 'N/A';
+
+    if (bytes < MB) {
+        return `${(bytes / 1024).toFixed(1)} Ko`;
+    }
+
+    if (bytes < GB) {
+        return `${(bytes / MB).toFixed(1)} Mo`;
+    }
+
+    return `${(bytes / GB).toFixed(2)} Go`;
+}
+
+function formatDuration(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) {
+        return 'N/A';
+    }
+
+    seconds = Math.floor(seconds);
+
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    const parts = [];
+
+    if (days) parts.push(`${days}j`);
+    if (hours) parts.push(`${hours}h`);
+    if (minutes) parts.push(`${minutes}min`);
+
+    // Toujours afficher les secondes si tout est inférieur à une minute.
+    if (secs || parts.length === 0) {
+        parts.push(`${secs}s`);
+    }
+
+    return parts.join(' ');
+}
 
 function getQuality(ms) {
     if (ms < 50) {
         return {
-            label: "Excellente",
-            emoji: "🚀",
-            bar: "▓▓▓▓▓▓▓▓▓▓",
-            color: "🟢"
+            label: 'Excellente',
+            emoji: '🚀',
+            color: '🟢',
+            filled: 10,
+            description: 'Réponse très rapide'
         };
     }
 
     if (ms < 150) {
         return {
-            label: "Très bonne",
-            emoji: "⚡",
-            bar: "▓▓▓▓▓▓▓▓░░",
-            color: "🟢"
+            label: 'Très bonne',
+            emoji: '⚡',
+            color: '🟢',
+            filled: 8,
+            description: 'Réponse rapide'
         };
     }
 
     if (ms < 300) {
         return {
-            label: "Bonne",
-            emoji: "⚙️",
-            bar: "▓▓▓▓▓▓░░░░",
-            color: "🟡"
+            label: 'Bonne',
+            emoji: '✨',
+            color: '🟡',
+            filled: 6,
+            description: 'Réponse correcte'
         };
     }
 
     if (ms < 600) {
         return {
-            label: "Moyenne",
-            emoji: "🐢",
-            bar: "▓▓▓▓░░░░░░",
-            color: "🟠"
+            label: 'Moyenne',
+            emoji: '🐢',
+            color: '🟠',
+            filled: 4,
+            description: 'Réponse un peu lente'
         };
     }
 
     return {
-        label: "Faible",
-        emoji: "🐌",
-        bar: "▓▓░░░░░░░░",
-        color: "🔴"
+        label: 'Faible',
+        emoji: '🐌',
+        color: '🔴',
+        filled: 2,
+        description: 'Réponse lente'
     };
 }
 
-function formatUptime(seconds) {
-    const total = Math.max(0, Math.floor(seconds));
+function makeBar(filled, total = 10) {
+    const count = Math.max(0, Math.min(total, filled));
 
-    const days = Math.floor(total / 86400);
-    const hours = Math.floor((total % 86400) / 3600);
-    const minutes = Math.floor((total % 3600) / 60);
-    const secs = total % 60;
+    return '▓'.repeat(count) + '░'.repeat(total - count);
+}
 
-    const parts = [];
+function getArgs(args) {
+    const values = Array.isArray(args)
+        ? args.map(value => String(value).toLowerCase())
+        : [];
 
-    if (days > 0) parts.push(`${days}j`);
-    if (hours > 0) parts.push(`${hours}h`);
-    if (minutes > 0) parts.push(`${minutes}m`);
+    return {
+        detailed: !values.some(value => value === '--short' || value === '-s'),
+        short: values.some(value => value === '--short' || value === '-s'),
 
-    // Toujours afficher les secondes si aucune unité supérieure
-    // n'est présente, ou si elles sont utiles.
-    if (parts.length === 0 || secs > 0) {
-        parts.push(`${secs}s`);
+        help: values.some(value =>
+            value === '-h' ||
+            value === '--help'
+        )
+    };
+}
+
+function getMemory() {
+    const memory = process.memoryUsage();
+
+    return {
+        rss: memory.rss,
+        heapUsed: memory.heapUsed,
+        heapTotal: memory.heapTotal,
+        external: memory.external,
+        arrayBuffers: memory.arrayBuffers ?? 0
+    };
+}
+
+function getProcessInfo() {
+    const cpus = typeof process.availableMemory === 'function'
+        ? process.availableMemory()
+        : null;
+
+    return {
+        node: process.version,
+        platform: process.platform,
+        arch: process.arch,
+        pid: process.pid,
+        availableMemory: Number.isFinite(cpus) ? cpus : null
+    };
+}
+
+function buildBasicMessage({ latency, quality, time }) {
+    return [
+        `╭━━━〔 🏓 ${config.botName || 'J.A.R.V.I.S.'} • PONG 〕━━━╮`,
+        '│',
+        `│  ⏱️ *Temps mesuré :* ${latency.toFixed(2)} ms`,
+        `│  📊 *Performance :* ${quality.label}`,
+        `│  ${makeBar(quality.filled)} ${quality.color}`,
+        `│  ${quality.emoji} ${quality.description}`,
+        '│',
+        '│  🟢 *Statut :* Actif',
+        `│  🕐 *Heure :* ${time}`,
+        '│',
+        '╰━━━━━━━━━━━━━━━━━━━━━━━━╯',
+        '',
+        `💡 _${PREFIX}ping --short pour afficher un résultat compact._`
+    ].join('\n');
+}
+
+function buildDetailedMessage({
+    latency,
+    quality,
+    time,
+    memory,
+    uptime,
+    info,
+    cpu,
+    connected,
+    commandCount,
+    developer,
+    team
+}) {
+    const lines = [
+        `╭━━━〔 ⚡ ${config.botName || 'J.A.R.V.I.S.'} • PONG PRO 〕━━━╮`,
+        '│',
+        '├─〔 📡 LATENCE 〕',
+        `│  ⏱️ Temps mesuré : ${latency.toFixed(2)} ms`,
+        `│  📊 Qualité : ${quality.label} ${quality.emoji}`,
+        `│  ${makeBar(quality.filled)} ${quality.color}`,
+        `│  📝 ${quality.description}`,
+        '│',
+        '├─〔 💾 MÉMOIRE 〕',
+        `│  📦 RSS : ${formatBytes(memory.rss)}`,
+        `│  🧠 Heap utilisé : ${formatBytes(memory.heapUsed)}`,
+        `│  📚 Heap total : ${formatBytes(memory.heapTotal)}`,
+        `│  🔌 Mémoire externe : ${formatBytes(memory.external)}`,
+        `│  🗃️ ArrayBuffers : ${formatBytes(memory.arrayBuffers)}`,
+        '│',
+        '├─〔 ⚙️ PROCESSUS 〕',
+        `│  ⏳ Uptime : ${uptime}`,
+        `│  🧮 CPU utilisateur : ${formatDuration(cpu.user / 1e6)}`,
+        `│  🔧 CPU système : ${formatDuration(cpu.system / 1e6)}`,
+        `│  🟢 Node.js : ${info.node}`,
+        `│  🖥️ Plateforme : ${info.platform} (${info.arch})`,
+        `│  🆔 PID : ${info.pid}`,
+        `│  📶 WhatsApp : ${connected ? 'Connecté' : 'État non confirmé'}`,
+        `│  📚 Commandes disponibles : ${commandCount}`,
+        `│  👑 Développeur : ${developer}`,
+        `│  ⚒️ Équipe : ${team}`
+    ];
+
+    if (info.availableMemory !== null) {
+        lines.push(
+            `│  🧮 Mémoire disponible : ${formatBytes(info.availableMemory)}`
+        );
     }
 
-    return parts.join(" ");
+    lines.push(
+        '│',
+        `├─〔 🕐 ${time} 〕`,
+        '│  ✅ Bot opérationnel',
+        '│',
+        '╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯',
+        '',
+        '_ℹ️ La latence affichée mesure le temps de réponse initial de l’envoi du loader, pas un aller-retour réseau complet._'
+    );
+
+    return lines.join('\n');
 }
 
-function getTime() {
-    return new Date().toLocaleTimeString("fr-FR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    });
+function buildHelp() {
+    return [
+        '╭━━━〔 🏓 𝐏𝐈𝐍𝐆 𝐇𝐄𝐋𝐏 〕━━━╮',
+        '│',
+        '│  🏓 *.ping*',
+        '│  └─ Test rapide',
+        '│',
+        '│  ⚡ *.ping*',
+        '│  └─ Diagnostic complet',
+        '│',
+        '│  ⚡ *.ping --short*',
+        '│  └─ Résultat compact',
+        '│',
+        '╰━━━━━━━━━━━━━━━━━━━━━━━━╯'
+    ].join('\n');
 }
 
-async function safelyDeleteLoader(sock, sender, loadKey) {
+async function safeDeleteLoader(sock, sender, loadKey) {
     if (loadKey === null || loadKey === undefined) {
         return;
     }
@@ -96,113 +281,127 @@ async function safelyDeleteLoader(sock, sender, loadKey) {
     try {
         await deleteLoader(sock, sender, loadKey);
     } catch (error) {
-        // Le nettoyage ne doit pas empêcher l'envoi du résultat.
-        console.warn(
-            "[PING] Impossible de supprimer le loader :",
-            error?.message ?? "Erreur inconnue"
+        // Le nettoyage ne doit jamais masquer l'erreur d'origine.
+        console.error(
+            '[PING] Impossible de supprimer le loader :',
+            error?.stack || error?.message || error
         );
     }
 }
 
 export default async function ping(sock, sender, args = [], msg) {
     let loadKey = null;
-
-    const isDetailed = Array.isArray(args) &&
-        args.some(arg =>
-            ["-d", "--detailed"].includes(
-                String(arg).toLowerCase()
-            )
-        );
+    let cpuStart = null;
+    let startTime = 0;
+    let loaderLatency = null;
 
     try {
-        // Cette mesure évalue la durée de l'opération du loader.
-        // Elle ne constitue pas un véritable aller-retour réseau.
-        const startedAt = performance.now();
+        if (!sock || !sender) {
+            throw new Error('Socket WhatsApp ou destinataire manquant.');
+        }
 
-        loadKey = await showProgressLoader(
-            sock,
-            sender,
-            "TEST DE LATENCE"
-        );
+        const options = getArgs(args);
 
-        const operationMs = Math.max(
-            0,
-            Math.round(performance.now() - startedAt)
-        );
+        if (options.help) {
+            await sendMessage(sock, sender, buildHelp());
+            return;
+        }
 
-        const quality = getQuality(operationMs);
-        const time = getTime();
+        // Horloge monotone : insensible aux changements d'heure système.
+        startTime = performance.now();
+        cpuStart = process.cpuUsage();
 
-        await safelyDeleteLoader(sock, sender, loadKey);
-        loadKey = null;
+        // Afficher le loader avant les mesures complémentaires.
+        try {
+            loadKey = await showProgressLoader(
+                sock,
+                sender,
+                'TEST DE LATENCE'
+            );
+
+            loaderLatency = performance.now() - startTime;
+        } finally {
+            await safeDeleteLoader(sock, sender, loadKey);
+            loadKey = null;
+        }
+
+        const measuredLatency = Math.max(0, loaderLatency ?? 0);
+
+        // Évite une valeur aberrante si le processus a été suspendu.
+        // La valeur brute reste utilisée pour le diagnostic.
+        const latency = Math.min(measuredLatency, MAX_DISPLAY_MS);
+        const quality = getQuality(latency);
+        const time = FR_TIME.format(new Date());
 
         let text;
 
-        if (isDetailed) {
-            const mem = process.memoryUsage();
+        if (options.detailed) {
+            const memory = getMemory();
+            const info = getProcessInfo();
+            const cpu = process.cpuUsage(cpuStart);
+            const uptime = formatDuration(process.uptime());
+            const connected = Boolean(sock.user?.id || sock.user?.jid || sock.user?.lid);
+            const commandCount = listCommandMetas().length;
+            const developer = config.developerName || process.env.DEVELOPER_NAME || '𝐋𝐎𝐑𝐃 𝐃𝐄𝐌𝐎𝐍';
+            const team = config.teamName || process.env.TEAM_NAME || '𝐍𝐄𝐗𝐔𝐒-𝐅𝐎𝐑𝐆𝐄𝐑';
 
-            const ramMB = (mem.rss / 1024 / 1024).toFixed(1);
-            const heapUsedMB = (mem.heapUsed / 1024 / 1024).toFixed(1);
-            const heapTotalMB = (mem.heapTotal / 1024 / 1024).toFixed(1);
-            const uptime = formatUptime(process.uptime());
-
-            text =
-                `🕸️━━━〔 🏓 𝐏𝐎𝐍𝐆 𝐃É𝐓𝐀𝐈𝐋𝐋É 〕━━━🕸️\n` +
-                `│\n` +
-                `│  ⏱️ *Durée du loader :* ${operationMs} ms\n` +
-                `│  ${quality.bar} ${quality.color}\n` +
-                `│\n` +
-                `│  ${quality.emoji} *Indicateur :* ${quality.label}\n` +
-                `│  🕐 *Heure :* ${time}\n` +
-                `│\n` +
-                `│  💾 *RAM utilisée (RSS) :* ${ramMB} MB\n` +
-                `│  🧠 *Heap utilisé :* ${heapUsedMB} MB\n` +
-                `│  📦 *Heap total :* ${heapTotalMB} MB\n` +
-                `│  ⏳ *Uptime :* ${uptime}\n` +
-                `│\n` +
-                `│  ℹ️ La durée affichée mesure l'opération du loader,\n` +
-                `│  pas un aller-retour réseau WhatsApp.\n` +
-                `🕸️━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🕸️`;
+            text = buildDetailedMessage({
+                latency,
+                quality,
+                time,
+                memory,
+                uptime,
+                info,
+                cpu,
+                connected,
+                commandCount,
+                developer,
+                team
+            });
         } else {
-            text =
-                `🕸️━━━〔 🏓 𝐏𝐎𝐍𝐆 〕━━━🕸️\n` +
-                `│\n` +
-                `│  ⏱️ *Durée du loader :* ${operationMs} ms\n` +
-                `│  ${quality.bar}\n` +
-                `│\n` +
-                `│  ${quality.emoji} *Indicateur :* ${quality.label}\n` +
-                `│  ${quality.color} *Statut :* Commande exécutée\n` +
-                `│  🕐 *Heure :* ${time}\n` +
-                `│\n` +
-                `🕸️━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🕸️\n\n` +
-                `_💡 Utilise .ping --detailed pour les statistiques._`;
+            text = buildBasicMessage({
+                latency,
+                quality,
+                time
+            });
         }
 
-        await sendMessage(sock, sender, text);
+        // Visuel dédié aux commandes ping/info/repo ; le GIF Welcome/Goodbye reste inchangé.
+        try {
+            const gif = await readFile(COMMAND_GIF_PATH);
+            await sock.sendMessage(sender, { video: gif, gifPlayback: true, caption: text });
+        } catch (imageError) {
+            console.warn('[PING] GIF indisponible, envoi du texte seul :', imageError?.message || imageError);
+            await sendMessage(sock, sender, text);
+        }
 
     } catch (error) {
         console.error(
-            "[PING] Échec de la commande :",
-            error?.stack ?? error?.message ?? error
+            '[PING] Échec de la commande :',
+            error?.stack || error?.message || error
         );
 
-        await safelyDeleteLoader(sock, sender, loadKey);
+        await safeDeleteLoader(sock, sender, loadKey);
+        loadKey = null;
 
+        // Ne pas exposer les chemins, jetons ou détails internes au chat.
         try {
             await sendMessage(
                 sock,
                 sender,
-                `🕸️━━━〔 🕷️ 𝐏𝐈𝐍𝐆 〕━━━🕸️\n` +
-                `│\n` +
-                `│  ❌ Impossible d'exécuter la commande.\n` +
-                `│  Réessaie dans quelques instants.\n` +
-                `│\n` +
-                `🕸️━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🕸️`
+                [
+                    '╭━━━〔 ⚠️ 𝐏𝐈𝐍𝐆 𝐄𝐑𝐑𝐎𝐑 〕━━━╮',
+                    '│',
+                    '│  ❌ Impossible de terminer le test.',
+                    '│  🔄 Réessaie dans quelques instants.',
+                    '│',
+                    '╰━━━━━━━━━━━━━━━━━━━━━━━━╯'
+                ].join('\n')
             );
         } catch (sendError) {
             console.error(
-                "[PING] Impossible d'envoyer le message d'erreur :",
-                sendError?.message ?? sendError
+                '[PING] Impossible d’envoyer le message d’erreur :',
+                sendError?.stack || sendError?.message || sendError
             );
         }
     }

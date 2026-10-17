@@ -34,7 +34,11 @@ const app = express();
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
 // Middlewares fondamentaux
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-visitor-id', 'x-server-email', 'x-server-code'],
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -42,6 +46,15 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api/auth', authRouter);
 app.use('/api/bots', botsRouter);
 app.use('/api/admin', adminRouter);
+
+// Configuration de liaison au serveur distant du bot H24
+app.get('/api/server-connection', (req, res) => {
+  return res.json({
+    serverUrl: process.env.SERVER_URL || process.env.VITE_SERVER_URL || '',
+    serverEmail: process.env.SERVER_EMAIL || process.env.VITE_SERVER_EMAIL || '',
+    serverCode: process.env.SERVER_CODE || process.env.VITE_SERVER_CODE || '',
+  });
+});
 
 // Suivi en temps réel des utilisateurs connectés
 const activeVisitors = new Map<string, number>();
@@ -111,6 +124,9 @@ async function startServer() {
     const distPath = path.resolve(__dirname, 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
+      if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ success: false, error: 'Route API introuvable' });
+      }
       res.sendFile(path.resolve(distPath, 'index.html'));
     });
     console.log('[JARVIS CLOUD] Static files served from /dist in production mode.');
