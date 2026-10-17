@@ -4,7 +4,7 @@ import { requireAuth, requireBotOwner, AuthenticatedRequest } from '../middlewar
 import { pairingRateLimiter } from '../middleware/rateLimiter';
 import { maskPhoneNumber } from '../middleware/sanitizer';
 import { jarvisEngine } from '../jarvis/engine';
-import { builtInCommands } from '../jarvis/commands';
+import { builtInCommands, ALL_COMMAND_NAMES } from '../jarvis/commands';
 
 const router = Router();
 
@@ -56,7 +56,7 @@ router.post('/', (req: AuthenticatedRequest, res: Response) => {
       antiDelete: false,
       antiSpam: true,
       welcomeMessage: 'Bonjour ! Je suis JARVIS, votre assistant personnel.',
-      enabledCommands: ['help', 'ping', 'runtime', 'info', 'ai', 'calc', 'qr', 'quote', 'tagall'],
+      enabledCommands: [...ALL_COMMAND_NAMES],
     },
     stats: {
       messagesHandled: 0,
@@ -270,7 +270,7 @@ router.post('/:id/disconnect', requireBotOwner, async (req: AuthenticatedRequest
           antiDelete: false,
           antiSpam: true,
           welcomeMessage: 'Bonjour ! Je suis JARVIS, votre assistant personnel.',
-          enabledCommands: ['help', 'ping', 'runtime', 'info', 'ai', 'calc', 'qr', 'quote', 'tagall'],
+          enabledCommands: [...ALL_COMMAND_NAMES],
         },
         stats: {
           messagesHandled: 0,
@@ -324,7 +324,7 @@ router.delete('/:id', requireBotOwner, async (req: AuthenticatedRequest, res: Re
           antiDelete: false,
           antiSpam: true,
           welcomeMessage: 'Bonjour ! Je suis JARVIS, votre assistant personnel.',
-          enabledCommands: ['help', 'ping', 'runtime', 'info', 'ai', 'calc', 'qr', 'quote', 'tagall'],
+          enabledCommands: [...ALL_COMMAND_NAMES],
         },
         stats: {
           messagesHandled: 0,

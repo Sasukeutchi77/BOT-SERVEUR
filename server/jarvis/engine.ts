@@ -12,7 +12,7 @@ import {
 import QRCode from 'qrcode';
 import { db, BotInstanceRecord } from '../db/database';
 import { ActiveBotSession, CommandContext } from './types';
-import { builtInCommands } from './commands';
+import { builtInCommands, ALL_COMMAND_NAMES } from './commands';
 import { sanitizeLogMessage } from '../middleware/sanitizer';
 
 async function getBaileysVersion(): Promise<[number, number, number]> {
@@ -446,7 +446,7 @@ class JarvisEngineManager {
                   antiDelete: false,
                   antiSpam: true,
                   welcomeMessage: 'Bonjour ! Je suis JARVIS, votre assistant personnel.',
-                  enabledCommands: ['help', 'ping', 'runtime', 'info', 'ai', 'calc', 'qr', 'quote', 'tagall'],
+                  enabledCommands: [...ALL_COMMAND_NAMES],
                 },
                 stats: {
                   messagesHandled: 0,
