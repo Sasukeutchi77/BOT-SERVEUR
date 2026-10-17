@@ -1,0 +1,350 @@
+{
+  "version": 1,
+  "users": [
+    {
+      "id": "usr_admin_mv9h2gsg",
+      "email": "admin@jarviscloud.local",
+      "passwordHash": "$2b$10$RBqClOIqDUM04Nr3xH1dHOqVhPwmUtgo5sBlyBjnJHpJlNhSGzGnK",
+      "role": "admin",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T11:45:26.656Z",
+      "updatedAt": "2026-10-15T11:45:26.656Z"
+    },
+    {
+      "id": "usr_guest_mv9yrppfdd2a",
+      "email": "utilisateur_fdd2a@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-15T20:00:58.083Z",
+      "updatedAt": "2026-10-15T20:00:58.083Z"
+    },
+    {
+      "id": "usr_guest_mvay3hd9000c",
+      "email": "utilisateur_9000c@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-16T12:29:53.709Z",
+      "updatedAt": "2026-10-16T12:29:53.709Z"
+    },
+    {
+      "id": "usr_guest_mvb163gnba7d",
+      "email": "utilisateur_nba7d@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-16T13:55:54.504Z",
+      "updatedAt": "2026-10-16T13:55:54.504Z"
+    },
+    {
+      "id": "usr_guest_mvc6uqi1c1n3",
+      "email": "utilisateur_1c1n3@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-17T09:22:48.361Z",
+      "updatedAt": "2026-10-17T09:22:48.361Z"
+    },
+    {
+      "id": "usr_guest_mvc75ymplj0d",
+      "email": "utilisateur_plj0d@jarvis.local",
+      "passwordHash": "guest_auto_session",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-17T09:31:32.113Z",
+      "updatedAt": "2026-10-17T09:31:32.113Z"
+    },
+    {
+      "id": "usr_test_1",
+      "email": "testuser1@example.com",
+      "passwordHash": "$2b$10$WEo5GKjt1iSLRjSefctcW.Aj5NVWENmAKrtcHvbrdn/3dGazNmdm6",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-17T09:39:14.984Z",
+      "updatedAt": "2026-10-17T09:39:14.984Z"
+    },
+    {
+      "id": "usr_test_2",
+      "email": "testuser2@example.com",
+      "passwordHash": "$2b$10$WEo5GKjt1iSLRjSefctcW.Aj5NVWENmAKrtcHvbrdn/3dGazNmdm6",
+      "role": "user",
+      "isSuspended": false,
+      "createdAt": "2026-10-17T09:39:14.986Z",
+      "updatedAt": "2026-10-17T09:39:14.986Z"
+    }
+  ],
+  "bots": [
+    {
+      "id": "bot_mvc7ext8oh7l",
+      "userId": "usr_admin_mv9h2gsg",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext907mk",
+      "userId": "usr_guest_mv9yrppfdd2a",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext99z95",
+      "userId": "usr_guest_mvay3hd9000c",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext9nf94",
+      "userId": "usr_guest_mvb163gnba7d",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext94dte",
+      "userId": "usr_guest_mvc6uqi1c1n3",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext9znkk",
+      "userId": "usr_guest_mvc75ymplj0d",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext9040f",
+      "userId": "usr_test_1",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    },
+    {
+      "id": "bot_mvc7ext9b5d0",
+      "userId": "usr_test_2",
+      "name": "Mon Assistant JARVIS",
+      "status": "OFFLINE",
+      "config": {
+        "botName": "JARVIS",
+        "prefix": ".",
+        "autoRead": false,
+        "reactToStatus": false,
+        "antiDelete": false,
+        "antiSpam": true,
+        "welcomeMessage": "Bonjour ! Je suis JARVIS, votre assistant personnel.",
+        "enabledCommands": [
+          "help",
+          "ping",
+          "runtime",
+          "info",
+          "ai",
+          "calc",
+          "qr",
+          "quote",
+          "tagall"
+        ]
+      },
+      "stats": {
+        "messagesHandled": 0,
+        "commandsExecuted": 0,
+        "reconnectAttempts": 0
+      },
+      "createdAt": "2026-10-17T09:38:30.957Z",
+      "updatedAt": "2026-10-17T09:38:30.957Z"
+    }
+  ],
+  "logs": [],
+  "metrics": {
+    "totalBotsEverConnected": 0,
+    "connectedBotIds": [],
+    "totalConnectionsEstablished": 0,
+    "totalMessagesAccumulated": 0
+  }
+}
