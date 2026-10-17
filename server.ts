@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import authRouter from './server/routes/auth';
@@ -110,26 +111,35 @@ app.get('/api/health', (req, res) => {
 
 // Montage de Vite en développement ou des fichiers statiques en production
 async function startServer() {
+  const distPath = path.resolve(__dirname, 'dist');
+  const indexPath = path.join(distPath, 'index.html');
+  const hasDist = fs.existsSync(indexPath);
   const isProduction = process.env.NODE_ENV === 'production';
 
-  if (!isProduction) {
+  if (isProduction && hasDist) {
+    app.use(express.static(distPath));
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ success: false, error: 'Route API introuvable' });
+      }
+      if (fs.existsSync(indexPath)) {
+        return res.sendFile(indexPath);
+      }
+      next();
+    });
+    console.log('[JARVIS CLOUD] Fichiers statiques servis depuis /dist en mode PRODUCTION.');
+  } else {
+    if (isProduction && !hasDist) {
+      console.warn('[JARVIS CLOUD] Note: /dist introuvable en mode production. Montage automatique du serveur Vite à la volée.');
+    } else {
+      console.log('[JARVIS CLOUD] Montage des middlewares Vite en mode DEV.');
+    }
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
-    console.log('[JARVIS CLOUD] Vite middlewares mounted in dev mode.');
-  } else {
-    const distPath = path.resolve(__dirname, 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      if (req.path.startsWith('/api/')) {
-        return res.status(404).json({ success: false, error: 'Route API introuvable' });
-      }
-      res.sendFile(path.resolve(distPath, 'index.html'));
-    });
-    console.log('[JARVIS CLOUD] Static files served from /dist in production mode.');
   }
 
   const server = app.listen(PORT, '0.0.0.0', () => {

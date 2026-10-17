@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: jarvis-cloud-bot
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: BOT_NAME
+        value: JARVIS
+      - key: PREFIX
+        value: .
