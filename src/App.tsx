@@ -6,6 +6,7 @@ import { PairingSection } from './components/PairingSection';
 import { CommunitySection } from './components/CommunitySection';
 import { MultiBotManager } from './components/MultiBotManager';
 import { SessionStatsCard } from './components/SessionStatsCard';
+import { ServerConnectionModal } from './components/ServerConnectionModal';
 
 export default function App() {
   const [userBots, setUserBots] = useState<BotInstance[]>([]);
@@ -14,6 +15,8 @@ export default function App() {
   const [onlineBots, setOnlineBots] = useState<number>(0);
   const [connectedCount, setConnectedCount] = useState<number>(1);
   const [totalMessages, setTotalMessages] = useState<number>(0);
+  const [isServerModalOpen, setIsServerModalOpen] = useState<boolean>(false);
+  const [isRemoteConnected, setIsRemoteConnected] = useState<boolean>(false);
 
   // Charger la liste des bots de l'utilisateur
   const loadUserBots = async (preferredId?: string) => {
@@ -143,9 +146,19 @@ export default function App() {
     } catch (e) {}
   };
 
+  const checkServerStatus = async () => {
+    try {
+      const res = await api.getServerConnection();
+      if (res) {
+        setIsRemoteConnected(!!res.isConnected);
+      }
+    } catch (e) {}
+  };
+
   useEffect(() => {
     initSession();
     fetchStats();
+    checkServerStatus();
 
     // Actualisation du compteur en direct toutes les 5 secondes
     const interval = setInterval(fetchStats, 5000);
@@ -165,6 +178,8 @@ export default function App() {
         onlineBots={onlineBots}
         totalEverConnected={totalEverConnected}
         prefix={activeBot?.config?.prefix || '.'}
+        isRemoteConnected={isRemoteConnected}
+        onOpenServerModal={() => setIsServerModalOpen(true)}
       />
 
       {/* Contenu Principal */}
@@ -202,6 +217,17 @@ export default function App() {
       <footer className="border-t border-blue-950/40 bg-[#06080F] py-5 text-xs text-slate-500 text-center">
         <p>JARVIS Connect — Connexion WhatsApp Instantanée & Sécurisée</p>
       </footer>
+
+      {/* Modal de liaison au serveur distant */}
+      <ServerConnectionModal
+        isOpen={isServerModalOpen}
+        onClose={() => setIsServerModalOpen(false)}
+        onConnectionChanged={() => {
+          checkServerStatus();
+          loadUserBots();
+          fetchStats();
+        }}
+      />
     </div>
   );
 }

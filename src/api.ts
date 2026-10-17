@@ -154,6 +154,33 @@ class ApiClient {
   }> {
     return this.request('/api/stats/connected');
   }
+
+  public async getServerConnection(): Promise<{
+    serverUrl?: string;
+    serverEmail?: string;
+    serverCode?: string;
+    isConnected?: boolean;
+    mode?: string;
+  }> {
+    return this.request('/api/server-connection');
+  }
+
+  public async saveServerConnection(data: {
+    serverUrl: string;
+    serverEmail?: string;
+    serverCode?: string;
+  }): Promise<{
+    success: boolean;
+    serverUrl?: string;
+    isConnected?: boolean;
+    testError?: string;
+    mode?: string;
+  }> {
+    return this.request('/api/server-connection', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
 }
 
 export const api = new ApiClient();

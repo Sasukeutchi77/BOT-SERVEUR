@@ -31,7 +31,7 @@ async function getBaileysVersion(): Promise<[number, number, number]> {
       return version as [number, number, number];
     }
   } catch {}
-  return [2, 3000, 1050469598];
+  return [2, 3000, 1050717745];
 }
 
 // Configuration paths
@@ -132,7 +132,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: ['Ubuntu', 'Chrome', '22.0.4'],
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,
@@ -215,7 +215,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: ['Ubuntu', 'Chrome', '22.0.4'],
     });
 
     const activeSession: ActiveBotSession = {
@@ -291,7 +291,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: ['Ubuntu', 'Chrome', '22.0.4'],
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       connectTimeoutMs: 60000,
@@ -402,10 +402,15 @@ class JarvisEngineManager {
           active.keepAliveTimer = undefined;
         }
 
-        // Si le bot était en attente de code et que la fenêtre WhatsApp expire (408)
-        if (isPairing && statusCode === 408) {
-          this.log(instanceId, 'info', 'Le code de jumelage a expiré. Vous pouvez générer un nouveau code en un clic.');
-          db.updateBot(instanceId, { status: 'OFFLINE', lastError: undefined });
+        const isRestartRequired = statusCode === 515 || statusCode === DisconnectReason.restartRequired;
+
+        // Si le bot était en attente de code et que la fenêtre WhatsApp expire (408) ou renvoie un code d'invalidation
+        if (isPairing && (statusCode === 408 || statusCode === 401 || statusCode === 405)) {
+          this.log(instanceId, 'warn', 'Code de jumelage expiré ou non validé par WhatsApp. Vous pouvez générer un nouveau code en un clic.');
+          db.updateBot(instanceId, {
+            status: 'OFFLINE',
+            lastError: 'Code de jumelage non validé ou expiré. Veuillez obtenir un nouveau code.',
+          });
           if (active) {
             active.status = 'OFFLINE';
             active.pairingCode = undefined;
@@ -413,23 +418,16 @@ class JarvisEngineManager {
           return;
         }
 
-        // Si la session est fermée ou déconnectée (ex: déconnexion depuis WhatsApp ou token révoqué)
-        const isRevokedOrLoggedOut = statusCode === 401 || statusCode === 403 || statusCode === 405;
+        // Si la session était active et qu'elle est définitivement révoquée/déconnectée
         const wasActiveSession = botRecord?.status === 'ONLINE' || active?.status === 'ONLINE';
+        const isRevokedOrLoggedOut = wasActiveSession && (statusCode === 401 || statusCode === 403);
 
-        if (isRevokedOrLoggedOut || (wasActiveSession && statusCode !== 428 && statusCode !== 515)) {
-          this.log(instanceId, 'info', 'Session WhatsApp déconnectée. Suppression automatique complète et actualisation du compteur de sessions.');
-          
-          // 1. Incrémenter le compteur de sessions dans les métriques
+        if (isRevokedOrLoggedOut) {
+          this.log(instanceId, 'info', 'Session WhatsApp déconnectée définitivement.');
           db.recordSessionDisconnected(instanceId);
-
-          // 2. Détruire le socket et purger le dossier de session sur le disque
           await this.destroySession(instanceId).catch(() => {});
-
-          // 3. Supprimer le bot de la base de données (sans laisser la session enregistrée)
           db.deleteBot(instanceId);
 
-          // 4. Si l'utilisateur n'a plus aucun bot, lui préparer un nouvel emplacement propre
           if (botRecord) {
             const userBots = db.getBotsByUserId(botRecord.userId);
             if (userBots.length === 0) {
@@ -459,12 +457,18 @@ class JarvisEngineManager {
           return;
         }
 
-        // Reconnexion persistante uniquement pour les déconnexions réseau transitoires
+        // Reconnexion : immédiate sur 515 (restart handshake Baileys), progressive sur déconnexion réseau
         if (botRecord && botRecord.status !== 'STOPPED') {
           const attempts = (active?.reconnectAttempts || 0) + 1;
-          const delay = attempts === 1 ? 3000 : attempts === 2 ? 5000 : attempts === 3 ? 10000 : attempts === 4 ? 15000 : 25000;
+          const delay = isRestartRequired ? 200 : (attempts === 1 ? 2500 : attempts === 2 ? 5000 : 10000);
 
-          this.log(instanceId, 'info', `Reconnexion WhatsApp automatique (#${attempts}) dans ${Math.round(delay / 1000)}s...`);
+          this.log(
+            instanceId,
+            'info',
+            isRestartRequired
+              ? 'Finalisation de la liaison WhatsApp (redémarrage protocole 515)...'
+              : `Reconnexion WhatsApp automatique (#${attempts}) dans ${Math.round(delay / 1000)}s...`
+          );
 
           db.updateBot(instanceId, {
             status: 'CONNECTING',
@@ -475,11 +479,11 @@ class JarvisEngineManager {
           });
 
           if (active) {
-            active.reconnectAttempts = attempts;
+            active.reconnectAttempts = isRestartRequired ? 0 : attempts;
             if (active.reconnectTimeout) clearTimeout(active.reconnectTimeout);
             active.reconnectTimeout = setTimeout(() => {
-              this.startInstance(instanceId).catch(err => {
-                this.log(instanceId, 'warn', `Tentative reconnexion (#${attempts}) : ${err.message}`);
+              this.reconnectSocket(instanceId).catch(err => {
+                this.log(instanceId, 'warn', `Tentative reconnexion : ${err.message}`);
               });
             }, delay);
           }
@@ -489,6 +493,72 @@ class JarvisEngineManager {
         }
       }
     });
+  }
+
+  /**
+   * Reconnexion d'un socket sans écraser ni réinitialiser la session
+   */
+  public async reconnectSocket(instanceId: string): Promise<void> {
+    const botRecord = db.getBotById(instanceId);
+    if (!botRecord) return;
+    const sessionDir = this.getSessionPath(instanceId);
+    if (!fs.existsSync(sessionDir)) return;
+
+    const oldSession = this.activeSessions.get(instanceId);
+    if (oldSession?.sock) {
+      try {
+        oldSession.sock.ev?.removeAllListeners('connection.update');
+        oldSession.sock.ev?.removeAllListeners('creds.update');
+        oldSession.sock.ev?.removeAllListeners('messages.upsert');
+        oldSession.sock.end(undefined);
+      } catch (e) {}
+    }
+
+    const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
+    const version = await getBaileysVersion();
+    const pino = (await import('pino')).default;
+    const silentLogger = pino({ level: 'silent' });
+
+    const sock = makeWASocket({
+      version,
+      auth: {
+        creds: state.creds,
+        keys: makeCacheableSignalKeyStore(state.keys, silentLogger),
+      },
+      printQRInTerminal: false,
+      logger: silentLogger,
+      browser: ['Ubuntu', 'Chrome', '22.0.4'],
+      generateHighQualityLinkPreview: false,
+      syncFullHistory: false,
+      markOnlineOnConnect: false,
+      connectTimeoutMs: 60000,
+      defaultQueryTimeoutMs: 60000,
+      keepAliveIntervalMs: 25000,
+      getMessage: async (key: proto.IMessageKey) => {
+        try {
+          const { getCachedMessage } = await import('../../lib/antiSuppressionManager.js');
+          const cached = getCachedMessage(key.id || '');
+          if (cached?.msg?.message) return cached.msg.message;
+        } catch {}
+        return undefined;
+      },
+    });
+
+    if (oldSession) {
+      oldSession.sock = sock;
+      oldSession.status = 'CONNECTING';
+    } else {
+      this.activeSessions.set(instanceId, {
+        instanceId,
+        userId: botRecord.userId,
+        sock,
+        status: 'CONNECTING',
+        reconnectAttempts: 0,
+      });
+    }
+
+    sock.ev.on('creds.update', saveCreds);
+    this.bindConnectionHandlers(instanceId, sock, saveCreds);
   }
 
   /**

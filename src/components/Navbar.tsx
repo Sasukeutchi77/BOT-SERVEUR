@@ -1,5 +1,4 @@
-import React from 'react';
-import { Bot, Zap, Users, Radio, ShieldCheck } from 'lucide-react';
+import { Bot, Zap, Users, Radio, ShieldCheck, Server } from 'lucide-react';
 
 interface NavbarProps {
   status?: string;
@@ -8,6 +7,8 @@ interface NavbarProps {
   onlineBots: number;
   totalEverConnected: number;
   prefix: string;
+  isRemoteConnected?: boolean;
+  onOpenServerModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,6 +17,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   connectedCount,
   onlineBots,
   prefix,
+  isRemoteConnected,
+  onOpenServerModal,
 }) => {
   const isOnline = status === 'ONLINE';
   const isPairing = status === 'PAIRING' || status === 'CONNECTING';
@@ -51,6 +54,27 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-mono text-[11px] font-medium text-white">{connectedCount}</span>
             <span className="text-[10px] text-slate-500">en ligne</span>
           </div>
+
+          {/* Indicateur / Bouton Serveur H24 */}
+          {onOpenServerModal && (
+            <button
+              onClick={onOpenServerModal}
+              title="Configurer ou voir la liaison au serveur distant H24 (SERVER_URL)"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D1322] hover:bg-blue-950/40 border border-blue-950/80 hover:border-blue-800/60 text-xs text-slate-300 transition-colors cursor-pointer"
+            >
+              <Server className="w-3.5 h-3.5 text-blue-400" />
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  isRemoteConnected
+                    ? 'bg-emerald-400 shadow-sm shadow-emerald-400/50'
+                    : 'bg-blue-400'
+                }`}
+              />
+              <span className="text-[10px] text-slate-400 hidden sm:inline">
+                {isRemoteConnected ? 'Serveur H24' : 'Liaison Serveur'}
+              </span>
+            </button>
+          )}
 
           {/* Indicateur de bots actifs */}
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D1322] border border-blue-950/80 text-xs text-slate-300">
