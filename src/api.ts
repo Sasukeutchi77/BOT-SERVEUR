@@ -111,10 +111,43 @@ class ApiClient {
     success: boolean;
     pairingCode?: string;
   }> {
-    return this.request(`/api/bots/${botId}/pairing`, {
-      method: 'POST',
-      body: JSON.stringify({ phoneNumber, prefix }),
-    });
+    let targetBotId = botId;
+
+    // Si l'identifiant est manquant ou 'undefined', récupérer le bot courant ou initialiser
+    if (!targetBotId || targetBotId === 'undefined') {
+      try {
+        const botsList = await this.getBots();
+        if (botsList?.bots && botsList.bots.length > 0) {
+          targetBotId = botsList.bots[0].id;
+        } else {
+          const fresh = await this.initGuestSession();
+          if (fresh?.bot) targetBotId = fresh.bot.id;
+        }
+      } catch {
+        const fresh = await this.initGuestSession();
+        if (fresh?.bot) targetBotId = fresh.bot.id;
+      }
+    }
+
+    try {
+      return await this.request(`/api/bots/${targetBotId}/pairing`, {
+        method: 'POST',
+        body: JSON.stringify({ phoneNumber, prefix }),
+      });
+    } catch (err: any) {
+      // Si 404 (bot introuvable) ou 401 (token expiré), réinitialiser la session et réitérer une fois
+      if (err.message?.includes('404') || err.message?.includes('401') || err.message?.includes('introuvable')) {
+        this.clearToken();
+        const guestRes = await this.initGuestSession();
+        if (guestRes?.bot) {
+          return await this.request(`/api/bots/${guestRes.bot.id}/pairing`, {
+            method: 'POST',
+            body: JSON.stringify({ phoneNumber, prefix }),
+          });
+        }
+      }
+      throw err;
+    }
   }
 
   public async setBotPrefix(botId: string, prefix: string): Promise<any> {

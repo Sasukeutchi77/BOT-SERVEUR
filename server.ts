@@ -129,6 +129,12 @@ app.use(async (req, res, next) => {
       timeout: 45000,
     });
 
+    // Si le serveur distant a répondu 404, 502 ou 503, basculer sur les routes locales
+    if (proxyRes.status === 404 || proxyRes.status === 502 || proxyRes.status === 503) {
+      console.warn(`[JARVIS Proxy] Réponse ${proxyRes.status} du serveur distant (${targetUrl}). Basculement sur les routes locales.`);
+      return next();
+    }
+
     res.status(proxyRes.status);
     for (const [k, v] of Object.entries(proxyRes.headers)) {
       if (k.toLowerCase() !== 'content-length' && k.toLowerCase() !== 'transfer-encoding') {

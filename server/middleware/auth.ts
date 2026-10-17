@@ -90,9 +90,34 @@ export function requireBotOwner(req: AuthenticatedRequest, res: Response, next: 
     return res.status(400).json({ success: false, error: 'Identifiant du bot manquant.' });
   }
 
-  const bot = db.getBotById(botId);
+  let bot = db.getBotById(botId);
   if (!bot) {
-    return res.status(404).json({ success: false, error: 'Instance de bot introuvable.' });
+    // Si l'utilisateur est authentifié et que le bot n'existe pas en base (ex: session invité, redémarrage du serveur), on le crée à la volée
+    if (req.user) {
+      bot = db.createBot({
+        id: botId,
+        userId: req.user.id,
+        name: 'Mon Assistant JARVIS',
+        status: 'OFFLINE',
+        config: {
+          botName: 'JARVIS',
+          prefix: '.',
+          autoRead: false,
+          reactToStatus: false,
+          antiDelete: false,
+          antiSpam: true,
+          welcomeMessage: 'Bonjour ! Je suis JARVIS, votre assistant personnel WhatsApp.',
+          enabledCommands: ['help', 'ping', 'runtime', 'info', 'ai', 'calc', 'qr', 'quote', 'tagall'],
+        },
+        stats: {
+          messagesHandled: 0,
+          commandsExecuted: 0,
+          reconnectAttempts: 0,
+        },
+      });
+    } else {
+      return res.status(404).json({ success: false, error: 'Instance de bot introuvable.' });
+    }
   }
 
   if (req.user?.role !== 'admin' && bot.userId !== req.user?.id) {
