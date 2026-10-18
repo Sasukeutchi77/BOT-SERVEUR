@@ -100,6 +100,35 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
     }
   };
 
+  const handleActivateAutonomousMode = async () => {
+    setTesting(true);
+    setTestResult(null);
+    try {
+      await api.saveServerConnection({
+        serverUrl: '',
+        serverEmail: '',
+        serverCode: '',
+      });
+      setServerUrl('');
+      setServerEmail('');
+      setServerCode('');
+      setIsConnected(false);
+      setMode('cloud');
+      setTestResult({
+        success: true,
+        message: 'Mode Cloud Autonome activé ! Le bot WhatsApp s’exécute directement sur ce serveur 24h/24 sans nécessiter de serveur externe.',
+      });
+      onConnectionChanged();
+    } catch (err: any) {
+      setTestResult({
+        success: false,
+        message: err.message || 'Erreur lors de l’activation.',
+      });
+    } finally {
+      setTesting(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -112,8 +141,8 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
               <Server className="w-4 h-4 text-blue-400" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white">Liaison Serveur Déployé (H24)</h3>
-              <p className="text-[11px] text-slate-400">Connectez ce site web à votre serveur de bot dédié</p>
+              <h3 className="text-sm font-semibold text-white">Liaison Serveur JARVIS</h3>
+              <p className="text-[11px] text-slate-400">Mode autonome ou connexion à un serveur bot externe</p>
             </div>
           </div>
           <button
@@ -143,7 +172,7 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
                   ? 'Relié au serveur bot distant (H24)'
                   : serverUrl
                   ? 'Serveur distant configuré (en attente)'
-                  : 'Hébergé directement sur le serveur Cloud (H24)'}
+                  : 'Mode Cloud Autonome Actif (H24)'}
               </span>
             </div>
             <button
@@ -155,6 +184,29 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
               <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
               Actualiser
             </button>
+          </div>
+
+          {/* Banner Render Recommandé */}
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-blue-950/60 to-indigo-950/60 border border-blue-800/40 space-y-2">
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <div className="text-xs">
+                <p className="font-semibold text-white">Déploiement sur Render (Recommandé)</p>
+                <p className="text-slate-300 text-[11px] mt-0.5">
+                  Sur Render, vous <strong>n'avez plus besoin</strong> de renseigner SERVER_URL, SERVER_EMAIL ou SERVER_CODE ! Le bot et le site web tournent ensemble dans le même conteneur.
+                </p>
+              </div>
+            </div>
+            {serverUrl && (
+              <button
+                type="button"
+                onClick={handleActivateAutonomousMode}
+                disabled={testing}
+                className="w-full py-1.5 px-3 rounded-lg text-xs font-medium bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 border border-blue-500/40 transition-colors flex items-center justify-center gap-1.5"
+              >
+                Activer le Mode Cloud Autonome (Effacer SERVER_URL)
+              </button>
+            )}
           </div>
 
           {/* Result message */}
@@ -175,70 +227,71 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
             </div>
           )}
 
-          {/* Input SERVER_URL */}
-          <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-blue-400" />
-              URL du Serveur Distant (SERVER_URL)
-            </label>
-            <input
-              type="text"
-              placeholder="https://mon-bot-jarvis.onrender.com"
-              value={serverUrl}
-              onChange={(e) => setServerUrl(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
-            />
-            <p className="text-[10px] text-slate-500 mt-1">
-              L'adresse URL publique de votre bot hébergé (sur Render, Railway, VPS, etc.).
+          {/* Section Mode Serveur Distant */}
+          <div className="pt-2 border-t border-blue-950/60">
+            <p className="text-xs font-semibold text-slate-300 mb-2">
+              Option avancée : Connecter un serveur bot distant
             </p>
-          </div>
-
-          {/* Input SERVER_EMAIL */}
-          <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5 text-indigo-400" />
-              Email du Serveur (SERVER_EMAIL) <span className="text-slate-500 font-normal">(Optionnel)</span>
-            </label>
-            <input
-              type="email"
-              placeholder="admin@jarviscloud.local"
-              value={serverEmail}
-              onChange={(e) => setServerEmail(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
-            />
-          </div>
-
-          {/* Input SERVER_CODE */}
-          <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center gap-1.5">
-              <Key className="w-3.5 h-3.5 text-indigo-400" />
-              Code de configuration (SERVER_CODE) <span className="text-slate-500 font-normal">(Requis pour modifier la liaison)</span>
-            </label>
-            <input
-              type="password"
-              required
-              placeholder="Saisissez le SERVER_CODE déjà défini dans l’environnement"
-              value={serverCode}
-              onChange={(e) => setServerCode(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
-            />
-            <p className="text-[10px] text-slate-500 mt-1">
-              Pour changer ce code, modifiez la variable SERVER_CODE dans l’hébergement; ne l’envoyez pas dans le chat.
+            <p className="text-[11px] text-slate-400 mb-3">
+              À utiliser uniquement si vous avez déployé le backend Node.js sur un autre serveur dédié (et non sur un panel Pterodactyl).
             </p>
+
+            {/* Input SERVER_URL */}
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1 flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-blue-400" />
+                  URL du Serveur Distant (SERVER_URL)
+                </label>
+                <input
+                  type="text"
+                  placeholder="https://mon-autre-serveur.onrender.com"
+                  value={serverUrl}
+                  onChange={(e) => setServerUrl(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
+                />
+              </div>
+
+              {/* Input SERVER_EMAIL */}
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1 flex items-center gap-1.5">
+                  <Shield className="w-3.5 h-3.5 text-indigo-400" />
+                  Email du Serveur (SERVER_EMAIL) <span className="text-slate-500 font-normal">(Optionnel)</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="admin@serveur.local"
+                  value={serverEmail}
+                  onChange={(e) => setServerEmail(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
+                />
+              </div>
+
+              {/* Input SERVER_CODE */}
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1 flex items-center gap-1.5">
+                  <Key className="w-3.5 h-3.5 text-indigo-400" />
+                  Code de liaison (SERVER_CODE) <span className="text-slate-500 font-normal">(Si défini)</span>
+                </label>
+                <input
+                  type="password"
+                  placeholder="Code de configuration pour valider la liaison"
+                  value={serverCode}
+                  onChange={(e) => setServerCode(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Actions */}
           <div className="flex items-center justify-between pt-2">
             <button
               type="button"
-              onClick={() => {
-                setServerUrl('');
-                setServerEmail('');
-                setServerCode('');
-              }}
-              className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
+              onClick={handleActivateAutonomousMode}
+              className="text-xs text-slate-400 hover:text-white underline transition-colors"
             >
-              Effacer la liaison
+              Mode Cloud Autonome
             </button>
             <div className="flex items-center gap-2">
               <button
@@ -250,11 +303,11 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
               </button>
               <button
                 type="submit"
-                disabled={testing}
-                className="px-5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20"
+                disabled={testing || !serverUrl.trim()}
+                className="px-5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-40 transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20"
               >
                 {testing && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
-                {testing ? 'Connexion en cours...' : 'Relier le serveur'}
+                {testing ? 'Test...' : 'Relier le serveur'}
               </button>
             </div>
           </div>

@@ -139,9 +139,18 @@ async function probeRemoteServer(
     }
 
     const health = await axios.get(`${normalizedUrl}/api/health`, {
-      timeout: 25000,
+      timeout: 10000,
       validateStatus: () => true,
     });
+
+    const responseText = typeof health.data === 'string' ? health.data : JSON.stringify(health.data || {});
+    if (responseText.includes('pterodactyl') || responseText.includes('Cipher')) {
+      return {
+        isConnected: false,
+        testError: 'Cette URL correspond à un panel Pterodactyl (interface de gestion d’hébergement) et non à l’API JARVIS. Sur Render ou en local, utilisez le Mode Cloud Autonome : le bot tourne déjà en interne 24h/24 sans serveur externe !',
+      };
+    }
+
     if (health.status !== 200) {
       return {
         isConnected: false,
@@ -151,7 +160,7 @@ async function probeRemoteServer(
 
     // Tester la présence de l'API des bots
     const botsApi = await axios.get(`${normalizedUrl}/api/bots`, {
-      timeout: 25000,
+      timeout: 10000,
       validateStatus: () => true,
     });
     // 401 (non authentifié) ou 200 (liste reçue) confirme que l'API est active
@@ -191,20 +200,38 @@ app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res)
   const configuredCode = (process.env.SERVER_CODE || '').trim();
   const providedCode = typeof req.body?.serverCode === 'string' ? req.body.serverCode.trim() : '';
 
-  if (configuredCode && !matchesConfiguredServerCode(providedCode)) {
+  const rawUrl = typeof req.body?.serverUrl === 'string' ? req.body.serverUrl.trim() : '';
+  const isResetting = !rawUrl;
+
+  if (!isResetting && configuredCode && !matchesConfiguredServerCode(providedCode)) {
     return res.status(403).json({ success: false, error: 'Code de configuration (SERVER_CODE) incorrect.' });
   }
 
-  if (!configuredCode && providedCode) {
+  if (!configuredCode && providedCode && !isResetting) {
     process.env.SERVER_CODE = providedCode;
     remoteServerCode = providedCode;
   }
 
+  // Si on réinitialise vers le mode Cloud autonome
+  if (isResetting) {
+    remoteServerUrl = '';
+    remoteServerEmail = '';
+    process.env.SERVER_URL = '';
+    process.env.SERVER_EMAIL = '';
+    return res.json({
+      success: true,
+      serverUrl: '',
+      serverEmail: '',
+      serverCode: remoteServerCode ? '••••••••' : '',
+      isConnected: false,
+      mode: 'cloud',
+      message: 'Mode Cloud Autonome activé avec succès. Les bots WhatsApp tournent localement sur ce serveur 24h/24.',
+    });
+  }
+
   let nextServerUrl = remoteServerUrl;
   try {
-    if (typeof req.body?.serverUrl === 'string') {
-      nextServerUrl = normalizeRemoteServerUrl(req.body.serverUrl);
-    }
+    nextServerUrl = normalizeRemoteServerUrl(rawUrl);
   } catch (error: any) {
     return res.status(400).json({ success: false, error: error.message || 'URL du serveur invalide.' });
   }
@@ -222,7 +249,7 @@ app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res)
         serverEmail: remoteServerEmail,
         serverCode: remoteServerCode ? '••••••••' : '',
         isConnected: false,
-        testError: probe.testError || 'Le serveur distant n’a pas été modifié.',
+        testError: probe.testError || 'Le serveur distant n’a pas pu être validé.',
         mode: remoteServerUrl ? 'remote' : 'cloud',
       });
     }
@@ -230,7 +257,7 @@ app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res)
 
   remoteServerUrl = nextServerUrl;
   remoteServerEmail = nextServerEmail;
-  remoteServerCode = process.env.SERVER_CODE.trim();
+  remoteServerCode = (process.env.SERVER_CODE || providedCode).trim();
   process.env.SERVER_URL = remoteServerUrl;
   process.env.SERVER_EMAIL = remoteServerEmail;
 
@@ -270,11 +297,9 @@ app.use(async (req, res, next) => {
       data: ['GET', 'HEAD'].includes(req.method.toUpperCase()) ? undefined : req.body,
       headers,
       validateStatus: () => true,
-      timeout: 45000,
+      timeout: 10000,
     });
 
-    // Si le serveur distant a retourné du JSON (ex: 400, 401, 404 Bot introuvable, ou 200 OK),
-    // transmettre la réponse authentique pour que le frontend comprenne l'erreur et s'auto-régénère
     const contentType = (proxyRes.headers['content-type'] as string) || '';
     if (contentType.includes('application/json') || (typeof proxyRes.data === 'object' && proxyRes.data !== null)) {
       res.status(proxyRes.status);
@@ -286,35 +311,14 @@ app.use(async (req, res, next) => {
       return res.send(proxyRes.data);
     }
 
-    if (proxyRes.status === 502 || proxyRes.status === 503) {
-      console.warn(`[JARVIS Proxy] Le serveur distant a répondu ${proxyRes.status}.`);
-      return res.status(502).json({
-        success: false,
-        error: `Le serveur distant démarre ou est temporairement indisponible (HTTP ${proxyRes.status}). Patientez quelques secondes puis réessayez.`,
-      });
-    }
-
-    if (proxyRes.status === 404) {
-      console.warn(`[JARVIS Proxy] Le serveur distant a renvoyé 404 non-JSON sur ${targetUrl}.`);
-      return res.status(404).json({
-        success: false,
-        error: 'La route demandée n’existe pas sur le serveur distant (HTTP 404). Vérifiez l’URL du serveur.',
-      });
-    }
-
-    res.status(proxyRes.status);
-    for (const [k, v] of Object.entries(proxyRes.headers)) {
-      if (k.toLowerCase() !== 'content-length' && k.toLowerCase() !== 'transfer-encoding') {
-        res.setHeader(k, v as string);
-      }
-    }
-    return res.send(proxyRes.data);
+    // Le serveur distant a renvoyé du contenu non-JSON (ex: page HTML d'un panel Pterodactyl ou erreur 404 Nginx).
+    // Basculement immédiat et transparent sur le moteur JARVIS local !
+    console.warn(`[JARVIS Proxy] Réponse non-JSON du serveur distant sur ${targetUrl} (HTTP ${proxyRes.status}). Basculement automatique sur le moteur JARVIS local.`);
+    return next();
   } catch (err: any) {
-    console.warn(`[JARVIS Proxy] Échec du transfert vers le serveur distant: ${err.message}.`);
-    return res.status(502).json({
-      success: false,
-      error: `Impossible de joindre le serveur distant : ${err.message || 'délai dépassé'}. Vérifiez SERVER_URL et son statut.`,
-    });
+    // Si le serveur distant est injoignable, basculer sur le moteur local plutôt que de planter l'application
+    console.warn(`[JARVIS Proxy] Échec du transfert vers le serveur distant (${err.message}). Basculement sur le moteur JARVIS local.`);
+    return next();
   }
 });
 
