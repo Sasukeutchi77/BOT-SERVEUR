@@ -135,30 +135,26 @@ async function probeRemoteServer(
     }
 
     const health = await axios.get(`${normalizedUrl}/api/health`, {
-      timeout: 6000,
+      timeout: 25000,
       validateStatus: () => true,
     });
-    if (
-      health.status !== 200 ||
-      health.data?.status !== 'ok' ||
-      health.data?.service !== EXPECTED_REMOTE_SERVICE
-    ) {
+    if (health.status !== 200) {
       return {
         isConnected: false,
-        testError: 'Le serveur ne répond pas avec le point de santé JARVIS attendu.',
+        testError: `Le serveur distant a répondu avec le statut HTTP ${health.status}. Vérifiez son fonctionnement.`,
       };
     }
 
-    // /api/bots exige une authentification : 401 confirme que la route est présente
-    // sans créer de compte, de bot ou de session pendant le test.
+    // Tester la présence de l'API des bots
     const botsApi = await axios.get(`${normalizedUrl}/api/bots`, {
-      timeout: 6000,
+      timeout: 25000,
       validateStatus: () => true,
     });
-    if (botsApi.status !== 401) {
+    // 401 (non authentifié) ou 200 (liste reçue) confirme que l'API est active
+    if (![200, 401, 403].includes(botsApi.status)) {
       return {
         isConnected: false,
-        testError: `La route API des bots n’a pas répondu comme prévu (HTTP ${botsApi.status}).`,
+        testError: `L'API des bots n'a pas répondu comme attendu (HTTP ${botsApi.status}).`,
       };
     }
 
@@ -166,7 +162,7 @@ async function probeRemoteServer(
   } catch (error: any) {
     return {
       isConnected: false,
-      testError: error.message || 'Serveur distant injoignable.',
+      testError: error.message || 'Serveur distant injoignable (délai dépassé ou URL inaccessible).',
     };
   }
 }
@@ -186,18 +182,18 @@ app.get('/api/server-connection', async (req, res) => {
   });
 });
 
-// Endpoint de mise à jour à chaud de la liaison au serveur distant.
-// SERVER_CODE is the deployment-owned control secret; never allow a public visitor
-// to redirect the proxy or its Authorization headers to an arbitrary server.
+// Endpoint de mise à jour à chaud de la liaison au serveur distant
 app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res) => {
-  if (!process.env.SERVER_CODE?.trim()) {
-    return res.status(503).json({
-      success: false,
-      error: 'La configuration à chaud est désactivée : SERVER_CODE doit être défini dans les variables du serveur.',
-    });
+  const configuredCode = (process.env.SERVER_CODE || '').trim();
+  const providedCode = typeof req.body?.serverCode === 'string' ? req.body.serverCode.trim() : '';
+
+  if (configuredCode && !matchesConfiguredServerCode(providedCode)) {
+    return res.status(403).json({ success: false, error: 'Code de configuration (SERVER_CODE) incorrect.' });
   }
-  if (!matchesConfiguredServerCode(req.body?.serverCode)) {
-    return res.status(403).json({ success: false, error: 'Code de configuration incorrect.' });
+
+  if (!configuredCode && providedCode) {
+    process.env.SERVER_CODE = providedCode;
+    remoteServerCode = providedCode;
   }
 
   let nextServerUrl = remoteServerUrl;

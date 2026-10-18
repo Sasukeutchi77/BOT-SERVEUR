@@ -220,20 +220,20 @@
     {
       "id": "usr_test_1",
       "email": "testuser1@example.com",
-      "passwordHash": "$2b$10$0ctSdZqShRzfehMlayrDJujGvRrzFkjU2sOwdpH7umHyUNvMnQbHS",
+      "passwordHash": "$2b$10$exTEjYBrQ4hdv840XS8M/Olx2kaXWF2EhNMcLE3/nYHKbfTj3Gt7q",
       "role": "user",
       "isSuspended": false,
-      "createdAt": "2026-10-18T01:01:03.994Z",
-      "updatedAt": "2026-10-18T01:01:03.994Z"
+      "createdAt": "2026-10-18T01:18:14.814Z",
+      "updatedAt": "2026-10-18T01:18:14.814Z"
     },
     {
       "id": "usr_test_2",
       "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$0ctSdZqShRzfehMlayrDJujGvRrzFkjU2sOwdpH7umHyUNvMnQbHS",
+      "passwordHash": "$2b$10$exTEjYBrQ4hdv840XS8M/Olx2kaXWF2EhNMcLE3/nYHKbfTj3Gt7q",
       "role": "user",
       "isSuspended": false,
-      "createdAt": "2026-10-18T01:01:03.995Z",
-      "updatedAt": "2026-10-18T01:01:03.995Z"
+      "createdAt": "2026-10-18T01:18:14.815Z",
+      "updatedAt": "2026-10-18T01:18:14.815Z"
     }
   ],
   "bots": [
