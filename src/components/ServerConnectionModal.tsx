@@ -36,6 +36,13 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
         setServerEmail(res.serverEmail || '');
         setIsConnected(!!res.isConnected);
         setMode(res.mode || (res.serverUrl ? 'remote' : 'local'));
+        setTestResult(
+          res.testError
+            ? { success: false, message: `API distante non validée : ${res.testError}` }
+            : res.isConnected
+            ? { success: true, message: 'API distante joignable; le jumelage WhatsApp doit être vérifié séparément.' }
+            : null,
+        );
       }
     } catch (e) {
       console.error('Erreur chargement liaison serveur:', e);
@@ -63,15 +70,15 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
           setMode('remote');
           setTestResult({
             success: true,
-            message: 'Connexion réussie au serveur distant ! Le site web est maintenant relié à votre bot H24.',
+            message: 'API distante joignable (santé et route des bots vérifiées). Le jumelage WhatsApp se valide séparément.',
           });
         } else {
           setIsConnected(false);
           setTestResult({
             success: false,
             message: res.testError
-              ? `Serveur enregistré mais injoignable : ${res.testError}`
-              : 'Serveur enregistré mais le test de connectivité a échoué. Vérifiez l\'URL.',
+              ? `Liaison non modifiée : ${res.testError}`
+              : 'Liaison non modifiée : le test de connectivité a échoué. Vérifiez l’URL.',
           });
         }
       } else {
@@ -205,15 +212,19 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center gap-1.5">
               <Key className="w-3.5 h-3.5 text-indigo-400" />
-              Code Secret du Serveur (SERVER_CODE) <span className="text-slate-500 font-normal">(Optionnel)</span>
+              Code de configuration (SERVER_CODE) <span className="text-slate-500 font-normal">(Requis pour modifier la liaison)</span>
             </label>
             <input
               type="password"
-              placeholder="Code ou mot de passe de synchronisation"
+              required
+              placeholder="Saisissez le SERVER_CODE déjà défini dans l’environnement"
               value={serverCode}
               onChange={(e) => setServerCode(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl bg-[#070A12] border border-blue-950 focus:border-blue-500 focus:outline-none text-xs text-white placeholder:text-slate-600 transition-all font-mono"
             />
+            <p className="text-[10px] text-slate-500 mt-1">
+              Pour changer ce code, modifiez la variable SERVER_CODE dans l’hébergement; ne l’envoyez pas dans le chat.
+            </p>
           </div>
 
           {/* Actions */}

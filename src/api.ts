@@ -194,6 +194,7 @@ class ApiClient {
     serverCode?: string;
     isConnected?: boolean;
     mode?: string;
+    testError?: string;
   }> {
     return this.request('/api/server-connection');
   }
