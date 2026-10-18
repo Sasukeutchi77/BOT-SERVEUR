@@ -102,6 +102,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const cleanDigits = phoneNumber.replace(/\D/g, '');
   const isValidLength = cleanDigits.length >= 8;
 
+  // Surveillance de la connexion en arrière-plan
   useEffect(() => {
     if (!pairingCode && bot.status !== 'PAIRING' && bot.status !== 'CONNECTING') return;
 
@@ -115,9 +116,11 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
         } else if (res.status === 'PAIRING' && res.pairingCode && !pairingCode) {
           setPairingCode(res.pairingCode);
         } else if (res.status === 'OFFLINE' || res.status === 'ERROR' || res.status === 'STOPPED') {
-          setPairingCode(null);
-          setError(res.lastError || 'La connexion WhatsApp s’est fermée avant la fin du jumelage. Demandez un nouveau code.');
-          onStatusUpdate();
+          if (pairingCode) {
+            setPairingCode(null);
+            setError(res.lastError || 'La connexion WhatsApp a expiré ou s’est fermée. Veuillez relancer la demande de code.');
+            onStatusUpdate();
+          }
         }
       } catch (e) {}
     }, 2500);
@@ -125,6 +128,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
     return () => clearInterval(interval);
   }, [bot.status, bot.id, onStatusUpdate, pairingCode]);
 
+  // Compte à rebours du code de jumelage
   useEffect(() => {
     if (!pairingCode) return;
     setCountdown(60);
@@ -149,30 +153,32 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
     setError(null);
     setPairingCode(null);
 
-    const trimmed = phoneNumber.trim();
-    if (!trimmed) {
+    let clean = phoneNumber.trim();
+    if (!clean) {
       setError('Veuillez saisir votre numéro de téléphone.');
       return;
     }
 
-    if (!trimmed.startsWith('+')) {
-      setError('N\'oubliez pas le préfixe pays avec le signe "+" (ex: +226...).');
-      return;
+    // Ajouter automatiquement le "+" si l'utilisateur ne l'a pas mis
+    if (!clean.startsWith('+')) {
+      clean = '+' + clean;
+      setPhoneNumber(clean);
     }
 
-    if (!isValidLength) {
+    const digitsOnly = clean.replace(/\D/g, '');
+    if (digitsOnly.length < 8) {
       setError('Le numéro semble trop court. Vérifiez l\'indicatif et les chiffres.');
       return;
     }
 
     setLoading(true);
     try {
-      const res = await api.requestPairingCode(bot.id, trimmed, selectedPrefix);
+      const res = await api.requestPairingCode(bot.id, clean, selectedPrefix);
       if (res.success && res.pairingCode) {
         setPairingCode(res.pairingCode);
         onStatusUpdate();
       } else {
-        setError('Impossible de générer le code. Réessayez.');
+        setError('Impossible de générer le code. Vérifiez votre numéro et réessayez.');
       }
     } catch (err: any) {
       setError(err.message || 'Erreur lors de la demande de code.');
@@ -189,14 +195,13 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   };
 
   const handleCancel = async () => {
-    setLoading(true);
+    setLoading(false);
     try {
       await api.stopBot(bot.id);
       setPairingCode(null);
       setError(null);
       onStatusUpdate();
     } catch (err) {}
-    setLoading(false);
   };
 
   const handleDisconnect = async () => {
@@ -357,9 +362,9 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
               </div>
             </div>
           ) : !pairingCode ? (
-            /* FORMULAIRE DE LIAISON */
+            /* FORMULAIRE DE LIAISON PAR CODE */
             <form onSubmit={handleRequestPairingCode} className="space-y-5">
-              {/* Choix du préfixe sobre */}
+              {/* Choix du préfixe */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <label className="text-slate-300 font-medium">
@@ -440,7 +445,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                     required
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="Ex: +226 70 00 00 00 ou +33 6 12 34 56 78"
+                    placeholder="Ex: +226 70 00 00 00 ou +225 07 00 00 00 00"
                     className="w-full px-3.5 py-3 bg-[#080D18] border border-blue-950/80 rounded-xl text-base text-white placeholder-slate-500 font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors"
                   />
                 </div>
@@ -457,7 +462,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                 </div>
               )}
 
-              {/* Bouton d'action principal en bleu moderne */}
+              {/* Bouton d'action principal */}
               <button
                 type="submit"
                 disabled={loading || !phoneNumber.trim()}
@@ -466,7 +471,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                 {loading ? (
                   <>
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>Génération du code...</span>
+                    <span>Génération du code sur le serveur...</span>
                   </>
                 ) : (
                   <span>Obtenir le code de jumelage</span>
@@ -474,7 +479,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
               </button>
             </form>
           ) : (
-            /* AFFICHAGE DU CODE */
+            /* AFFICHAGE DU CODE DE JUMELAGE */
             <div className="space-y-5 animate-in fade-in">
               <div className="bg-[#0A0F1E] border border-blue-900/40 rounded-xl p-6 text-center space-y-3">
                 <span className="text-[11px] uppercase tracking-wider font-mono text-blue-400">

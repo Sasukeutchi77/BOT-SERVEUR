@@ -516,9 +516,9 @@ router.post('/:id/commands/toggle', requireBotOwner, (req: AuthenticatedRequest,
 });
 
 // Simulateur de commande (Test interactif depuis l'interface)
-router.post('/:id/test-message', requireBotOwner, async (req: AuthenticatedRequest, res: Response) => {
+router.post(['/:id/test-message', '/:id/simulate'], requireBotOwner, async (req: AuthenticatedRequest, res: Response) => {
   const bot = req.bot!;
-  const { message } = req.body;
+  const message = req.body?.message || req.body?.command;
 
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ success: false, error: 'Message de test requis.' });

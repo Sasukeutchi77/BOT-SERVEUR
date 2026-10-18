@@ -35,6 +35,19 @@ async function getBaileysVersion(): Promise<[number, number, number]> {
   return [2, 3000, 1050747420];
 }
 
+export function normalizeWhatsAppPhoneNumber(rawPhoneNumber: string): string {
+  let clean = rawPhoneNumber.replace(/[^\d]/g, '');
+  // Pour la France (+33), Belgique (+32), UK (+44), etc., si après l'indicatif il y a un 0 suivi de 6 ou 7
+  if (clean.startsWith('330') && clean.length === 12) {
+    clean = '33' + clean.slice(3);
+  } else if (clean.startsWith('320') && clean.length === 11) {
+    clean = '32' + clean.slice(3);
+  } else if (clean.startsWith('440') && clean.length === 13) {
+    clean = '44' + clean.slice(3);
+  }
+  return clean;
+}
+
 // Configuration paths
 const SESSIONS_DIR = process.env.SESSIONS_DIR || (process.env.DATA_DIR ? path.join(process.env.DATA_DIR, 'sessions') : path.resolve(process.cwd(), 'data', 'sessions'));
 
@@ -89,7 +102,7 @@ class JarvisEngineManager {
    * Démarrer le processus de jumelage par Code (Pairing Code)
    */
   public async requestPairingCode(instanceId: string, rawPhoneNumber: string): Promise<string> {
-    const cleanNumber = rawPhoneNumber.replace(/[^\d]/g, '');
+    const cleanNumber = normalizeWhatsAppPhoneNumber(rawPhoneNumber);
     if (!cleanNumber || cleanNumber.length < 8 || cleanNumber.length > 15) {
       throw new Error('Numéro de téléphone WhatsApp invalide. Incluez l\'indicatif (ex: 33612345678).');
     }
@@ -135,7 +148,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.macOS('Chrome'),
+      browser: Browsers.ubuntu('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,
@@ -234,7 +247,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.macOS('Chrome'),
+      browser: Browsers.ubuntu('Chrome'),
     });
 
     const activeSession: ActiveBotSession = {
@@ -310,7 +323,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.macOS('Chrome'),
+      browser: Browsers.ubuntu('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       connectTimeoutMs: 60000,
@@ -423,15 +436,17 @@ class JarvisEngineManager {
 
         const isRestartRequired = statusCode === 515 || statusCode === DisconnectReason.restartRequired;
 
-        // Si le bot était en attente de code et que WhatsApp ferme la session
-        if (isPairing && (statusCode === 408 || statusCode === 401 || statusCode === 405 || statusCode === 428)) {
+        // Si le bot était en attente de code et que WhatsApp ferme la session sans succès
+        if (!isRestartRequired && isPairing && (statusCode === 408 || statusCode === 401 || statusCode === 405 || statusCode === 428)) {
           const pairingError = statusCode === 405
-            ? 'WhatsApp a restreint temporairement les demandes de code (code 405). Patientez 2 minutes avant de relancer, et vérifiez qu’aucun autre script bot n’est actif sur ce numéro.'
+            ? 'WhatsApp a restreint temporairement les demandes de code (code 405). Patientez 2 minutes avant de relancer.'
             : statusCode === 408
             ? 'Délai d’attente WhatsApp dépassé (code 408). Veuillez générer un nouveau code.'
+            : statusCode === 401
+            ? 'WhatsApp a refusé l’association (code 401). Vérifiez que le numéro entré correspond exactement au compte WhatsApp actif sur votre téléphone, ou connectez-vous directement via le QR Code ci-dessous.'
             : statusCode === 428
             ? 'Connexion réseau WhatsApp interrompue (code 428). Réessayez dans un instant.'
-            : `WhatsApp a fermé la tentative de jumelage (code ${statusCode || 'inconnu'}). Réessayez.`;
+            : `WhatsApp a fermé la tentative de jumelage (code ${statusCode || 'inconnu'}). Réessayez ou utilisez le QR Code.`;
           this.log(instanceId, 'warn', pairingError);
           db.updateBot(instanceId, {
             status: 'OFFLINE',
@@ -553,7 +568,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.macOS('Chrome'),
+      browser: Browsers.ubuntu('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,
