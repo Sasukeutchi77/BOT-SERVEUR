@@ -22,7 +22,7 @@ export function requestPairingCodeWhenReady(
     let timer: ReturnType<typeof setTimeout>;
 
     const onUpdate = (update: any) => {
-      if (update?.connection === 'close' && !requestStarted) {
+      if (update?.connection === 'close') {
         const statusCode = update.lastDisconnect?.error?.output?.statusCode;
         const detail = statusCode ? ` (code ${statusCode})` : '';
         finish(new Error(`WhatsApp a fermé le socket avant qu’il soit prêt${detail}.`));

@@ -32,7 +32,7 @@ async function getBaileysVersion(): Promise<[number, number, number]> {
       return version as [number, number, number];
     }
   } catch {}
-  return [2, 3000, 1050717745];
+  return [2, 3000, 1050747420];
 }
 
 // Configuration paths
@@ -101,6 +101,8 @@ class JarvisEngineManager {
 
     // Arrêter toute session précédente en cours
     await this.stopInstance(instanceId);
+    // Délai de libération pour clore les liaisons TCP / WebSockets résiduelles
+    await new Promise((r) => setTimeout(r, 1200));
 
     const sessionDir = this.getSessionPath(instanceId);
     // Vider le dossier pour garantir des clés éphémères de pairing fraîches
@@ -133,7 +135,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: Browsers.macOS('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,
@@ -172,10 +174,17 @@ class JarvisEngineManager {
     if (!sock.authState.creds.registered) {
       try {
         pairingCode = await requestPairingCodeWhenReady(sock, cleanNumber);
+        
+        // Pause de confirmation : s'assurer que WhatsApp n'a pas immédiatement clôturé la socket
+        await new Promise((r) => setTimeout(r, 600));
+        if (activeSession.status === 'OFFLINE' || (activeSession as any).isDestroyed) {
+          throw new Error('WhatsApp a fermé le socket immédiatement après la demande de code.');
+        }
+
         if (activeSession.status !== 'ONLINE') {
           activeSession.pairingCode = pairingCode;
         }
-        this.log(instanceId, 'info', 'Code de jumelage généré; en attente de saisie dans WhatsApp.');
+        this.log(instanceId, 'info', `Code de jumelage généré (${pairingCode}); en attente de saisie dans WhatsApp.`);
       } catch (err: any) {
         this.log(instanceId, 'warn', `Échec de génération du code de jumelage: ${err.message}`);
         if (activeSession.reconnectTimeout) clearTimeout(activeSession.reconnectTimeout);
@@ -225,7 +234,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: Browsers.macOS('Chrome'),
     });
 
     const activeSession: ActiveBotSession = {
@@ -301,7 +310,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: Browsers.macOS('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       connectTimeoutMs: 60000,
@@ -414,11 +423,15 @@ class JarvisEngineManager {
 
         const isRestartRequired = statusCode === 515 || statusCode === DisconnectReason.restartRequired;
 
-        // Si le bot était en attente de code et que la fenêtre WhatsApp expire (408) ou renvoie un code d'invalidation
-        if (isPairing && (statusCode === 408 || statusCode === 401 || statusCode === 405)) {
-          const pairingError = statusCode
-            ? `WhatsApp a fermé la tentative de jumelage (code ${statusCode}). Générez un nouveau code et réessayez.`
-            : 'WhatsApp a fermé la tentative de jumelage. Générez un nouveau code et réessayez.';
+        // Si le bot était en attente de code et que WhatsApp ferme la session
+        if (isPairing && (statusCode === 408 || statusCode === 401 || statusCode === 405 || statusCode === 428)) {
+          const pairingError = statusCode === 405
+            ? 'WhatsApp a restreint temporairement les demandes de code (code 405). Patientez 2 minutes avant de relancer, et vérifiez qu’aucun autre script bot n’est actif sur ce numéro.'
+            : statusCode === 408
+            ? 'Délai d’attente WhatsApp dépassé (code 408). Veuillez générer un nouveau code.'
+            : statusCode === 428
+            ? 'Connexion réseau WhatsApp interrompue (code 428). Réessayez dans un instant.'
+            : `WhatsApp a fermé la tentative de jumelage (code ${statusCode || 'inconnu'}). Réessayez.`;
           this.log(instanceId, 'warn', pairingError);
           db.updateBot(instanceId, {
             status: 'OFFLINE',
@@ -540,7 +553,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: Browsers.macOS('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,

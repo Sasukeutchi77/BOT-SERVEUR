@@ -96,15 +96,27 @@ class ApiClient {
     lastError?: string;
     pairingCode?: string;
   }> {
-    const res = await this.request(`/api/bots/${botId}`);
-    return {
-      success: res.success,
-      status: res.bot?.liveStatus || res.bot?.status || 'OFFLINE',
-      phoneNumberMasked: res.bot?.phoneNumberMasked || res.bot?.phoneNumber,
-      stats: res.bot?.stats,
-      lastError: res.bot?.lastError,
-      pairingCode: res.bot?.pairingCode,
-    };
+    try {
+      const res = await this.request(`/api/bots/${botId}/status`);
+      return {
+        success: res.success,
+        status: res.status || 'OFFLINE',
+        phoneNumberMasked: res.phoneNumberMasked,
+        stats: res.stats,
+        lastError: res.lastError,
+        pairingCode: res.pairingCode,
+      };
+    } catch {
+      const res = await this.request(`/api/bots/${botId}`);
+      return {
+        success: res.success,
+        status: res.bot?.liveStatus || res.bot?.status || 'OFFLINE',
+        phoneNumberMasked: res.bot?.phoneNumberMasked || res.bot?.phoneNumber,
+        stats: res.bot?.stats,
+        lastError: res.bot?.lastError,
+        pairingCode: res.bot?.pairingCode,
+      };
+    }
   }
 
   public async requestPairingCode(botId: string, phoneNumber: string, prefix?: string): Promise<{

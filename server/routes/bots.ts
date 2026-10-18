@@ -77,7 +77,7 @@ router.post('/', (req: AuthenticatedRequest, res: Response) => {
 
 // Récupérer les détails d'un bot
 router.get('/:id', requireBotOwner, (req: AuthenticatedRequest, res: Response) => {
-  const bot = req.bot!;
+  const bot = db.getBotById(req.bot!.id) || req.bot!;
   const liveSession = jarvisEngine.getActiveSession(bot.id);
 
   return res.json({
@@ -88,6 +88,7 @@ router.get('/:id', requireBotOwner, (req: AuthenticatedRequest, res: Response) =
       liveStatus: liveSession?.status || bot.status,
       hasActiveSession: !!liveSession,
       hasPairingCode: !!liveSession?.pairingCode,
+      pairingCode: liveSession?.pairingCode,
       hasQrCode: !!liveSession?.qrCodeDataUrl,
     },
   });

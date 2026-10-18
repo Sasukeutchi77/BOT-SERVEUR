@@ -112,6 +112,8 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
           setPairingCode(null);
           setError(null);
           onStatusUpdate();
+        } else if (res.status === 'PAIRING' && res.pairingCode && !pairingCode) {
+          setPairingCode(res.pairingCode);
         } else if (res.status === 'OFFLINE' || res.status === 'ERROR' || res.status === 'STOPPED') {
           setPairingCode(null);
           setError(res.lastError || 'La connexion WhatsApp s’est fermée avant la fin du jumelage. Demandez un nouveau code.');
