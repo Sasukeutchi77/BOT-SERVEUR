@@ -36,7 +36,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.set('trust proxy', true);
-const PORT = parseInt(process.env.PORT || '3000', 10);
+let detectedPort = process.env.PORT || process.env.SERVER_PORT;
+if (!detectedPort && fs.existsSync('/home/container/.port')) {
+  try { detectedPort = fs.readFileSync('/home/container/.port', 'utf8').trim(); } catch {}
+}
+const PORT = parseInt(detectedPort || '3000', 10);
 
 // Middlewares fondamentaux avec CORS universel pour les environnements iFrame
 app.use(cors({
