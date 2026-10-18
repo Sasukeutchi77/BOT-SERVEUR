@@ -5142,7 +5142,7 @@
       "id": "bot_mvdgqrd1jmmu",
       "userId": "usr_guest_mvdgqrd0atbo",
       "name": "Mon Assistant JARVIS",
-      "status": "PAIRING",
+      "status": "STOPPED",
       "config": {
         "botName": "JARVIS",
         "prefix": ".",
@@ -5289,7 +5289,8 @@
         "reconnectAttempts": 0
       },
       "createdAt": "2026-10-18T06:47:25.189Z",
-      "updatedAt": "2026-10-18T07:07:33.414Z"
+      "updatedAt": "2026-10-18T08:36:37.570Z",
+      "phoneNumber": "+22607603281"
     },
     {
       "id": "bot_mvdhf0xvnz41",
@@ -6346,11 +6347,48 @@
       "level": "info",
       "message": "Préfixe de commande mis à jour : [ ! ]",
       "timestamp": "2026-10-18T08:07:36.516Z"
+    },
+    {
+      "id": "log_mvdkmbew8ua5",
+      "botId": "bot_mvdgqrd1jmmu",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-18T08:35:56.360Z"
+    },
+    {
+      "id": "log_mvdkmccd13x7",
+      "botId": "bot_mvdgqrd1jmmu",
+      "level": "info",
+      "message": "Initialisation du jumelage WhatsApp.",
+      "timestamp": "2026-10-18T08:35:57.565Z"
+    },
+    {
+      "id": "log_mvdkmdl3v6m7",
+      "botId": "bot_mvdgqrd1jmmu",
+      "level": "info",
+      "message": "Code de jumelage généré (AXRQV1WP); en attente de saisie dans WhatsApp.",
+      "timestamp": "2026-10-18T08:35:59.175Z"
+    },
+    {
+      "id": "log_mvdkn77oqjlx",
+      "botId": "bot_mvdgqrd1jmmu",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-18T08:36:37.572Z"
     }
   ],
   "metrics": {
-    "totalBotsEverConnected": 0,
-    "connectedBotIds": [],
+    "totalBotsEverConnected": 8,
+    "connectedBotIds": [
+      "bot_mvdjlhrkkhco",
+      "bot_mvdjlvslmxm1",
+      "bot_mvcckim2nk4f",
+      "bot_mvccnb013ufo",
+      "bot_mvd71bb8sn2m",
+      "bot_mvd75bqxdprh",
+      "bot_unknown_123",
+      "bot_mvdgqrd1jmmu"
+    ],
     "totalConnectionsEstablished": 0,
     "totalMessagesAccumulated": 0
   }
