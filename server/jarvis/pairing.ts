@@ -14,7 +14,7 @@ interface PairingSocket {
 export function requestPairingCodeWhenReady(
   sock: PairingSocket,
   phoneNumber: string,
-  timeoutMs = 30_000,
+  timeoutMs = 45_000,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     let settled = false;
@@ -25,7 +25,11 @@ export function requestPairingCodeWhenReady(
       if (update?.connection === 'close') {
         const statusCode = update.lastDisconnect?.error?.output?.statusCode;
         const detail = statusCode ? ` (code ${statusCode})` : '';
-        finish(new Error(`WhatsApp a fermé le socket avant qu’il soit prêt${detail}.`));
+        if (statusCode === 405) {
+          finish(new Error('WhatsApp a temporairement restreint les demandes de code pour ce numéro (code 405). Patientez quelques minutes ou utilisez l’association par QR Code.'));
+        } else {
+          finish(new Error(`WhatsApp a fermé le socket avant qu’il soit prêt${detail}. Réessayez ou utilisez le QR Code.`));
+        }
         return;
       }
 
@@ -64,7 +68,7 @@ export function requestPairingCodeWhenReady(
     };
 
     timer = setTimeout(() => {
-      finish(new Error('Délai dépassé : WhatsApp n’a pas préparé le socket de jumelage.'));
+      finish(new Error('Délai dépassé : WhatsApp n’a pas préparé le socket de jumelage. Réessayez ou utilisez le QR Code.'));
     }, timeoutMs);
 
     sock.ev.on('connection.update', onUpdate);

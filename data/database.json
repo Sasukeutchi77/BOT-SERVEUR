@@ -4772,7 +4772,7 @@
       "id": "bot_mvd7pcqr3guf",
       "userId": "usr_guest_mvd7pcqonlys",
       "name": "Mon Assistant JARVIS",
-      "status": "OFFLINE",
+      "status": "PAIRING",
       "config": {
         "botName": "JARVIS",
         "prefix": ".",
@@ -4919,7 +4919,8 @@
         "reconnectAttempts": 0
       },
       "createdAt": "2026-10-18T02:34:23.043Z",
-      "updatedAt": "2026-10-18T02:34:23.043Z"
+      "updatedAt": "2026-10-18T03:19:05.358Z",
+      "phoneNumber": "+22607603281"
     }
   ],
   "logs": [
@@ -5083,11 +5084,39 @@
       "level": "info",
       "message": "Code de jumelage généré; en attente de saisie dans WhatsApp.",
       "timestamp": "2026-10-18T02:18:54.589Z"
+    },
+    {
+      "id": "log_mvd9ati2m64m",
+      "botId": "bot_mvd7pcqr3guf",
+      "level": "info",
+      "message": "Instance de bot arrêtée proprement.",
+      "timestamp": "2026-10-18T03:19:04.154Z"
+    },
+    {
+      "id": "log_mvd9aufgf4gy",
+      "botId": "bot_mvd7pcqr3guf",
+      "level": "info",
+      "message": "Initialisation du jumelage WhatsApp.",
+      "timestamp": "2026-10-18T03:19:05.356Z"
+    },
+    {
+      "id": "log_mvd9avq2t17r",
+      "botId": "bot_mvd7pcqr3guf",
+      "level": "info",
+      "message": "Code de jumelage généré (767NPJGQ); en attente de saisie dans WhatsApp.",
+      "timestamp": "2026-10-18T03:19:07.034Z"
     }
   ],
   "metrics": {
-    "totalBotsEverConnected": 0,
-    "connectedBotIds": [],
+    "totalBotsEverConnected": 6,
+    "connectedBotIds": [
+      "bot_mvcckim2nk4f",
+      "bot_mvccnb013ufo",
+      "bot_mvd71bb8sn2m",
+      "bot_mvd75bqxdprh",
+      "bot_unknown_123",
+      "bot_mvd7pcqr3guf"
+    ],
     "totalConnectionsEstablished": 0,
     "totalMessagesAccumulated": 0
   }
