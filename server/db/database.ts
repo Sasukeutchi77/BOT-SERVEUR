@@ -195,8 +195,16 @@ class DatabaseService {
   }
 
   private async seedDefaultAdmin() {
+    const isProd = process.env.NODE_ENV === 'production';
     const envAdminEmail = (process.env.ADMIN_EMAIL || '').trim();
     const envAdminPassword = (process.env.ADMIN_PASSWORD || '').trim();
+
+    if (isProd && !envAdminPassword) {
+      const adminExists = this.data.users.some(u => u.role === 'admin');
+      if (!adminExists) {
+        throw new Error('[FATAL SECURITY] process.env.ADMIN_PASSWORD doit être configuré en production pour initialiser le compte administrateur.');
+      }
+    }
 
     if (envAdminEmail) {
       let adminUser = this.data.users.find(u => u.email.toLowerCase() === envAdminEmail.toLowerCase());
@@ -209,7 +217,8 @@ class DatabaseService {
         this.save();
       } else {
         const salt = await bcrypt.genSalt(10);
-        const pass = envAdminPassword || 'JarvisCloud2026!';
+        // Ne jamais utiliser de mot de passe fixe hardcodé
+        const pass = envAdminPassword || (await import('crypto')).randomBytes(12).toString('base64url');
         const hash = await bcrypt.hash(pass, salt);
         this.data.users.push({
           id: 'usr_admin_' + Date.now().toString(36),
@@ -221,6 +230,9 @@ class DatabaseService {
           updatedAt: new Date().toISOString(),
         });
         this.save();
+        if (!envAdminPassword) {
+          console.log(`[DB] Administrateur créé avec mot de passe temporaire unique généré en mémoire: ${pass}`);
+        }
       }
       return;
     }
@@ -229,9 +241,9 @@ class DatabaseService {
     const adminExists = this.data.users.some(u => u.role === 'admin');
     if (!adminExists) {
       const email = 'admin@jarviscloud.local';
-      const password = 'JarvisCloud2026!';
+      const pass = (await import('crypto')).randomBytes(12).toString('base64url');
       const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
+      const hash = await bcrypt.hash(pass, salt);
       const adminUser: User = {
         id: 'usr_admin_' + Date.now().toString(36),
         email,
@@ -243,9 +255,10 @@ class DatabaseService {
       };
       this.data.users.push(adminUser);
       this.save();
-      console.log(`[DB] Default administrator created: ${email}`);
+      console.log(`[DB] Administrateur local initialisé: ${email} (mot de passe généré: ${pass})`);
     }
   }
+
 
   // --- Configuration Serveur (Emails & Codes / Variables) ---
   public getServerConfig(): ServerConfig {

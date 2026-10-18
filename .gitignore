@@ -6,3 +6,14 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Runtime credentials & sessions WhatsApp (Sécurité)
+data/sessions/
+auth_info_baileys/
+data/database.json
+data/*.json
+!data/.gitkeep
+data/*.tmp*
+*.tmp*
+*.tmp.*
+

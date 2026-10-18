@@ -35,9 +35,19 @@ async function getBaileysVersion(): Promise<[number, number, number]> {
   return [2, 3000, 1050747420];
 }
 
-export function normalizeWhatsAppPhoneNumber(rawPhoneNumber: string): string {
+export function validateAndNormalizePhoneNumber(rawPhoneNumber: string): { valid: boolean; normalized: string; error?: string } {
+  if (!rawPhoneNumber || typeof rawPhoneNumber !== 'string') {
+    return { valid: false, normalized: '', error: 'Le numéro de téléphone est requis.' };
+  }
+
   let clean = rawPhoneNumber.replace(/[^\d]/g, '');
-  // Pour la France (+33), Belgique (+32), UK (+44), etc., si après l'indicatif il y a un 0 suivi de 6 ou 7
+
+  if (clean.startsWith('00')) {
+    clean = clean.slice(2);
+  }
+
+  // Suppression du 0 de troncature national si présent :
+  // - France (+33) : 3306... / 3307... -> 336... / 337... (11 chiffres)
   if (clean.startsWith('330') && clean.length === 12) {
     clean = '33' + clean.slice(3);
   } else if (clean.startsWith('320') && clean.length === 11) {
@@ -45,8 +55,64 @@ export function normalizeWhatsAppPhoneNumber(rawPhoneNumber: string): string {
   } else if (clean.startsWith('440') && clean.length === 13) {
     clean = '44' + clean.slice(3);
   }
-  return clean;
+
+  // Vérification de la longueur et des indicatifs courants :
+  if (clean.startsWith('226')) {
+    // Burkina Faso : indicatif 226 + 8 chiffres = 11 chiffres
+    const localPart = clean.slice(3);
+    if (localPart.length < 8) {
+      return {
+        valid: false,
+        normalized: clean,
+        error: `Numéro incomplet pour le Burkina Faso (+226) : 8 chiffres requis après l'indicatif (vous avez entré ${localPart.length} chiffres : "${localPart}"). Exemple valide : +226 70 00 00 00 ou +226 07 63 28 XX (8 chiffres).`,
+      };
+    }
+    if (localPart.length > 8) {
+      return {
+        valid: false,
+        normalized: clean,
+        error: `Numéro trop long pour le Burkina Faso (+226) : 8 chiffres requis après l'indicatif (reçu ${localPart.length} chiffres).`,
+      };
+    }
+  } else if (clean.startsWith('225')) {
+    // Côte d'Ivoire : indicatif 225 + 10 chiffres = 13 chiffres
+    const localPart = clean.slice(3);
+    if (localPart.length < 10) {
+      return {
+        valid: false,
+        normalized: clean,
+        error: `Numéro incomplet pour la Côte d'Ivoire (+225) : 10 chiffres requis après l'indicatif (reçu ${localPart.length} chiffres). Exemple : +225 07 00 00 00 00.`,
+      };
+    }
+  } else if (clean.startsWith('221')) {
+    // Sénégal : indicatif 221 + 9 chiffres = 12 chiffres
+    const localPart = clean.slice(3);
+    if (localPart.length !== 9) {
+      return {
+        valid: false,
+        normalized: clean,
+        error: `Numéro pour le Sénégal (+221) : 9 chiffres requis après l'indicatif (reçu ${localPart.length} chiffres).`,
+      };
+    }
+  } else if (clean.length < 8 || clean.length > 15) {
+    return {
+      valid: false,
+      normalized: clean,
+      error: `Longueur de numéro WhatsApp invalide (${clean.length} chiffres). Un numéro international comporte entre 8 et 15 chiffres avec l'indicatif pays.`,
+    };
+  }
+
+  return { valid: true, normalized: clean };
 }
+
+export function normalizeWhatsAppPhoneNumber(rawPhoneNumber: string): string {
+  const result = validateAndNormalizePhoneNumber(rawPhoneNumber);
+  if (!result.valid) {
+    throw new Error(result.error || 'Numéro WhatsApp invalide.');
+  }
+  return result.normalized;
+}
+
 
 // Configuration paths
 const SESSIONS_DIR = process.env.SESSIONS_DIR || (process.env.DATA_DIR ? path.join(process.env.DATA_DIR, 'sessions') : path.resolve(process.cwd(), 'data', 'sessions'));
@@ -82,8 +148,15 @@ class JarvisEngineManager {
    * Récupère la session active en mémoire
    */
   public getActiveSession(instanceId: string): ActiveBotSession | undefined {
-    return this.activeSessions.get(instanceId);
+    const session = this.activeSessions.get(instanceId);
+    if (session && session.status === 'PAIRING' && session.pairingCreatedAt) {
+      if (Date.now() - session.pairingCreatedAt > 75000) {
+        session.pairingCode = undefined;
+      }
+    }
+    return session;
   }
+
 
   /**
    * Retourne le nombre exact de sessions WhatsApp actuellement en ligne
@@ -148,7 +221,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: ['Ubuntu', 'Chrome', '22.0.4'],
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,
@@ -196,8 +269,10 @@ class JarvisEngineManager {
 
         if (activeSession.status !== 'ONLINE') {
           activeSession.pairingCode = pairingCode;
+          activeSession.pairingPhoneNumber = cleanNumber;
+          activeSession.pairingCreatedAt = Date.now();
         }
-        this.log(instanceId, 'info', `Code de jumelage généré (${pairingCode}); en attente de saisie dans WhatsApp.`);
+        this.log(instanceId, 'info', 'Code de jumelage généré avec succès; en attente de saisie dans WhatsApp.');
       } catch (err: any) {
         this.log(instanceId, 'warn', `Échec de génération du code de jumelage: ${err.message}`);
         if (activeSession.reconnectTimeout) clearTimeout(activeSession.reconnectTimeout);
@@ -323,7 +398,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: Browsers.ubuntu('Chrome'),
+      browser: ['Ubuntu', 'Chrome', '22.0.4'],
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       connectTimeoutMs: 60000,

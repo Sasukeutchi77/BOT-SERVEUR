@@ -7,6 +7,7 @@
     "dev": "tsx server.ts",
     "build": "vite build",
     "start": "tsx server.ts",
+    "bot": "node index.js",
     "postinstall": "vite build || true",
     "lint": "tsc --noEmit",
     "test": "tsx tests/suite.ts"

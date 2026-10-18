@@ -7,7 +7,14 @@ export interface AuthenticatedRequest extends Request {
   bot?: BotInstanceRecord;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'jarvis_cloud_secret_key_secure_2026';
+const isProduction = process.env.NODE_ENV === 'production';
+if (isProduction && !process.env.JWT_SECRET) {
+  throw new Error('[FATAL SECURITY] process.env.JWT_SECRET doit être défini en production. Refus de démarrer avec un secret non configuré.');
+}
+
+// En développement/test, si JWT_SECRET n'est pas défini, utiliser une clé éphémère aléatoire en mémoire (aucun secret fixe)
+const devSecret = (globalThis as any).__jarvis_dev_jwt_secret || ((globalThis as any).__jarvis_dev_jwt_secret = crypto.randomBytes(32).toString('hex'));
+const JWT_SECRET = process.env.JWT_SECRET || devSecret;
 
 /**
  * Génère un jeton de session sécurisé HMAC-SHA256

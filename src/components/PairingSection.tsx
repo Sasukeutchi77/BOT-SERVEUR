@@ -102,6 +102,36 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const cleanDigits = phoneNumber.replace(/\D/g, '');
   const isValidLength = cleanDigits.length >= 8;
 
+// Validation granulaire par pays pour éviter les erreurs WhatsApp de numéro tronqué
+function validatePhoneInput(phone: string): string | null {
+  const digits = phone.replace(/\D/g, '');
+  if (!digits || digits.length < 8) {
+    return 'Le numéro semble trop court. Vérifiez l\'indicatif pays et les chiffres.';
+  }
+  if (digits.startsWith('226')) {
+    const local = digits.slice(3);
+    if (local.length < 8) {
+      return `Numéro incomplet pour le Burkina Faso (+226) : 8 chiffres requis après l'indicatif (vous avez entré ${local.length} chiffres : "${local}"). Exemple valide : +226 70 00 00 00 ou +226 07 63 28 XX (8 chiffres).`;
+    }
+    if (local.length > 8) {
+      return `Numéro trop long pour le Burkina Faso (+226) : 8 chiffres requis après l'indicatif (reçu ${local.length} chiffres).`;
+    }
+  } else if (digits.startsWith('225')) {
+    const local = digits.slice(3);
+    if (local.length < 10) {
+      return `Numéro incomplet pour la Côte d'Ivoire (+225) : 10 chiffres requis après l'indicatif (reçu ${local.length} chiffres). Exemple : +225 07 00 00 00 00.`;
+    }
+  } else if (digits.startsWith('221')) {
+    const local = digits.slice(3);
+    if (local.length !== 9) {
+      return `Numéro pour le Sénégal (+221) : 9 chiffres requis après l'indicatif (reçu ${local.length} chiffres).`;
+    }
+  } else if (digits.length > 15) {
+    return 'Numéro trop long (maximum 15 chiffres avec l\'indicatif).';
+  }
+  return null;
+}
+
   // Surveillance de la connexion en arrière-plan
   useEffect(() => {
     if (!pairingCode && bot.status !== 'PAIRING' && bot.status !== 'CONNECTING') return;
@@ -113,12 +143,14 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
           setPairingCode(null);
           setError(null);
           onStatusUpdate();
-        } else if (res.status === 'PAIRING' && res.pairingCode && !pairingCode) {
-          setPairingCode(res.pairingCode);
+        } else if (res.status === 'PAIRING') {
+          if (res.pairingCode && typeof res.pairingCode === 'string' && res.pairingCode.trim().length >= 6) {
+            setPairingCode(res.pairingCode.trim());
+          }
         } else if (res.status === 'OFFLINE' || res.status === 'ERROR' || res.status === 'STOPPED') {
           if (pairingCode) {
             setPairingCode(null);
-            setError(res.lastError || 'La connexion WhatsApp a expiré ou s’est fermée. Veuillez relancer la demande de code.');
+            setError(res.lastError || 'La connexion WhatsApp a expiré ou a été refusée. Veuillez relancer la demande de code.');
             onStatusUpdate();
           }
         }
@@ -138,7 +170,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
         if (prev <= 1) {
           clearInterval(timer);
           setPairingCode(null);
-          setError('Le code a expiré. Veuillez relancer la demande.');
+          setError('Le code a expiré (validité WhatsApp ~60s). Veuillez relancer la demande.');
           return 0;
         }
         return prev - 1;
@@ -165,20 +197,20 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
       setPhoneNumber(clean);
     }
 
-    const digitsOnly = clean.replace(/\D/g, '');
-    if (digitsOnly.length < 8) {
-      setError('Le numéro semble trop court. Vérifiez l\'indicatif et les chiffres.');
+    const validationErr = validatePhoneInput(clean);
+    if (validationErr) {
+      setError(validationErr);
       return;
     }
 
     setLoading(true);
     try {
       const res = await api.requestPairingCode(bot.id, clean, selectedPrefix);
-      if (res.success && res.pairingCode) {
-        setPairingCode(res.pairingCode);
+      if (res.success && res.pairingCode && typeof res.pairingCode === 'string') {
+        setPairingCode(res.pairingCode.trim());
         onStatusUpdate();
       } else {
-        setError('Impossible de générer le code. Vérifiez votre numéro et réessayez.');
+        setError(res.error || 'Impossible de générer le code. Vérifiez votre numéro et réessayez.');
       }
     } catch (err: any) {
       setError(err.message || 'Erreur lors de la demande de code.');
@@ -186,6 +218,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
       setLoading(false);
     }
   };
+
 
   const handleCopy = () => {
     if (!pairingCode) return;

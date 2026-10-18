@@ -33,9 +33,12 @@ export interface ActiveBotSession {
   sock?: WASocket;
   status: 'OFFLINE' | 'PAIRING' | 'CONNECTING' | 'ONLINE' | 'ERROR' | 'STOPPED';
   pairingCode?: string;
+  pairingPhoneNumber?: string;
+  pairingCreatedAt?: number;
   qrCodeDataUrl?: string;
   lastConnectedAt?: string;
   reconnectAttempts: number;
   reconnectTimeout?: NodeJS.Timeout;
   keepAliveTimer?: NodeJS.Timeout;
 }
+

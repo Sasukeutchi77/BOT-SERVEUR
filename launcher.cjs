@@ -29,15 +29,23 @@ if (!check('dotenv') || !fs.existsSync(path.join(ROOT, 'node_modules'))) {
   console.log('✅ Dépendances déjà installées.\n')
 }
 
-console.log('🚀 Démarrage du bot...\n')
+const target = process.env.START_TARGET || (process.argv.includes('--platform') ? 'server' : 'bot');
+const isServer = target === 'server' || process.argv.includes('--server') || process.argv.includes('--platform');
 
-const bot = spawn(process.execPath, ['index.js'], {
+console.log(`🚀 Démarrage (${isServer ? 'Plateforme Web JARVIS CLOUD' : 'Bot autonome CLI'})...\n`);
+
+const cmd = isServer ? 'npm' : process.execPath;
+const args = isServer ? ['start'] : ['index.js'];
+
+const bot = spawn(cmd, args, {
   cwd: ROOT,
   stdio: 'inherit',
-  env: process.env
-})
+  env: process.env,
+  shell: isServer
+});
 
 bot.on('exit', (code) => {
-  console.log('🔴 Bot arrêté avec code:', code)
-  process.exit(code || 0)
-})
+  console.log('🔴 Processus arrêté avec code:', code);
+  process.exit(code || 0);
+});
+

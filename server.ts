@@ -46,10 +46,31 @@ const PORT = parseInt(detectedPort || '3000', 10);
 app.use(cors({
   origin: true,
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-visitor-id', 'x-correlation-id', 'x-server-code', 'x-server-email'],
+  exposedHeaders: ['x-correlation-id'],
 }));
 app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Middleware de traçabilité des requêtes avec corrélation sans fuite de secrets
+app.use((req, res, next) => {
+  const correlationId = (req.headers['x-correlation-id'] as string) || (req.headers['x-request-id'] as string) || `req_${Date.now().toString(36)}_${Math.random().toString(36).substring(2, 6)}`;
+  (req as any).correlationId = correlationId;
+  res.setHeader('x-correlation-id', correlationId);
+
+  const start = Date.now();
+  res.on('finish', () => {
+    if (req.path.startsWith('/api')) {
+      const duration = Date.now() - start;
+      const cleanPath = req.baseUrl ? `${req.baseUrl}${req.path}` : req.path;
+      // Ne jamais journaliser les paramètres de requête ou corps contenant des secrets
+      console.log(`[HTTP][${correlationId}] ${req.method} ${cleanPath} -> ${res.statusCode} (${duration}ms)`);
+    }
+  });
+
+  next();
+});
 
 // État de liaison au serveur distant du bot H24
 let remoteServerUrl = (process.env.SERVER_URL || process.env.VITE_SERVER_URL || '').trim().replace(/\/+$/, '');
@@ -300,6 +321,7 @@ app.use(async (req, res, next) => {
       timeout: 10000,
     });
 
+    const correlationId = (req as any).correlationId;
     const contentType = (proxyRes.headers['content-type'] as string) || '';
     if (contentType.includes('application/json') || (typeof proxyRes.data === 'object' && proxyRes.data !== null)) {
       res.status(proxyRes.status);
@@ -312,13 +334,21 @@ app.use(async (req, res, next) => {
     }
 
     // Le serveur distant a renvoyé du contenu non-JSON (ex: page HTML d'un panel Pterodactyl ou erreur 404 Nginx).
-    // Basculement immédiat et transparent sur le moteur JARVIS local !
-    console.warn(`[JARVIS Proxy] Réponse non-JSON du serveur distant sur ${targetUrl} (HTTP ${proxyRes.status}). Basculement automatique sur le moteur JARVIS local.`);
-    return next();
+    // EXPLICIT ERROR: Ne jamais basculer silencieusement sur le moteur local !
+    console.error(`[JARVIS Proxy][${correlationId}] Le serveur distant (${targetUrl}) a renvoyé un contenu non-JSON (HTTP ${proxyRes.status}).`);
+    return res.status(502).json({
+      success: false,
+      error: `Le serveur distant configuré (${remoteServerUrl}) a répondu avec une page non-API (HTTP ${proxyRes.status}). Vérifiez que l'adresse configurée est bien l'URL publique de l'API de votre bot et non le panneau de gestion Pterodactyl.`,
+      correlationId,
+    });
   } catch (err: any) {
-    // Si le serveur distant est injoignable, basculer sur le moteur local plutôt que de planter l'application
-    console.warn(`[JARVIS Proxy] Échec du transfert vers le serveur distant (${err.message}). Basculement sur le moteur JARVIS local.`);
-    return next();
+    const correlationId = (req as any).correlationId;
+    console.error(`[JARVIS Proxy][${correlationId}] Échec du transfert vers le serveur distant (${err.message}).`);
+    return res.status(502).json({
+      success: false,
+      error: `Impossible de joindre le serveur distant configuré (${remoteServerUrl}): ${err.message}. Vérifiez que le bot est bien démarré sur Cipher et que le port attribué est accessible.`,
+      correlationId,
+    });
   }
 });
 

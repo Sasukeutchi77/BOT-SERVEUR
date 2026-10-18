@@ -4,10 +4,30 @@ const TOKEN_KEY = 'jarvis_auth_token';
 
 class ApiClient {
   private token: string | null = null;
+  private apiBase: string = '';
 
   constructor() {
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem(TOKEN_KEY);
+      const storedBase = localStorage.getItem('jarvis_api_base');
+      const metaEnv = typeof import.meta !== 'undefined' ? (import.meta as any).env : null;
+      const envBase = (metaEnv?.VITE_API_BASE_URL || metaEnv?.VITE_API_URL || '').trim();
+      this.apiBase = (storedBase || envBase || '').replace(/\/+$/, '');
+    }
+  }
+
+  public getApiBase(): string {
+    return this.apiBase;
+  }
+
+  public setApiBase(base: string) {
+    this.apiBase = (base || '').trim().replace(/\/+$/, '');
+    if (typeof window !== 'undefined') {
+      if (this.apiBase) {
+        localStorage.setItem('jarvis_api_base', this.apiBase);
+      } else {
+        localStorage.removeItem('jarvis_api_base');
+      }
     }
   }
 
@@ -32,7 +52,7 @@ class ApiClient {
     }
   }
 
-  private async request(endpoint: string, options: RequestInit = {}, retries = 3): Promise<any> {
+  private async request(endpoint: string, options: RequestInit = {}, retries = 2): Promise<any> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string>),
@@ -43,17 +63,19 @@ class ApiClient {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
+    const fullUrl = endpoint.startsWith('http') ? endpoint : `${this.apiBase}${endpoint}`;
+
     let lastErr: any;
     for (let attempt = 0; attempt < retries; attempt++) {
       try {
-        const res = await fetch(endpoint, {
+        const res = await fetch(fullUrl, {
           ...options,
           headers,
         });
 
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
-          throw new Error(data.error || `Erreur (${res.status})`);
+          throw new Error(data.error || `Erreur serveur (${res.status})`);
         }
         return data;
       } catch (err: any) {
@@ -68,6 +90,7 @@ class ApiClient {
     }
     throw lastErr;
   }
+
 
   public async initGuestSession(): Promise<{ success: boolean; token: string; user: any; bot: BotInstance }> {
     const data = await this.request('/api/auth/guest', { method: 'POST' });
@@ -122,6 +145,7 @@ class ApiClient {
   public async requestPairingCode(botId: string, phoneNumber: string, prefix?: string): Promise<{
     success: boolean;
     pairingCode?: string;
+    error?: string;
   }> {
     let targetBotId = botId;
 

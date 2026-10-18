@@ -3,7 +3,7 @@ import { db } from '../db/database';
 import { requireAuth, requireBotOwner, AuthenticatedRequest } from '../middleware/auth';
 import { pairingRateLimiter } from '../middleware/rateLimiter';
 import { maskPhoneNumber } from '../middleware/sanitizer';
-import { jarvisEngine } from '../jarvis/engine';
+import { jarvisEngine, validateAndNormalizePhoneNumber } from '../jarvis/engine';
 import { builtInCommands, ALL_COMMAND_NAMES } from '../jarvis/commands';
 
 const router = Router();
@@ -79,6 +79,9 @@ router.post('/', (req: AuthenticatedRequest, res: Response) => {
 router.get('/:id', requireBotOwner, (req: AuthenticatedRequest, res: Response) => {
   const bot = db.getBotById(req.bot!.id) || req.bot!;
   const liveSession = jarvisEngine.getActiveSession(bot.id);
+  const isPairingActive = liveSession?.status === 'PAIRING' && liveSession?.pairingCode;
+  const isFresh = liveSession?.pairingCreatedAt ? (Date.now() - liveSession.pairingCreatedAt < 75000) : true;
+  const currentPairingCode = (isPairingActive && isFresh) ? liveSession?.pairingCode : undefined;
 
   return res.json({
     success: true,
@@ -87,8 +90,8 @@ router.get('/:id', requireBotOwner, (req: AuthenticatedRequest, res: Response) =
       phoneNumberMasked: maskPhoneNumber(bot.phoneNumber),
       liveStatus: liveSession?.status || bot.status,
       hasActiveSession: !!liveSession,
-      hasPairingCode: !!liveSession?.pairingCode,
-      pairingCode: liveSession?.pairingCode,
+      hasPairingCode: !!currentPairingCode,
+      pairingCode: currentPairingCode,
       hasQrCode: !!liveSession?.qrCodeDataUrl,
     },
   });
@@ -102,7 +105,15 @@ router.post(['/:id/pairing', '/:id/pair'], requireBotOwner, pairingRateLimiter, 
   if (!phoneNumber || typeof phoneNumber !== 'string') {
     return res.status(400).json({
       success: false,
-      error: 'Le numéro de téléphone avec indicatif pays est obligatoire (ex: +33612345678).',
+      error: 'Le numéro de téléphone avec indicatif pays est obligatoire (ex: +22670000000, +2250700000000, +33612345678).',
+    });
+  }
+
+  const validation = validateAndNormalizePhoneNumber(phoneNumber);
+  if (!validation.valid) {
+    return res.status(400).json({
+      success: false,
+      error: validation.error || 'Numéro WhatsApp invalide ou incomplet.',
     });
   }
 
@@ -117,7 +128,7 @@ router.post(['/:id/pairing', '/:id/pair'], requireBotOwner, pairingRateLimiter, 
   }
 
   try {
-    const pairingCode = await jarvisEngine.requestPairingCode(bot.id, phoneNumber);
+    const pairingCode = await jarvisEngine.requestPairingCode(bot.id, validation.normalized);
     return res.json({
       success: true,
       message: 'Code de jumelage généré. Ouvrez WhatsApp > Appareils connectés > Associer avec un code.',
@@ -126,7 +137,7 @@ router.post(['/:id/pairing', '/:id/pair'], requireBotOwner, pairingRateLimiter, 
         'Ouvrez WhatsApp sur votre smartphone.',
         'Allez dans Paramètres (ou Menu ⋮) > Appareils connectés.',
         'Appuyez sur "Connecter un appareil", puis choisissez "Associer avec le numéro de téléphone".',
-        'Saisissez le code de jumelage à 8 caractères affiché ci-dessous.',
+        'Saisissez le code de jumelage affiché ci-dessous.',
       ],
     });
   } catch (err: any) {
@@ -243,11 +254,14 @@ router.post('/:id/qr', requireBotOwner, async (req: AuthenticatedRequest, res: R
 router.get('/:id/status', requireBotOwner, (req: AuthenticatedRequest, res: Response) => {
   const bot = db.getBotById(req.bot!.id)!;
   const liveSession = jarvisEngine.getActiveSession(bot.id);
+  const isPairingActive = liveSession?.status === 'PAIRING' && liveSession?.pairingCode;
+  const isFresh = liveSession?.pairingCreatedAt ? (Date.now() - liveSession.pairingCreatedAt < 75000) : true;
+  const currentPairingCode = (isPairingActive && isFresh) ? liveSession?.pairingCode : undefined;
 
   return res.json({
     success: true,
     status: liveSession?.status || bot.status,
-    pairingCode: liveSession?.pairingCode,
+    pairingCode: currentPairingCode,
     qrCodeDataUrl: liveSession?.qrCodeDataUrl,
     phoneNumberMasked: maskPhoneNumber(bot.phoneNumber),
     stats: bot.stats,

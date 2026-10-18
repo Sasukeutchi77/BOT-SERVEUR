@@ -181,9 +181,56 @@ async function runTests() {
     const updatedConnected = db.getTotalBotsEverConnected();
     assert(updatedConnected >= initialConnected && updatedConnected >= 1, 'Test 11: Comptage réel et persistant des bots connectés depuis le lancement');
 
+    // Test 12: Validation stricte et détection des numéros incomplets (ex: capture d'écran 2260763281)
+    const { validateAndNormalizePhoneNumber } = await import('../server/jarvis/engine');
+    const incompleteBF = validateAndNormalizePhoneNumber('2260763281'); // 10 chiffres (seulement 7 après 226)
+    assert(!incompleteBF.valid && (incompleteBF.error || '').includes('Burkina Faso') && (incompleteBF.error || '').includes('8 chiffres'), 'Test 12a: Détection et rejet du numéro incomplet pour le Burkina Faso (2260763281)');
+
+    const validBF = validateAndNormalizePhoneNumber('+226 70 00 00 00');
+    assert(validBF.valid && validBF.normalized === '22670000000', 'Test 12b: Validation d\'un numéro burkinabè complet à 8 chiffres après l\'indicatif');
+
+    const validCI = validateAndNormalizePhoneNumber('+225 07 00 00 00 00');
+    assert(validCI.valid && validCI.normalized === '2250700000000', 'Test 12c: Validation d\'un numéro ivoirien complet à 10 chiffres après l\'indicatif');
+
+    const normalizedFR = validateAndNormalizePhoneNumber('+33 06 12 34 56 78');
+    assert(normalizedFR.valid && normalizedFR.normalized === '33612345678', 'Test 12d: Suppression correcte du 0 de troncature national en France');
+
+    // Test 13: Expiration et non-persistance des anciens codes de jumelage (> 75s)
+    const testBotId = 'bot_test_expiration_' + Date.now();
+    (jarvisEngine as any).activeSessions.set(testBotId, {
+      instanceId: testBotId,
+      userId: user1.id,
+      status: 'PAIRING',
+      pairingCode: 'TEST1234',
+      pairingPhoneNumber: '22670000000',
+      pairingCreatedAt: Date.now() - 80000, // 80s (expiré)
+      reconnectAttempts: 0,
+    });
+    const expiredSession = jarvisEngine.getActiveSession(testBotId);
+    assert(expiredSession?.pairingCode === undefined, 'Test 13a: Un ancien code de plus de 75 secondes est automatiquement invalidé');
+
+    (jarvisEngine as any).activeSessions.set(testBotId, {
+      instanceId: testBotId,
+      userId: user1.id,
+      status: 'PAIRING',
+      pairingCode: 'FRESH567',
+      pairingPhoneNumber: '22670000000',
+      pairingCreatedAt: Date.now() - 10000, // 10s (frais)
+      reconnectAttempts: 0,
+    });
+    const freshSession = jarvisEngine.getActiveSession(testBotId);
+    assert(freshSession?.pairingCode === 'FRESH567', 'Test 13b: Un code frais (< 75s) reste actif pour la saisie');
+    (jarvisEngine as any).activeSessions.delete(testBotId);
+
+    // Test 14: Rejet strict des faux jetons de session (sécurité JWT)
+    const { verifyToken } = await import('../server/middleware/auth');
+    const forgedToken = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJmYWtlIn0.invalidsignature';
+    assert(verifyToken(forgedToken) === null, 'Test 14: Rejet absolu d\'un jeton signé avec une mauvaise signature');
+
     console.log(`\n===========================================`);
     console.log(`RÉSULTAT : ${passed} passés, ${failed} échoués`);
     console.log(`===========================================`);
+
   } catch (err: any) {
     console.error('Erreur critique pendant les tests:', err);
     failed++;
