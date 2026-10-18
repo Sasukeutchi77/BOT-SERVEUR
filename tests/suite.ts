@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
+import { EventEmitter } from 'events';
 import { db } from '../server/db/database';
 import { sanitizeLogMessage, maskPhoneNumber } from '../server/middleware/sanitizer';
 import { jarvisEngine } from '../server/jarvis/engine';
+import { requestPairingCodeWhenReady } from '../server/jarvis/pairing';
 
 async function runTests() {
   console.log('--- DÉMARRAGE DE LA SUITE DE TESTS JARVIS CLOUD ---');
@@ -19,6 +21,45 @@ async function runTests() {
   }
 
   try {
+    // Test 0: le code Baileys n'est demandé qu'après l'événement QR de socket prêt
+    const pairingEvents = new EventEmitter();
+    let requestedPhoneNumber = '';
+    const pairingSocket = {
+      ev: pairingEvents,
+      requestPairingCode: async (phoneNumber: string) => {
+        requestedPhoneNumber = phoneNumber;
+        return 'CP19XQ1B';
+      },
+    } as any;
+    const codePromise = requestPairingCodeWhenReady(pairingSocket, '22670000000');
+    assert(requestedPhoneNumber === '', 'Test 0a: Aucun code demandé avant le signal de préparation Baileys');
+    pairingEvents.emit('connection.update', { connection: 'connecting' });
+    assert(requestedPhoneNumber === '', 'Test 0b: Les mises à jour sans QR ne déclenchent pas le code');
+    pairingEvents.emit('connection.update', { qr: 'qr-ready' });
+    const generatedCode = await codePromise;
+    assert(
+      generatedCode === 'CP19XQ1B' && requestedPhoneNumber === '22670000000',
+      'Test 0c: Le code est demandé au numéro international après le signal QR',
+    );
+
+    const closedEvents = new EventEmitter();
+    const closedSocket = {
+      ev: closedEvents,
+      requestPairingCode: async () => 'should-not-be-requested',
+    } as any;
+    const closedPromise = requestPairingCodeWhenReady(closedSocket, '22670000000');
+    closedEvents.emit('connection.update', {
+      connection: 'close',
+      lastDisconnect: { error: { output: { statusCode: 408 } } },
+    });
+    let closeError = '';
+    try {
+      await closedPromise;
+    } catch (err: any) {
+      closeError = err.message;
+    }
+    assert(closeError.includes('408'), 'Test 0d: Une fermeture avant le QR fournit son code de diagnostic');
+
     // Test 1: Hachage sécurisé des mots de passe
     const rawPass = 'SecretPassword123!';
     const salt = await bcrypt.genSalt(10);

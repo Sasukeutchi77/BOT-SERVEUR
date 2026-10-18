@@ -67,7 +67,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [countdown, setCountdown] = useState<number>(120);
+  const [countdown, setCountdown] = useState<number>(60);
   const [showFaq, setShowFaq] = useState(false);
   const [selectedPrefix, setSelectedPrefix] = useState(bot.config?.prefix || '.');
   const [customPrefixInput, setCustomPrefixInput] = useState('');
@@ -103,24 +103,29 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
   const isValidLength = cleanDigits.length >= 8;
 
   useEffect(() => {
-    if (bot.status !== 'PAIRING' && bot.status !== 'CONNECTING') return;
+    if (!pairingCode && bot.status !== 'PAIRING' && bot.status !== 'CONNECTING') return;
 
     const interval = setInterval(async () => {
       try {
         const res = await api.getBotStatus(bot.id);
         if (res.status === 'ONLINE') {
           setPairingCode(null);
+          setError(null);
+          onStatusUpdate();
+        } else if (res.status === 'OFFLINE' || res.status === 'ERROR' || res.status === 'STOPPED') {
+          setPairingCode(null);
+          setError(res.lastError || 'La connexion WhatsApp s’est fermée avant la fin du jumelage. Demandez un nouveau code.');
           onStatusUpdate();
         }
       } catch (e) {}
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [bot.status, bot.id, onStatusUpdate]);
+  }, [bot.status, bot.id, onStatusUpdate, pairingCode]);
 
   useEffect(() => {
     if (!pairingCode) return;
-    setCountdown(120);
+    setCountdown(60);
 
     const timer = setInterval(() => {
       setCountdown((prev) => {
@@ -500,7 +505,7 @@ export const PairingSection: React.FC<PairingSectionProps> = ({ bot, onStatusUpd
                 )}
 
                 <p className="text-[11px] text-slate-400 font-mono">
-                  Expire dans <strong className="text-blue-300">{countdown}s</strong>
+                  Expire dans environ <strong className="text-blue-300">{countdown}s</strong>
                 </p>
               </div>
 

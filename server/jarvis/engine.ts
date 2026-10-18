@@ -14,6 +14,7 @@ import { db, BotInstanceRecord } from '../db/database';
 import { ActiveBotSession, CommandContext } from './types';
 import { builtInCommands, ALL_COMMAND_NAMES } from './commands';
 import { sanitizeLogMessage } from '../middleware/sanitizer';
+import { requestPairingCodeWhenReady } from './pairing';
 
 async function getBaileysVersion(): Promise<[number, number, number]> {
   try {
@@ -89,7 +90,7 @@ class JarvisEngineManager {
    */
   public async requestPairingCode(instanceId: string, rawPhoneNumber: string): Promise<string> {
     const cleanNumber = rawPhoneNumber.replace(/[^\d]/g, '');
-    if (!cleanNumber || cleanNumber.length < 8) {
+    if (!cleanNumber || cleanNumber.length < 8 || cleanNumber.length > 15) {
       throw new Error('Numéro de téléphone WhatsApp invalide. Incluez l\'indicatif (ex: 33612345678).');
     }
 
@@ -110,7 +111,7 @@ class JarvisEngineManager {
     }
     fs.mkdirSync(sessionDir, { recursive: true });
 
-    this.log(instanceId, 'info', `Initialisation du jumelage pour le numéro +${cleanNumber}`);
+    this.log(instanceId, 'info', 'Initialisation du jumelage WhatsApp.');
     db.updateBot(instanceId, {
       status: 'PAIRING',
       phoneNumber: `+${cleanNumber}`,
@@ -132,7 +133,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: ['Ubuntu', 'Chrome', '22.0.4'],
+      browser: Browsers.ubuntu('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,
@@ -166,17 +167,26 @@ class JarvisEngineManager {
     // Liaison du gestionnaire de connexion
     this.bindConnectionHandlers(instanceId, sock, saveCreds);
 
-    // Demander le code de jumelage Baileys si non enregistré
+    // Demander le code seulement après le signal Baileys indiquant que le socket est prêt.
     let pairingCode = '';
     if (!sock.authState.creds.registered) {
-      // 3.5s pour que le socket WebSocket négocie le handshake Noise initial
-      await new Promise(r => setTimeout(r, 3500));
       try {
-        pairingCode = await sock.requestPairingCode(cleanNumber);
-        activeSession.pairingCode = pairingCode;
-        this.log(instanceId, 'info', `Code de jumelage généré : ${pairingCode}. En attente de saisie dans WhatsApp.`);
+        pairingCode = await requestPairingCodeWhenReady(sock, cleanNumber);
+        if (activeSession.status !== 'ONLINE') {
+          activeSession.pairingCode = pairingCode;
+        }
+        this.log(instanceId, 'info', 'Code de jumelage généré; en attente de saisie dans WhatsApp.');
       } catch (err: any) {
         this.log(instanceId, 'warn', `Échec de génération du code de jumelage: ${err.message}`);
+        if (activeSession.reconnectTimeout) clearTimeout(activeSession.reconnectTimeout);
+        activeSession.status = 'OFFLINE';
+        activeSession.pairingCode = undefined;
+        try {
+          sock.ev?.removeAllListeners('connection.update');
+          sock.ev?.removeAllListeners('creds.update');
+          sock.end(new Error('Demande de jumelage échouée'));
+        } catch {}
+        this.activeSessions.delete(instanceId);
         db.updateBot(instanceId, { status: 'OFFLINE', lastError: err.message });
         throw new Error(`Impossible de générer le code de jumelage : ${err.message}`);
       }
@@ -215,7 +225,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: ['Ubuntu', 'Chrome', '22.0.4'],
+      browser: Browsers.ubuntu('Chrome'),
     });
 
     const activeSession: ActiveBotSession = {
@@ -291,7 +301,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: ['Ubuntu', 'Chrome', '22.0.4'],
+      browser: Browsers.ubuntu('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       connectTimeoutMs: 60000,
@@ -406,10 +416,13 @@ class JarvisEngineManager {
 
         // Si le bot était en attente de code et que la fenêtre WhatsApp expire (408) ou renvoie un code d'invalidation
         if (isPairing && (statusCode === 408 || statusCode === 401 || statusCode === 405)) {
-          this.log(instanceId, 'warn', 'Code de jumelage expiré ou non validé par WhatsApp. Vous pouvez générer un nouveau code en un clic.');
+          const pairingError = statusCode
+            ? `WhatsApp a fermé la tentative de jumelage (code ${statusCode}). Générez un nouveau code et réessayez.`
+            : 'WhatsApp a fermé la tentative de jumelage. Générez un nouveau code et réessayez.';
+          this.log(instanceId, 'warn', pairingError);
           db.updateBot(instanceId, {
             status: 'OFFLINE',
-            lastError: 'Code de jumelage non validé ou expiré. Veuillez obtenir un nouveau code.',
+            lastError: pairingError,
           });
           if (active) {
             active.status = 'OFFLINE';
@@ -527,7 +540,7 @@ class JarvisEngineManager {
       },
       printQRInTerminal: false,
       logger: silentLogger,
-      browser: ['Ubuntu', 'Chrome', '22.0.4'],
+      browser: Browsers.ubuntu('Chrome'),
       generateHighQualityLinkPreview: false,
       syncFullHistory: false,
       markOnlineOnConnect: false,

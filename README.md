@@ -112,6 +112,14 @@ Chaque utilisateur peut connecter son propre compte WhatsApp via un code de pair
 
 Ne partagez jamais `.env`, le dossier de session WhatsApp ou les fichiers de données runtime. L'archive de distribution ne contient pas le `.env` personnel ni les données JSON runtime.
 
+## Liaison du site web au serveur bot
+
+- Définissez `SERVER_URL` dans l’environnement serveur de la passerelle web et pointez-le vers la racine HTTPS du serveur bot distinct. Ne pointez pas `SERVER_URL` vers le même site.
+- `SERVER_CODE` doit rester une variable serveur secrète. Il autorise les modifications de la liaison depuis l’interface; pour le remplacer, modifiez la variable dans l’hébergement. Ne le partagez pas dans le chat et ne l’intégrez pas au bundle du navigateur.
+- Le voyant « serveur relié » vérifie la santé de l’application et la présence de la route API des bots; il ne confirme pas qu’un compte WhatsApp est jumelé.
+- L’API de ce dépôt utilise le jeton Bearer de l’utilisateur pour autoriser le jumelage. `SERVER_EMAIL` et `SERVER_CODE` sont transmis au serveur distant comme en-têtes, mais ne remplacent pas cette authentification et ne valident pas le code de jumelage WhatsApp.
+- Si le serveur distant est indisponible, l’API répond maintenant avec une erreur explicite au lieu de créer une session sur la base locale.
+
 ### Liens configurés
 
 - Groupe Telegram : https://t.me/+kcLFkzePlwwyZjE8

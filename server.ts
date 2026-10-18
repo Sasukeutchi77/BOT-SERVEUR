@@ -5,9 +5,11 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import { timingSafeEqual } from 'node:crypto';
 import authRouter from './server/routes/auth';
 import botsRouter from './server/routes/bots';
 import adminRouter from './server/routes/admin';
+import { createRateLimiter } from './server/middleware/rateLimiter';
 import { jarvisEngine } from './server/jarvis/engine';
 import { db } from './server/db/database';
 
@@ -49,58 +51,166 @@ let remoteServerUrl = (process.env.SERVER_URL || process.env.VITE_SERVER_URL || 
 let remoteServerEmail = (process.env.SERVER_EMAIL || process.env.VITE_SERVER_EMAIL || '').trim();
 let remoteServerCode = (process.env.SERVER_CODE || process.env.VITE_SERVER_CODE || '').trim();
 
+const EXPECTED_REMOTE_SERVICE = 'JARVIS CLOUD Multi-Tenant WhatsApp Platform';
+const serverConnectionRateLimiter = createRateLimiter(
+  60 * 1000,
+  5,
+  'Trop de tentatives de modification du serveur. Réessayez dans une minute.',
+);
+
+function normalizeRemoteServerUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    throw new Error('URL du serveur invalide.');
+  }
+
+  if (!['http:', 'https:'].includes(parsed.protocol)) {
+    throw new Error('L’URL du serveur doit commencer par http:// ou https://.');
+  }
+  if (process.env.NODE_ENV === 'production' && parsed.protocol !== 'https:') {
+    throw new Error('En production, l’URL du serveur doit utiliser HTTPS.');
+  }
+  if (parsed.username || parsed.password || parsed.search || parsed.hash) {
+    throw new Error('L’URL du serveur ne doit pas contenir d’identifiants, de paramètres ni de fragment.');
+  }
+
+  return `${parsed.origin}${parsed.pathname.replace(/\/+$/, '')}`;
+}
+
+function matchesConfiguredServerCode(candidate: unknown): boolean {
+  const configuredCode = (process.env.SERVER_CODE || '').trim();
+  if (!configuredCode || typeof candidate !== 'string') return false;
+
+  const expected = Buffer.from(configuredCode);
+  const provided = Buffer.from(candidate.trim());
+  return expected.length === provided.length && timingSafeEqual(expected, provided);
+}
+
+async function probeRemoteServer(
+  url: string,
+  currentHost?: string,
+): Promise<{ isConnected: boolean; testError?: string }> {
+  try {
+    const normalizedUrl = normalizeRemoteServerUrl(url);
+    if (!normalizedUrl) return { isConnected: false };
+    if (currentHost && new URL(normalizedUrl).host === currentHost.trim().toLowerCase()) {
+      return {
+        isConnected: false,
+        testError: 'SERVER_URL pointe vers ce même site. Utilisez l’URL distincte du serveur bot pour éviter une boucle.',
+      };
+    }
+
+    const health = await axios.get(`${normalizedUrl}/api/health`, {
+      timeout: 6000,
+      validateStatus: () => true,
+    });
+    if (
+      health.status !== 200 ||
+      health.data?.status !== 'ok' ||
+      health.data?.service !== EXPECTED_REMOTE_SERVICE
+    ) {
+      return {
+        isConnected: false,
+        testError: 'Le serveur ne répond pas avec le point de santé JARVIS attendu.',
+      };
+    }
+
+    // /api/bots exige une authentification : 401 confirme que la route est présente
+    // sans créer de compte, de bot ou de session pendant le test.
+    const botsApi = await axios.get(`${normalizedUrl}/api/bots`, {
+      timeout: 6000,
+      validateStatus: () => true,
+    });
+    if (botsApi.status !== 401) {
+      return {
+        isConnected: false,
+        testError: `La route API des bots n’a pas répondu comme prévu (HTTP ${botsApi.status}).`,
+      };
+    }
+
+    return { isConnected: true };
+  } catch (error: any) {
+    return {
+      isConnected: false,
+      testError: error.message || 'Serveur distant injoignable.',
+    };
+  }
+}
+
 // Endpoint de consultation & statut de la liaison
 app.get('/api/server-connection', async (req, res) => {
-  let isConnected = false;
-  if (remoteServerUrl) {
-    try {
-      const ping = await axios.get(`${remoteServerUrl}/api/health`, { timeout: 4000 });
-      if (ping.status === 200) isConnected = true;
-    } catch {}
-  }
+  const probe = remoteServerUrl
+    ? await probeRemoteServer(remoteServerUrl, req.get('host'))
+    : { isConnected: false, testError: undefined };
   return res.json({
     serverUrl: remoteServerUrl,
     serverEmail: remoteServerEmail,
     serverCode: remoteServerCode ? '••••••••' : '',
-    isConnected,
+    isConnected: probe.isConnected,
+    testError: probe.testError,
     mode: remoteServerUrl ? 'remote' : 'local',
   });
 });
 
-// Endpoint de mise à jour à chaud de la liaison au serveur distant
-app.post('/api/server-connection', async (req, res) => {
-  const { serverUrl, serverEmail, serverCode } = req.body;
-  if (typeof serverUrl === 'string') {
-    remoteServerUrl = serverUrl.trim().replace(/\/+$/, '');
-    process.env.SERVER_URL = remoteServerUrl;
+// Endpoint de mise à jour à chaud de la liaison au serveur distant.
+// SERVER_CODE is the deployment-owned control secret; never allow a public visitor
+// to redirect the proxy or its Authorization headers to an arbitrary server.
+app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res) => {
+  if (!process.env.SERVER_CODE?.trim()) {
+    return res.status(503).json({
+      success: false,
+      error: 'La configuration à chaud est désactivée : SERVER_CODE doit être défini dans les variables du serveur.',
+    });
   }
-  if (typeof serverEmail === 'string') {
-    remoteServerEmail = serverEmail.trim();
-    process.env.SERVER_EMAIL = remoteServerEmail;
-  }
-  if (typeof serverCode === 'string') {
-    remoteServerCode = serverCode.trim();
-    process.env.SERVER_CODE = remoteServerCode;
+  if (!matchesConfiguredServerCode(req.body?.serverCode)) {
+    return res.status(403).json({ success: false, error: 'Code de configuration incorrect.' });
   }
 
-  let isConnected = false;
-  let testError = '';
-  if (remoteServerUrl) {
-    try {
-      const ping = await axios.get(`${remoteServerUrl}/api/health`, { timeout: 6000 });
-      if (ping.status === 200) isConnected = true;
-    } catch (e: any) {
-      testError = e.message || 'Serveur injoignable';
+  let nextServerUrl = remoteServerUrl;
+  try {
+    if (typeof req.body?.serverUrl === 'string') {
+      nextServerUrl = normalizeRemoteServerUrl(req.body.serverUrl);
+    }
+  } catch (error: any) {
+    return res.status(400).json({ success: false, error: error.message || 'URL du serveur invalide.' });
+  }
+
+  const nextServerEmail = typeof req.body?.serverEmail === 'string'
+    ? req.body.serverEmail.trim()
+    : remoteServerEmail;
+
+  if (nextServerUrl) {
+    const probe = await probeRemoteServer(nextServerUrl, req.get('host'));
+    if (!probe.isConnected) {
+      return res.json({
+        success: false,
+        serverUrl: remoteServerUrl,
+        serverEmail: remoteServerEmail,
+        serverCode: remoteServerCode ? '••••••••' : '',
+        isConnected: false,
+        testError: probe.testError || 'Le serveur distant n’a pas été modifié.',
+        mode: remoteServerUrl ? 'remote' : 'local',
+      });
     }
   }
+
+  remoteServerUrl = nextServerUrl;
+  remoteServerEmail = nextServerEmail;
+  remoteServerCode = process.env.SERVER_CODE.trim();
+  process.env.SERVER_URL = remoteServerUrl;
+  process.env.SERVER_EMAIL = remoteServerEmail;
 
   return res.json({
     success: true,
     serverUrl: remoteServerUrl,
     serverEmail: remoteServerEmail,
     serverCode: remoteServerCode ? '••••••••' : '',
-    isConnected,
-    testError: testError || undefined,
+    isConnected: !!remoteServerUrl,
     mode: remoteServerUrl ? 'remote' : 'local',
   });
 });
@@ -112,6 +222,14 @@ app.use(async (req, res, next) => {
   }
 
   try {
+    const targetHost = new URL(remoteServerUrl).host;
+    if (targetHost === req.get('host')?.toLowerCase()) {
+      return res.status(502).json({
+        success: false,
+        error: 'SERVER_URL pointe vers ce même site. Configurez l’URL du serveur bot distinct.',
+      });
+    }
+
     const targetUrl = `${remoteServerUrl}${req.originalUrl || req.url}`;
     const headers: Record<string, string> = {};
     if (req.headers.authorization) headers['authorization'] = req.headers.authorization as string;
@@ -129,10 +247,14 @@ app.use(async (req, res, next) => {
       timeout: 45000,
     });
 
-    // Si le serveur distant a répondu 404, 502 ou 503, basculer sur les routes locales
+    // Ne jamais mélanger les comptes locaux et distants : un basculement silencieux
+    // pourrait créer un jeton local puis l'envoyer au serveur distant au pairing.
     if (proxyRes.status === 404 || proxyRes.status === 502 || proxyRes.status === 503) {
-      console.warn(`[JARVIS Proxy] Réponse ${proxyRes.status} du serveur distant (${targetUrl}). Basculement sur les routes locales.`);
-      return next();
+      console.warn(`[JARVIS Proxy] Le serveur distant a répondu ${proxyRes.status}; requête refusée sans basculement local.`);
+      return res.status(502).json({
+        success: false,
+        error: 'Le serveur distant est indisponible ou ne possède pas cette route API.',
+      });
     }
 
     res.status(proxyRes.status);
@@ -143,8 +265,11 @@ app.use(async (req, res, next) => {
     }
     return res.send(proxyRes.data);
   } catch (err: any) {
-    console.warn(`[JARVIS Proxy] Échec transfert vers serveur distant (${remoteServerUrl}): ${err.message}. Basculement sur le moteur local.`);
-    return next();
+    console.warn(`[JARVIS Proxy] Échec du transfert vers le serveur distant: ${err.message}.`);
+    return res.status(502).json({
+      success: false,
+      error: 'Impossible de joindre le serveur distant. Vérifiez SERVER_URL et son état.',
+    });
   }
 });
 
