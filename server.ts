@@ -35,6 +35,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set('trust proxy', true);
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
 // Middlewares fondamentaux avec CORS universel pour les environnements iFrame
@@ -79,7 +80,35 @@ function normalizeRemoteServerUrl(value: string): string {
     throw new Error('L’URL du serveur ne doit pas contenir d’identifiants, de paramètres ni de fragment.');
   }
 
-  return `${parsed.origin}${parsed.pathname.replace(/\/+$/, '')}`;
+  let cleanPath = parsed.pathname.replace(/\/+$/, '');
+  if (cleanPath.endsWith('/api')) {
+    cleanPath = cleanPath.slice(0, -4);
+  }
+
+  return `${parsed.origin}${cleanPath}`;
+}
+
+function isSelfHost(targetUrlStr: string, req: express.Request): boolean {
+  try {
+    const targetUrl = new URL(targetUrlStr);
+    const targetHost = targetUrl.hostname.toLowerCase();
+    
+    const forwardedHost = ((req.headers['x-forwarded-host'] as string) || '').split(',')[0].trim().toLowerCase().split(':')[0];
+    const hostHeader = (req.get('host') || '').toLowerCase().split(':')[0];
+    const reqHostname = (req.hostname || '').toLowerCase();
+
+    const isLocalTarget = ['localhost', '127.0.0.1', '0.0.0.0'].includes(targetHost);
+    const isLocalReq = ['localhost', '127.0.0.1', '0.0.0.0'].includes(hostHeader);
+
+    if (isLocalTarget && isLocalReq) return true;
+    if (forwardedHost && targetHost === forwardedHost) return true;
+    if (hostHeader && targetHost === hostHeader) return true;
+    if (reqHostname && targetHost === reqHostname) return true;
+
+    return false;
+  } catch {
+    return false;
+  }
 }
 
 function matchesConfiguredServerCode(candidate: unknown): boolean {
@@ -153,7 +182,7 @@ app.get('/api/server-connection', async (req, res) => {
     serverCode: remoteServerCode ? '••••••••' : '',
     isConnected: probe.isConnected,
     testError: probe.testError,
-    mode: remoteServerUrl ? 'remote' : 'local',
+    mode: remoteServerUrl ? 'remote' : 'cloud',
   });
 });
 
@@ -194,7 +223,7 @@ app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res)
         serverCode: remoteServerCode ? '••••••••' : '',
         isConnected: false,
         testError: probe.testError || 'Le serveur distant n’a pas été modifié.',
-        mode: remoteServerUrl ? 'remote' : 'local',
+        mode: remoteServerUrl ? 'remote' : 'cloud',
       });
     }
   }
@@ -211,7 +240,7 @@ app.post('/api/server-connection', serverConnectionRateLimiter, async (req, res)
     serverEmail: remoteServerEmail,
     serverCode: remoteServerCode ? '••••••••' : '',
     isConnected: !!remoteServerUrl,
-    mode: remoteServerUrl ? 'remote' : 'local',
+    mode: remoteServerUrl ? 'remote' : 'cloud',
   });
 });
 
@@ -221,15 +250,12 @@ app.use(async (req, res, next) => {
     return next();
   }
 
-  try {
-    const targetHost = new URL(remoteServerUrl).host;
-    if (targetHost === req.get('host')?.toLowerCase()) {
-      return res.status(502).json({
-        success: false,
-        error: 'SERVER_URL pointe vers ce même site. Configurez l’URL du serveur bot distinct.',
-      });
-    }
+  // Si l'URL distante pointe vers ce même serveur, exécuter directement les routes locales
+  if (isSelfHost(remoteServerUrl, req)) {
+    return next();
+  }
 
+  try {
     const targetUrl = `${remoteServerUrl}${req.originalUrl || req.url}`;
     const headers: Record<string, string> = {};
     if (req.headers.authorization) headers['authorization'] = req.headers.authorization as string;
@@ -247,13 +273,32 @@ app.use(async (req, res, next) => {
       timeout: 45000,
     });
 
-    // Ne jamais mélanger les comptes locaux et distants : un basculement silencieux
-    // pourrait créer un jeton local puis l'envoyer au serveur distant au pairing.
-    if (proxyRes.status === 404 || proxyRes.status === 502 || proxyRes.status === 503) {
-      console.warn(`[JARVIS Proxy] Le serveur distant a répondu ${proxyRes.status}; requête refusée sans basculement local.`);
+    // Si le serveur distant a retourné du JSON (ex: 400, 401, 404 Bot introuvable, ou 200 OK),
+    // transmettre la réponse authentique pour que le frontend comprenne l'erreur et s'auto-régénère
+    const contentType = (proxyRes.headers['content-type'] as string) || '';
+    if (contentType.includes('application/json') || (typeof proxyRes.data === 'object' && proxyRes.data !== null)) {
+      res.status(proxyRes.status);
+      for (const [k, v] of Object.entries(proxyRes.headers)) {
+        if (k.toLowerCase() !== 'content-length' && k.toLowerCase() !== 'transfer-encoding') {
+          res.setHeader(k, v as string);
+        }
+      }
+      return res.send(proxyRes.data);
+    }
+
+    if (proxyRes.status === 502 || proxyRes.status === 503) {
+      console.warn(`[JARVIS Proxy] Le serveur distant a répondu ${proxyRes.status}.`);
       return res.status(502).json({
         success: false,
-        error: 'Le serveur distant est indisponible ou ne possède pas cette route API.',
+        error: `Le serveur distant démarre ou est temporairement indisponible (HTTP ${proxyRes.status}). Patientez quelques secondes puis réessayez.`,
+      });
+    }
+
+    if (proxyRes.status === 404) {
+      console.warn(`[JARVIS Proxy] Le serveur distant a renvoyé 404 non-JSON sur ${targetUrl}.`);
+      return res.status(404).json({
+        success: false,
+        error: 'La route demandée n’existe pas sur le serveur distant (HTTP 404). Vérifiez l’URL du serveur.',
       });
     }
 
@@ -268,7 +313,7 @@ app.use(async (req, res, next) => {
     console.warn(`[JARVIS Proxy] Échec du transfert vers le serveur distant: ${err.message}.`);
     return res.status(502).json({
       success: false,
-      error: 'Impossible de joindre le serveur distant. Vérifiez SERVER_URL et son état.',
+      error: `Impossible de joindre le serveur distant : ${err.message || 'délai dépassé'}. Vérifiez SERVER_URL et son statut.`,
     });
   }
 });

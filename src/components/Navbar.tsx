@@ -70,8 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'bg-blue-400'
                 }`}
               />
-              <span className="text-[10px] text-slate-400 hidden sm:inline">
-                {isRemoteConnected ? 'Serveur H24' : 'Liaison Serveur'}
+              <span className="text-[10px] text-slate-300 hidden sm:inline font-medium">
+                {isRemoteConnected ? 'Serveur Bot Externe' : 'Serveur Cloud H24'}
               </span>
             </button>
           )}

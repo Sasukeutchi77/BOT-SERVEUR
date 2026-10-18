@@ -83,10 +83,10 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
         }
       } else {
         setIsConnected(false);
-        setMode('local');
+        setMode('cloud');
         setTestResult({
           success: true,
-          message: 'Liaison réinitialisée. Le bot s\'exécute en mode serveur local.',
+          message: 'Liaison réinitialisée. Les bots sont hébergés et exécutés directement sur ce serveur Cloud 24h/24.',
         });
       }
       onConnectionChanged();
@@ -113,7 +113,7 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
             </div>
             <div>
               <h3 className="text-sm font-semibold text-white">Liaison Serveur Déployé (H24)</h3>
-              <p className="text-[11px] text-slate-400">Connectez ce site web à votre serveur de bot distant</p>
+              <p className="text-[11px] text-slate-400">Connectez ce site web à votre serveur de bot dédié</p>
             </div>
           </div>
           <button
@@ -135,15 +135,15 @@ export const ServerConnectionModal: React.FC<ServerConnectionModalProps> = ({
                     ? 'bg-emerald-400 shadow-sm shadow-emerald-400/50'
                     : serverUrl
                     ? 'bg-amber-400 animate-pulse'
-                    : 'bg-blue-400'
+                    : 'bg-emerald-400'
                 }`}
               />
               <span className="text-xs font-medium text-slate-200">
                 {isConnected
-                  ? 'Relié au serveur distant'
+                  ? 'Relié au serveur bot distant (H24)'
                   : serverUrl
-                  ? 'Serveur configuré (hors ligne ou en cours)'
-                  : 'Mode Serveur Local (embarqué)'}
+                  ? 'Serveur distant configuré (en attente)'
+                  : 'Hébergé directement sur le serveur Cloud (H24)'}
               </span>
             </div>
             <button

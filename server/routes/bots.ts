@@ -93,8 +93,8 @@ router.get('/:id', requireBotOwner, (req: AuthenticatedRequest, res: Response) =
   });
 });
 
-// Demander un code de jumelage (Pairing Code)
-router.post('/:id/pairing', requireBotOwner, pairingRateLimiter, async (req: AuthenticatedRequest, res: Response) => {
+// Demander un code de jumelage (Pairing Code - alias /:id/pairing et /:id/pair)
+router.post(['/:id/pairing', '/:id/pair'], requireBotOwner, pairingRateLimiter, async (req: AuthenticatedRequest, res: Response) => {
   const bot = req.bot!;
   const { phoneNumber, prefix } = req.body;
 

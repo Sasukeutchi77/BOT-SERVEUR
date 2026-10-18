@@ -135,8 +135,15 @@ class ApiClient {
         body: JSON.stringify({ phoneNumber, prefix }),
       });
     } catch (err: any) {
-      // Si 404 (bot introuvable) ou 401 (token expiré), réinitialiser la session et réitérer une fois
-      if (err.message?.includes('404') || err.message?.includes('401') || err.message?.includes('introuvable')) {
+      // Si 404 (bot introuvable), 401 (token expiré ou invalide), réinitialiser la session et réitérer une fois
+      if (
+        err.message?.includes('404') ||
+        err.message?.includes('401') ||
+        err.message?.includes('introuvable') ||
+        err.message?.includes('non trouvé') ||
+        err.message?.includes('expiré') ||
+        err.message?.includes('invalide')
+      ) {
         this.clearToken();
         const guestRes = await this.initGuestSession();
         if (guestRes?.bot) {
